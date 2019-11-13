@@ -20,6 +20,8 @@ class Smev
 
         $parser = new ParseXMLResponse();
 
+        var_dump($result);die();
+
         App::$parser->generateJsonResponse($parser->parseSendRequestRequestResponse($result));
     }
 
