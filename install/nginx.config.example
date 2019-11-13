@@ -1,0 +1,25 @@
+server {
+
+    listen 81;
+    root /home/tesonero/ovirug/public;
+    index index.php;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+	location ~ \.php$ {
+    fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include fastcgi_params;
+    }
+
+    location ~* \.(?:css|js|txt|eot|woff|woff2|ttf|svg|wsdl|ico)$ {
+        if_modified_since off;
+        sendfile off;
+        add_header Cache-Control "no-store";
+        add_header Access-Control-Allow-Origin *;
+    }
+
+}

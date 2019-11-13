@@ -1,0 +1,19 @@
+{
+  "autoload": {
+    "psr4": {
+      "App\\": "app"
+    },
+    "classmap": [
+      "app/"
+    ]
+  },
+  "require": {
+    "ext-soap": "*",
+    "ext-zip": "*",
+    "ext-curl": "*",
+    "ext-simplexml": "*",
+    "ext-dom": "*",
+    "ext-json": "*",
+    "ramsey/uuid": "^3.0"
+  }
+}

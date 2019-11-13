@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions name="F9ASyncService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:i0="http://schemas.datacontract.org/2004/07/GetForm9ASync" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+    <wsdl:types>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:import namespace="http://schemas.datacontract.org/2004/07/GetForm9ASync"/>
+            <xs:element name="GetForm9Async">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="person" nillable="true" type="q1:Person" xmlns:q1="http://schemas.datacontract.org/2004/07/GetForm9ASync"/>
+                        <xs:element minOccurs="0" name="address" nillable="true" type="q2:Address" xmlns:q2="http://schemas.datacontract.org/2004/07/GetForm9ASync"/>
+                        <xs:element minOccurs="0" name="typeFile" nillable="true" type="q4:typeFile" xmlns:q4="http://schemas.datacontract.org/2004/07/GetForm9ASync"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetForm9AsyncResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="GetForm9AsyncResult" nillable="true" type="q3:Responce" xmlns:q3="http://schemas.datacontract.org/2004/07/GetForm9ASync"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetStatus">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetStatusResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="GetStatusResult" nillable="true" type="q4:Result" xmlns:q4="http://schemas.datacontract.org/2004/07/GetForm9ASync"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+            <xs:element name="anyType" nillable="true" type="xs:anyType"/>
+            <xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
+            <xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
+            <xs:element name="boolean" nillable="true" type="xs:boolean"/>
+            <xs:element name="byte" nillable="true" type="xs:byte"/>
+            <xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
+            <xs:element name="decimal" nillable="true" type="xs:decimal"/>
+            <xs:element name="double" nillable="true" type="xs:double"/>
+            <xs:element name="float" nillable="true" type="xs:float"/>
+            <xs:element name="int" nillable="true" type="xs:int"/>
+            <xs:element name="long" nillable="true" type="xs:long"/>
+            <xs:element name="QName" nillable="true" type="xs:QName"/>
+            <xs:element name="short" nillable="true" type="xs:short"/>
+            <xs:element name="string" nillable="true" type="xs:string"/>
+            <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+            <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+            <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+            <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+            <xs:element name="char" nillable="true" type="tns:char"/>
+            <xs:simpleType name="char">
+                <xs:restriction base="xs:int"/>
+            </xs:simpleType>
+            <xs:element name="duration" nillable="true" type="tns:duration"/>
+            <xs:simpleType name="duration">
+                <xs:restriction base="xs:duration">
+                    <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+                    <xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+                    <xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="guid" nillable="true" type="tns:guid"/>
+            <xs:simpleType name="guid">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:attribute name="FactoryType" type="xs:QName"/>
+            <xs:attribute name="Id" type="xs:ID"/>
+            <xs:attribute name="Ref" type="xs:IDREF"/>
+        </xs:schema>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/GetForm9ASync" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/GetForm9ASync">
+            <xs:complexType name="Person">
+                <xs:sequence>
+                    <xs:element name="LastName" nillable="true" type="xs:string"/>
+                    <xs:element name="FirstName" nillable="true" type="xs:string"/>
+                    <xs:element name="SecondName" nillable="true" type="xs:string"/>
+                    <xs:element name="BirthDate" type="xs:dateTime"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Person" nillable="true" type="tns:Person"/>
+            <xs:complexType name="Address">
+                <xs:sequence>
+                    <xs:element name="Region" nillable="true" type="tns:Dict"/>
+                    <xs:element name="Street" nillable="true" type="tns:Dict"/>
+                    <xs:element name="House" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Block" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Flat" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Address" nillable="true" type="tns:Address"/>
+            <xs:complexType name="Dict">
+                <xs:sequence>
+                    <xs:element name="Code" type="xs:int"/>
+                    <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Dict" nillable="true" type="tns:Dict"/>
+            <xs:complexType name="Responce">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string"/>
+                    <xs:element name="Fault" nillable="true" type="tns:Dict"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Responce" nillable="true" type="tns:Responce"/>
+            <xs:complexType name="Result">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Document" nillable="true" type="xs:string"/>
+                    <xs:element name="Status" nillable="true" type="tns:Dict"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Result" nillable="true" type="tns:Result"/>
+            <xs:simpleType name="typeFile">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="html"/>
+                    <xs:enumeration value="pdf"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="typeFile" nillable="true" type="tns:typeFile"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="IF9Service_GetForm9Async_InputMessage">
+        <wsdl:part name="parameters" element="tns:GetForm9Async"/>
+    </wsdl:message>
+    <wsdl:message name="IF9Service_GetForm9Async_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetForm9AsyncResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IF9Service_GetStatus_InputMessage">
+        <wsdl:part name="parameters" element="tns:GetStatus"/>
+    </wsdl:message>
+    <wsdl:message name="IF9Service_GetStatus_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetStatusResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="IF9Service">
+        <wsdl:operation name="GetForm9Async">
+            <wsdl:input wsaw:Action="http://tempuri.org/IF9Service/GetForm9Async" message="tns:IF9Service_GetForm9Async_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IF9Service/GetForm9AsyncResponse" message="tns:IF9Service_GetForm9Async_OutputMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetStatus">
+            <wsdl:input wsaw:Action="http://tempuri.org/IF9Service/GetStatus" message="tns:IF9Service_GetStatus_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IF9Service/GetStatusResponse" message="tns:IF9Service_GetStatus_OutputMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="CustomBinding_IF9Service" type="tns:IF9Service">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetForm9Async">
+            <soap:operation soapAction="http://tempuri.org/IF9Service/GetForm9Async" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetStatus">
+            <soap:operation soapAction="http://tempuri.org/IF9Service/GetStatus" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="F9ASyncService">
+        <wsdl:port name="CustomBinding_IF9Service" binding="tns:CustomBinding_IF9Service">
+            <soap:address location="http://ovirugservice.ru/form_9async"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

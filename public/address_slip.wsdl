@@ -1,0 +1,36 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:eis:sti4ei:CouplingModule:Service" xmlns:eom="urn:eis:sti4ei:eom:4.0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="CouplingModule" targetNamespace="urn:eis:sti4ei:CouplingModule:Service">
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="urn:eis:sti4ei:eom:4.0" schemaLocation="address_slip_eom-4.0.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="executionRequestMsg">
+        <wsdl:part name="requestBody" element="eom:serviceRequest"/>
+    </wsdl:message>
+    <wsdl:message name="executionResultMsg">
+        <wsdl:part name="responseBody" element="eom:serviceResult"/>
+    </wsdl:message>
+    <wsdl:portType name="CouplingModule">
+        <wsdl:operation name="executeRequest">
+            <wsdl:input message="tns:executionRequestMsg"/>
+            <wsdl:output message="tns:executionResultMsg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="CouplingModuleHttpSoapDocumentBinding" type="tns:CouplingModule">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="executeRequest">
+            <soap:operation soapAction="executeRequest" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="CouplingModuleService">
+        <wsdl:port name="CouplingModuleServicePort" binding="tns:CouplingModuleHttpSoapDocumentBinding">
+            <soap:address location="http://ovirugservice.ru/address_slip"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

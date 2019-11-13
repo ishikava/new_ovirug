@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:eom="urn:eis:sti4ei:eom:4.0"
+            targetNamespace="urn:eis:sti4ei:eom:4.0"
+            elementFormDefault="qualified"
+            attributeFormDefault="qualified"
+            version="1.1">
+    
+    <xsd:annotation>
+        <xsd:documentation>
+            Модель управляющих объектов взаимодействия
+            между Провайдером информационного взаимодействия
+            и Модулем сопряжения.
+        </xsd:documentation>
+    </xsd:annotation>
+    
+    <!-- TYPES -->
+    <xsd:complexType name="Request" abstract="true">
+        <!-- <<abstract>> -->
+        <xsd:annotation>
+            <xsd:documentation>
+                Общая структура запроса на выполнение информационного
+                взаимодействия или информационной услуги. Содержит уникальный
+                идентификатор запрашиваемой информационной услуги - serviceId и
+                тело запроса на выполнение услуги - requestDocument, являющееся
+                строковым представлением тела XML-документа, соответствующего
+                спецификации услуги.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="serviceId" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Идентификатор информационной услуги.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="serviceConsumerId" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Идентификатор системы-потребителя
+                        информационной услуги.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="requestDocument">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Тело запроса (XML-документа) на выполнение
+                        информационной услуги.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:any processContents="skip"
+                                 namespace="##any">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    Корневой элемент XML-запроса на выполнение
+                                    информационной услуги (опеределяется прикладной
+                                    XML-схемой соответствующего информационного
+                                    взаимодействия)
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:any>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="InteractionRequest">
+        <xsd:annotation>
+            <xsd:documentation>
+                Запрос на выполнение информационного взаимодействия (ИВ).
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="eom:Request">
+                <xsd:sequence>
+                    <xsd:element name="serviceProducerId" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Идентификатор системы-источника запрашиваемой
+                                информационной услуги.
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ServiceRequest">
+        <xsd:annotation>
+            <xsd:documentation>
+                Запрос на выполнение информационной услуги.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="eom:Request">
+                <xsd:sequence>
+                    <xsd:element name="consumerRole" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Роли, соответствующие системе-потребителю
+                                информационной услуги.
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="personRole" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Роли, соответствующие пользователю-потребителю
+                                информационной услуги.
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    
+    <xsd:complexType name="InteractionResult">
+        <xsd:annotation>
+            <xsd:documentation>
+                Результат информационного взаимодействия. Всегда заполнено одно
+                и только одно из следующих полей:
+                - interactionFault - в случае возникновения ошибки при
+                выполнении информационного взаимодействия (ИВ).
+                - responseDocument - в случае успешного выполнения ИВ.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:choice>
+            <xsd:element name="interactionFault" type="eom:InteractionFault">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Сообщение об отказе в выполнении информационного
+                        взаимодействия (ИВ).
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="responseDocument">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        XML-фрагмент, являющийся результатом
+                        выполнения Информационной Услуги
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:any processContents="skip"
+                                 namespace="##any">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    Корневой элемент XML-результата выполнения
+                                    информационной услуги (опеределяется прикладной
+                                    XML-схемой соответствующего информационного
+                                    взаимодействия)
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:any>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:choice>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ServiceResult">
+        <xsd:annotation>
+            <xsd:documentation>
+                Результат выполнения информационной услуги (ИУ).
+                Всегда заполнено одно и только одно из следующих полей:
+                serviceFault - в случае возникновения ошибки при выполнении ИУ.
+                responseDocument - в случае успешного выполнения ИУ.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:choice>
+            <xsd:element name="responseDocument">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        XML-фрагмент, являющийся результатом
+                        выполнения Информационной Услуги
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:any processContents="skip"
+                                 namespace="##any">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    Корневой элемент XML-результата выполнения
+                                    информационной услуги (опеределяется прикладной
+                                    XML-схемой соответствующего информационного
+                                    взаимодействия)
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:any>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="serviceFault" type="eom:ServiceFault">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Сообщение об отказе в выполнении ИУ.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:choice>
+    </xsd:complexType>
+    
+    <xsd:complexType name="InteractionFault">
+        <xsd:annotation>
+            <xsd:documentation>
+                Сообщение об отказе в выполнении информационного взаимодействия
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="message" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Подробное описание отказа в выполнении ИВ.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ServiceFault">
+        <xsd:annotation>
+            <xsd:documentation>
+                Сообщение об отказе в выполнении информационной услуги (ИУ).
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="message" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Подробное описание отказа в выполнении ИУ.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="Acknowledgement">
+        <xsd:annotation>
+            <xsd:documentation>
+                Подтверждение в получении запроса на асинхронное выполнение
+                информационной услуги. Формируется Модулем сопряжения и содержит
+                уникальный идентификатор (ticket), присвоенный полученному
+                запросу. Впоследствии по данному идентификатору Провайдер ставит
+                полученный результат выполнения услуги в соответствие ранее
+                переданному запросу. В случае успешной обработки  полученного
+                запроса должно быть заполнено поле ticket. В противном случае -
+                serviceFault.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="ticket" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Уникальный идентификатор принятого запроса на выполнение
+                        ИУ.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="serviceFault" type="eom:ServiceFault">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Описание ошибки, если таковая возникла при обработке
+                        полученного запроса на выполнение ИУ.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="AssumptionProtocol">
+        <xsd:annotation>
+            <xsd:documentation>
+                Протокол обработки Провайдером запроса на асинхронное
+                выполнение информационного взаимодействия. Если запрос корректно
+                обработан и принят к выполнению, в данном объекте заполнено поле
+                sessionId, которое содержит идентификатор локальной сессии, с
+                использованием которого впоследствии Модуль споряжения может
+                получить  результат выполнения запрашиваемой информационной
+                услуги. В случае, если запрос не может быть выполнен, заполнено
+                только поле interactionFault, содержащее описание возникшей
+                проблемы.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="sessionId" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Идентификатор локальной сессии выполнения
+                        информационного взаимодействия.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="interactionFault" type="eom:InteractionFault">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Описание ошибки обработки запроса.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="InteractionStatus">
+        <xsd:annotation>
+            <xsd:documentation>
+                Статус выполняемого в асинхронном режиме информационного
+                взаимодействия.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="state" type="eom:InteractionState">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Состояние процесса выполнения ИВ.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="interactionResult" type="eom:InteractionResult">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Результат ИВ.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="InteractionStatusPoll">
+        <xsd:annotation>
+            <xsd:documentation>
+                Запрос на получение статуса процесса выполнения информационного
+                взаимодействия.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="sessionId" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Идентификатор локальной сессии выполнения ИВ.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ServiceExecutionStatus">
+        <xsd:annotation>
+            <xsd:documentation>
+                Статус процесса выполнения информационной услуги.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="inProgress" type="xsd:boolean">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Состояние процесса выполнения ИУ.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="serviceResult" type="eom:ServiceResult">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Результат выполнения ИУ.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ServiceExecutionStatusPoll">
+        <xsd:annotation>
+            <xsd:documentation>
+                Запрос на получение статуса процесса выполнения информационной
+                услуги.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="ticket" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Уникальный идентификатор принятого запроса на выполнение
+                        ИУ.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="TimeoutNotification">
+        <xsd:annotation>
+            <xsd:documentation>
+                Уведомление о превышении максимального времени выполнения
+                информационного взаимодействия (таймаута).
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="sessionId" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Идентификатор локальной сессии выполнения
+                        информационного взаимодействия.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType name="InteractionState">
+        <xsd:annotation>
+            <xsd:documentation>
+                Состояние процесса выполнения информационного взаимодействия
+                (ИВ).
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="IN_PROGRESS">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        ИВ находится в стадии выполнения Установленный
+                        временной предел не превышен.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="IN_PROGRESS_AFTER_TIMEOUT">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        ИВ находится в стадии выполнения.
+                        Установленный временной предел превышен.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="COMPLETED">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Выполнение ИВ завершено.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <!-- ELEMENTS -->
+    <!-- consumer -->
+    <xsd:element name="interactionRequest" type="eom:InteractionRequest">
+        <xsd:annotation><xsd:documentation xml:lang="ru">
+                Запрос на выполнение информационного взаимодействия.
+                Формируется Модулем сопряжения на стороне
+                потребителя информационной услуги и передается Провайдеру.
+        </xsd:documentation></xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="interactionResult" type="eom:InteractionResult">
+        <xsd:annotation><xsd:documentation xml:lang="ru">
+                Результат выполнения информационного взаимодействия.
+                Формируется Провайдером и передается
+                Модулю сопряжения на стороне потребителя информационной услуги.
+        </xsd:documentation></xsd:annotation>
+    </xsd:element>
+    
+    <!-- producer -->
+    <xsd:element name="serviceRequest" type="eom:ServiceRequest">
+        <xsd:annotation><xsd:documentation xml:lang="ru">
+                Запрос на выполнение информационной услуги.
+                Формируется Провайдером и передается Модулю
+                сопряжения на стороне поставщика информационной услуги.
+        </xsd:documentation></xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="serviceResult" type="eom:ServiceResult">
+        <xsd:annotation><xsd:documentation xml:lang="ru">
+                Результат выполнения информационной услуги.
+                Формируется Модулем сопряжения на стороне
+                поставщика информационной услуги и передается Провайдеру.
+        </xsd:documentation></xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="acknowledgement" type="eom:Acknowledgement">
+        <xsd:annotation><xsd:documentation xml:lang="ru">
+                Подтверждение в получении запроса на асинхронное выполнение
+                информационной услуги.
+        </xsd:documentation></xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="assumptionProtocol" type="eom:AssumptionProtocol">
+        <xsd:annotation><xsd:documentation xml:lang="ru">
+                Протокол обработки Провайдером запроса на асинхронное
+                выполнение информационного взаимодействия. 
+        </xsd:documentation></xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="interactionStatus" type="eom:InteractionStatus">
+        <xsd:annotation><xsd:documentation xml:lang="ru">
+                Статус выполняемого в асинхронном режиме информационного
+                взаимодействия.
+        </xsd:documentation></xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="interactionStatusPoll" type="eom:InteractionStatusPoll">
+        <xsd:annotation><xsd:documentation xml:lang="ru">
+                Запрос на получение статуса процесса выполнения информационного
+                взаимодействия.
+        </xsd:documentation></xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="serviceExecutionStatus"
+                 type="eom:ServiceExecutionStatus">
+        <xsd:annotation><xsd:documentation xml:lang="ru">
+                Статус процесса выполнения информационной услуги.
+        </xsd:documentation></xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="serviceExecutionStatusPoll"
+                 type="eom:ServiceExecutionStatusPoll">
+        <xsd:annotation><xsd:documentation xml:lang="ru">
+                Запрос на получение статуса процесса выполнения информационной
+                услуги.
+        </xsd:documentation></xsd:annotation>
+    </xsd:element>
+    
+    <xsd:element name="timeoutNotification" type="eom:TimeoutNotification">
+        <xsd:annotation><xsd:documentation xml:lang="ru">
+                Уведомление о превышении максимального времени выполнения
+                информационного взаимодействия (таймаута).
+        </xsd:documentation></xsd:annotation>
+    </xsd:element>
+    
+    
+</xsd:schema>
+
+

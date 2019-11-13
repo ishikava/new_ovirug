@@ -1,0 +1,812 @@
+<xsd:schema elementFormDefault="qualified"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="urn:eis:cprp:oviru:DataObjects"
+            targetNamespace="urn:eis:cprp:oviru:DataObjects">
+
+    <!-- Взаимодействие по отправке пакета предварительных сведений из ОВИРУГ в ГПРУ -->
+    <!-- Запрос -->
+    <xsd:element name="prerequisitesRequest" type="tns:PrerequisiteRequestType">
+        <xsd:annotation>
+            <xsd:documentation>Пакет предварительных сведений для совершения регистрационных действий</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <!-- Ответ -->
+    <xsd:element name="prerequisitesResponse" type="tns:CommonConsumptionProtocolType">
+        <xsd:annotation>
+            <xsd:documentation>Результат приема пакета предварительных сведений для совершения регистрационных действий</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <!-- Взаимодействие по отправке пакета совершенных регистрационных действий из ГПРУ в ОВИРУГ -->
+    <!-- Происходит отправка как совершенных регистрационных действий с привязкой к ранее полученным
+    предварительным сведениям, так и регистрационных действий, совершенных непосредственно в УФМС -->
+    <!-- Запрос -->
+    <xsd:element name="addressSlipsRequest" type="tns:AddressSlipRequestType">
+        <xsd:annotation>
+            <xsd:documentation>Пакет совершенных регистрационных действий</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <!-- Ответ -->
+    <xsd:element name="addressSlipsResponse" type="tns:CommonConsumptionProtocolType">
+        <xsd:annotation>
+            <xsd:documentation>Результат приема пакета совершенных регистрационных действий</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:complexType name="PrerequisiteRequestType">
+        <xsd:annotation>
+            <xsd:documentation>Структура пакета предварительных сведений для совершения регистрационных действий</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="prerequisite" type="tns:PrerequisiteType" minOccurs="1" maxOccurs="100">
+                <xsd:annotation>
+                    <xsd:documentation>Предварительные сведения для совершения регистрационного действия</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="AddressSlipRequestType">
+        <xsd:annotation>
+            <xsd:documentation>Структура пакета совершенных регистрационных действий</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+		    <xsd:choice>
+                <xsd:element name="addressSlip" type="tns:AddressSlipType" minOccurs="1" maxOccurs="100">
+                    <xsd:annotation>
+                        <xsd:documentation>Cовершенное регистрационное действие</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+				<xsd:element name="addressSlipRefuse" type="tns:AddressSlipRefuseType" minOccurs="1" maxOccurs="100">
+                    <xsd:annotation>
+                        <xsd:documentation>Отказ в проведении регистрационного действия</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+			</xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="PrerequisiteType">
+        <xsd:annotation>
+            <xsd:documentation>Структура предварительных сведений для совершения регистрационного действия</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="prereqId" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Уникальный идентификатор предварительных сведений
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="formType">
+                <xsd:simpleType>
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            Тип регистрационного действия:
+                            0 - прибытие
+                            1 — убытие
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:restriction base="xsd:int">
+                        <xsd:enumeration value="0"/>
+                        <xsd:enumeration value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="regType" minOccurs="0" maxOccurs="1">
+                <xsd:simpleType>
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            Тип регистрации:
+                            0 — регистрация по месту жительства
+                            1 — регистрация по месту пребывания
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:restriction base="xsd:int">
+                        <xsd:enumeration value="0"/>
+                        <xsd:enumeration value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="person" type="tns:Person">
+                <xsd:annotation>
+                    <xsd:documentation>Установочные данные лица</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="idPaper" type="tns:IdPaper">
+                <xsd:annotation>
+                    <xsd:documentation>Документ, удостоверяющий личность</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="legalRepresentative" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Сведения о законном представителе</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="type" type="tns:Dictionary" minOccurs="1" maxOccurs="1">
+                            <xsd:annotation>
+                                <xsd:documentation>Тип законного представителя</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="person" type="tns:Person">
+                            <xsd:annotation>
+                                <xsd:documentation>Установочные данные законного представителя</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="idPaper" type="tns:IdPaper">
+                            <xsd:annotation>
+                                <xsd:documentation>Документ, удостоверяющий личность законного представителя</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="renterInfo" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Сведения о предоставителе жилого помещения</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="type" minOccurs="1" maxOccurs="1">
+                            <xsd:annotation>
+                                <xsd:documentation>Тип предоставителя жилого помещения</xsd:documentation>
+                            </xsd:annotation>
+                            <xsd:simpleType>
+                                <xsd:restriction base="xsd:string">
+                                    <xsd:enumeration value="PersonRenter">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Физическое лицо</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                    <xsd:enumeration value="OrganizationRenter">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Организация</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                    <xsd:enumeration value="StateOrganizationRenter">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Государственное или муниципальное предприятие</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                </xsd:restriction>
+                            </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="person" type="tns:Person">
+                            <xsd:annotation>
+                                <xsd:documentation>Установочные данные законного представителя</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="idPaper" type="tns:IdPaper" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>Документ, удостоверяющий личность законного представителя</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="organization" type="xsd:string" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>Название организации, предоставляющей жилое помещение</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="registrationAddress" type="tns:AddressType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Тип регистрационного действия:
+                        прибытие - адрес регистрации
+                        убытие - адрес откуда убыл
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="fromToAddress" type="tns:AddressType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Тип регистрационного действия:
+                        прибытие - адрес откуда прибыл
+                        убытие - адрес куда убыл
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="applicationDate" type="xsd:dateTime" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Дата заявления для совершения регистрационного действия</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="subdivision" type="tns:RegOrgan" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Территориальный орган/структурное подразделение, совершающее регистрационное действие
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="AddressSlipType">
+        <xsd:annotation>
+            <xsd:documentation>Структура совершенного регистрационного действия</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <!-- В случае привязки регистрационного действия к ранее полученным предварительным сведениям,
+            реквизит обязательный -->
+            <xsd:element name="prereqId" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Уникальный идентификатор предварительных сведений из ОВИРУГ
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="formType">
+                <xsd:simpleType>
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            Тип адресного листка:
+                            0 - прибытие
+                            1 — убытие
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:restriction base="xsd:int">
+                        <xsd:enumeration value="0"/>
+                        <xsd:enumeration value="1"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="regType" type="xsd:string" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Тип регистрации:
+                        0 — по месту жительства
+                        1 — по месту пребывания
+                        2 — по месту фактического проживания (смена установочных данных)
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="person" type="tns:Person">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Установочные данные лица, в отношении которого проведено регистрационное действие
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="idPaper" type="tns:IdPaper">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Документ лица, в отношении которого проведено регистрационное действие
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="territorialRegOrgan" type="tns:RegOrgan">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Территориальный орган/подразделение, в котором было проведено регистрационное действие
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="registrationAddress" type="tns:AddressType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Тип регистрационного действия:
+                        прибытие - адрес регистрации
+                        убытие - адрес откуда убыл
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="fromToAddress" type="tns:AddressType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Тип регистрационного действия:
+                        прибытие - адрес откуда прибыл
+                        убытие - адрес куда убыл
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="regActionDate" type="xsd:dateTime">
+                <xsd:annotation>
+                    <xsd:documentation>Дата проведения регистрационного действия</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="changeData" type="tns:ChangeData" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Измененные данные</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="reason" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Причина совершения регистрационного действия</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+	
+	<xsd:complexType name="AddressSlipRefuseType">
+        <xsd:annotation>
+            <xsd:documentation>Структура отказа в проведении регистрационного действия</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="prereqId" type="xsd:string" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Уникальный идентификатор предварительных сведений из ОВИРУГ
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="refuseReason" type="xsd:string" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Причина отказа в проведении регистрационного действия</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Person">
+        <xsd:annotation>
+            <xsd:documentation>Структура установочных сведений лица</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <!-- Для предварительных сведений реквизит содержит идентификатор ОВИРУГ,
+            для совершенных регистрационных действий - идентификатор ЭК ОАСР -->
+            <xsd:element name="personId" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Уникальный идентификатор физического лица
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="lastName">
+                <xsd:annotation>
+                    <xsd:documentation>Фамилия</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="firstName">
+                <xsd:annotation>
+                    <xsd:documentation>Имя</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="middleName" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Отчество</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="birthday">
+                <xsd:annotation>
+                    <xsd:documentation>Дата рождения : дд.мм.гггг</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="sex">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Пол:
+                        "0" - мужской
+                        "1" - женский
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="birthPlace" type="tns:BirthPlace">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Место рождения
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="BirthPlace">
+        <xsd:annotation>
+            <xsd:documentation>Структура места рождения</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="country" type="tns:Dictionary">
+                <xsd:annotation>
+                    <xsd:documentation>Страна (код ОКСМ)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="region" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Регион</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="district" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Район</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="city" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Город</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <!-- Если отсутствует структурированное место рождения,
+                 полное место рождения указывать в этом поле -->
+            <xsd:element name="locality" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Населенный пункт</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="IdPaper">
+        <xsd:annotation>
+            <xsd:documentation>Структура документа, удостоверяющего личность</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <!-- Для предаврительных сведений из ОВИРУГ реквизит обязателен -->
+            <xsd:element name="documentId" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Уникальный идентификатор
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="kindPaper" type="tns:Dictionary" minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>Вид документа</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="series" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Серия</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="number">
+                <xsd:annotation>
+                    <xsd:documentation>Номер</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="issueDate" type="xsd:date">
+                <xsd:annotation>
+                    <xsd:documentation>Дата выдачи</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="issuesRegOrgan" type="tns:RegOrgan">
+                <xsd:annotation>
+                    <xsd:documentation>Кем выдан документ</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="sideInformation" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Дополнительная информация</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="RegOrgan">
+        <xsd:annotation>
+            <xsd:documentation>Структура территориального органа/подразделения</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="name" type="tns:Dictionary">
+                <xsd:annotation>
+                    <xsd:documentation>Наименование подразделения</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <!-- Пример: для подразделения "ТП №143 ОТДЕЛА УФМС РОССИИ ПО САНКТ-ПЕТЕРБУРГУ
+                 И ЛЕНИНГРАДСКОЙ ОБЛ. В ПУШКИНСКОМ Р-НЕ Г.САНКТ-ПЕТЕРБУРГА"
+                 код подразделения будет равен "780-087" -->
+            <xsd:element name="code" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Код подразделения</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Dictionary">
+        <xsd:annotation>
+            <xsd:documentation>Структура для передачи справочного значения</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="type" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Код справочника</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="element" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Код элемента справочника</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="value" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Значение</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="AddressType">
+        <xsd:annotation>
+            <xsd:documentation>Структура адреса</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="country" type="tns:Dictionary">
+                <xsd:annotation>
+                    <xsd:documentation>Страна (код ОКСМ)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="detailedAddress" type="tns:DetailedAddressType" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Детальный адрес</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <!-- Реквизит обязателен для адреса в Санкт-Петербурге -->
+            <xsd:element name="easPrefix" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Префикс улицы в системе ЕАС</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:int"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <!-- Реквизит обязателен для адреса в Санкт-Петербурге -->
+            <xsd:element name="easCode" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Код дома в системе ЕАС</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:int"/>
+                </xsd:simpleType>
+            </xsd:element>       
+            <!-- Реквизит обязателен для адреса в Санкт-Петербурге -->
+            <xsd:element name="ovirugId" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Идентификатор дома в АИС "ОВИРУГ"</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:int"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="addressString">
+                <xsd:annotation>
+                    <xsd:documentation>Полный адрес в произвольном формате</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="startingDate" type="xsd:date" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Дата начала регистрации</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="endingDate" type="xsd:date" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Дата окончания регистрации</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DetailedAddressType">
+        <xsd:annotation>
+            <xsd:documentation>Структура детализированного адреса</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="region" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Регион</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:annotation>
+                        <xsd:documentation/>
+                    </xsd:annotation>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="district">
+                <xsd:annotation>
+                    <xsd:documentation>Район</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="city" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Город</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="locality" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Населенный пункт</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="street" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Улица</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="house">
+                <xsd:annotation>
+                    <xsd:documentation>Дом</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="building" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Корпус</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="flat" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Квартира</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="room" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Комната</xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ChangeData">
+        <xsd:annotation>
+            <xsd:documentation>Структура измененных данных</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="tns:Person">
+                <xsd:sequence>
+                    <xsd:element name="changedDataOther" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>Дополнительная информация</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="CommonConsumptionProtocolType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="ru">
+                Структура протокола приёма пакета сведений
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="packetResultCode">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="ru">
+                        Код результата приёма пакета сведений
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:integer">
+                        <xsd:enumeration value="0">
+                            <xsd:annotation>
+                                <xsd:documentation xml:lang="ru">
+                                    Пакет сведений принят успешно
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="1">
+                            <xsd:annotation>
+                                <xsd:documentation xml:lang="ru">
+                                    Пакет сведений принят неуспешно
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:enumeration>
+                        <xsd:enumeration value="2">
+                            <xsd:annotation>
+                                <xsd:documentation xml:lang="ru">
+                                    Пакет сведений принят частично
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:enumeration>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="packetErrorDescription" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="ru">
+                        Описание ошибки при приеме пакета сведений
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="dataResult" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="ru">
+                        Результат приема сведений из пакета
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:annotation>
+                        <xsd:documentation>Структура результата приема сведений из пакета</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:documentation>Идентификатор сведений из пакета</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="code" type="xsd:boolean">
+                            <xsd:annotation>
+                                <xsd:documentation>Признак принятия сведений из пакета (true - приняты успешно, false - иначе)</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="errorDescription" type="xsd:string" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>Описание ошибки при приеме сведений из пакета</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>

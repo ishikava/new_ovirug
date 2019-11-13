@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://ec.minregion.ru/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://ec.minregion.ru/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://ec.minregion.ru/Imports">
+      <xsd:import schemaLocation="ZDDK_Service.xsd" namespace="http://ec.minregion.ru/"/>
+      <xsd:import schemaLocation="ZDDK_Service_1.xsd" namespace="http://smev.gosuslugi.ru/rev120315"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="dkRequest">
+    <wsdl:part name="parameters" element="tns:processCanonicalService"/>
+  </wsdl:message>
+  <wsdl:message name="dkRequest_Headers">
+    <wsdl:part name="Header" element="q1:Header" xmlns:q1="http://smev.gosuslugi.ru/rev120315"/>
+  </wsdl:message>
+  <wsdl:message name="dkResponse">
+    <wsdl:part name="parameters" element="tns:processCanonicalServiceResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="IZDDK_Service">
+    <wsdl:operation name="processCanonicalService">
+      <wsdl:input wsaw:Action="http://ec.minregion.ru/IZDDK_Service/processCanonicalService" name="dkRequest" message="tns:dkRequest"/>
+      <wsdl:output wsaw:Action="http://ec.minregion.ru/IZDDK_Service/processCanonicalServiceResponse" name="dkResponse" message="tns:dkResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,19 @@
+[
+
+  {"uri": "/api/login", "method": "get", "class": "Auth", "action": "login"},
+
+  {"uri": "/form_7", "method": "post", "action": "GetForm7", "soap_server": true, "auth": false},
+  {"uri": "/form_9", "method": "post", "action": "GetForm9", "soap_server": true, "auth": false},
+  {"uri": "/form_7async", "method": "post", "action": "GetForm7Async", "soap_server": true, "auth": false},
+  {"uri": "/form_9async", "method": "post", "action": "GetForm9Async", "soap_server": true, "auth": false},
+  {"uri": "/zddk", "method": "post", "action": "processCanonicalService", "soap_server": true, "auth": false},
+  {"uri": "/check_reference", "method": "post", "action": "getReferenceInfo", "soap_server": true, "auth": false},
+  {"uri": "/dn_sync", "method": "post", "action": "GetContract", "soap_server": true, "auth": false},
+
+  {"uri": "/rsmev/sendackrequest", "method": "post", "class": "Smev", "action": "ack", "auth": false},
+  {"uri": "/rsmev/inn/sendrequest", "method": "post", "class": "Smev", "action": "inn_request", "auth": false},
+  {"uri": "/rsmev/snils/sendrequest", "method": "post", "class": "Smev", "action": "snils_request", "auth": false},
+  {"uri": "/rsmev/inn/getresult", "method": "get", "class": "Smev", "action": "inn_response", "auth": false},
+  {"uri": "/rsmev/snils/getresult", "method": "get", "class": "Smev", "action": "snils_response", "auth": false}
+
+]

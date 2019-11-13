@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:SnilsByDataRequest xmlns:tns="http://kvs.pfr.com/snils-by-data/1.1.2" xmlns:smev="urn://x-artefacts-smev-gov-ru/supplementary/commons/1.0.1">
+	<smev:FamilyName>ПЕТИНА</smev:FamilyName>
+	<smev:FirstName>ЕЛЕНА</smev:FirstName>
+	<smev:Patronymic>ВЛАДИМИРОВНА</smev:Patronymic>
+	<tns:Gender>Female</tns:Gender>
+	<tns:BirthDate>1966-09-12</tns:BirthDate>
+</tns:SnilsByDataRequest>

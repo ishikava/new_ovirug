@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://kvs.pfr.com/snils-by-data/1.1.2" xmlns:smev="urn://x-artefacts-smev-gov-ru/supplementary/commons/1.0.1" xmlns:pfr="http://common.kvs.pfr.com/1.0.0" xmlns:jxb="http://java.sun.com/xml/ns/jaxb" targetNamespace="http://kvs.pfr.com/snils-by-data/1.1.2" elementFormDefault="qualified" jxb:version="2.0">
+	<import namespace="urn://x-artefacts-smev-gov-ru/supplementary/commons/1.0.1" schemaLocation="smev-supplementary-commons-1.0.1.xsd"/>
+	<import namespace="http://common.kvs.pfr.com/1.0.0" schemaLocation="pfr-common-types-1.0.0.xsd"/>
+	<element name="SnilsByDataRequest">
+		<complexType>
+			<sequence>
+				<group ref="smev:PhysicalPersonQualifiedName-ModelGroup" minOccurs="1" maxOccurs="1"/>
+				<element name="Gender" type="smev:GenderType" nillable="false" minOccurs="1" maxOccurs="1"/>
+				<element name="BirthDate" type="date" nillable="false" minOccurs="1" maxOccurs="1"/>
+			</sequence>
+		</complexType>
+	</element>
+	<complexType name="TwinDataType">
+		<sequence>
+			<element name="Snils" type="smev:SNILSType" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<element name="BirthPlace" type="pfr:BirthPlaceType" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<group ref="pfr:AllIdentityDocumentType-Group" minOccurs="1" maxOccurs="1"/>
+		</sequence>
+	</complexType>
+	<group name="SnilsByDataGroupResponse">
+		<sequence>
+			<group ref="smev:PhysicalPersonQualifiedName-ModelGroup" minOccurs="1" maxOccurs="1"/>
+			<element name="Snils" type="smev:SNILSType" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<element name="Gender" type="smev:GenderType" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<element name="BirthDate" type="date" nillable="false" minOccurs="1" maxOccurs="1"/>
+			<element name="TwinData" type="tns:TwinDataType" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</group>
+	<element name="SnilsByDataResponse">
+		<complexType>
+			<sequence>
+				<group ref="tns:SnilsByDataGroupResponse" minOccurs="0"/>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

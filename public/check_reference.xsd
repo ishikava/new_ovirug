@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="http://ovirugservice.ru/checkreference" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ovirugservice.ru/checkreference" elementFormDefault="qualified" version="1.0">
+    <xs:element name="Error" type="tns:errorAppData"/>
+    <xs:element name="Request" type="tns:requestAppData"/>
+    <xs:element name="Result" type="tns:resultAppData"/>
+    <xs:complexType name="requestAppData">
+        <xs:sequence>
+            <xs:element name="formNumber" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="resultAppData">
+        <xs:sequence>
+            <xs:element name="user" type="xs:string"/>
+            <xs:element name="formType" type="xs:string"/>
+            <xs:element name="address" type="xs:string"/>
+            <xs:element name="printDate" type="xs:string"/>
+            <xs:element name="fio" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="errorAppData">
+        <xs:sequence>
+            <xs:element name="errorMessage" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

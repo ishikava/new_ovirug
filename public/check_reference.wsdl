@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://smev.gosuslugi.ru/rev120315"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:data="http://ovirugservice.ru/checkreference"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             targetNamespace="http://smev.gosuslugi.ru/rev120315"
+             name="CheckReferenceService" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.w3.org/2007/05/addressing/metadata ">
+    <types>
+        <xsd:schema targetNamespace="http://smev.gosuslugi.ru/rev120315" elementFormDefault="qualified">
+            <xsd:include schemaLocation="check_reference_rev120315.xsd"/>
+            <xsd:import namespace="http://ovirugservice.ru/checkreference" schemaLocation="check_reference.xsd"/>
+            <xsd:element name="getReferenceInfo" type="tns:StandardMessage"/>
+            <xsd:element name="getReferenceInfoResponse" type="tns:StandardMessage"/>
+            <xsd:complexType name="StandardMessage">
+                <xsd:sequence>
+                    <xsd:element ref="tns:Message"/>
+                    <xsd:element name="MessageData">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="AppData">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element ref="data:Request" minOccurs="0"/>
+                                            <xsd:element ref="data:Result" minOccurs="0"/>
+                                            <xsd:element ref="data:Error" minOccurs="0"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+    <message name="getReferenceInfo">
+        <part name="Header" element="tns:Header"/>
+        <part name="getReferenceInfo" element="tns:getReferenceInfo"/>
+    </message>
+    <message name="getReferenceInfoResponse">
+        <part name="getReferenceInfoResponse" element="tns:getReferenceInfoResponse"/>
+    </message>
+    <portType name="ReferenceInfo">
+        <operation name="getReferenceInfo" parameterOrder="Header getReferenceInfo">
+            <input message="tns:getReferenceInfo"
+                   wsam:Action="http://smev.gosuslugi.ru/rev120315/CheckReference/getReferenceInfo"/>
+            <output message="tns:getReferenceInfoResponse"
+                    wsam:Action="http://smev.gosuslugi.ru/rev120315/CheckReference/getReferenceInfoResponse"/>
+        </operation>
+    </portType>
+    <binding name="ReferenceInfoPortBinding" type="tns:ReferenceInfo">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="getReferenceInfo">
+            <soap:operation soapAction="getReferenceInfo"/>
+            <input>
+                <soap:body parts="getReferenceInfo" use="literal"/>
+                <soap:header message="tns:getReferenceInfo" part="Header" use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="ReferenceInfoService">
+        <port name="ReferenceInfoPort" binding="tns:ReferenceInfoPortBinding">
+            <soap:address location="http://ovirugservice.ru/check_reference"/>
+        </port>
+    </service>
+</definitions>
