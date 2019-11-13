@@ -9,28 +9,18 @@ use Ramsey\Uuid\Uuid;
 class Smev
 {
 
-    private $parser;
-    private $config;
-
-    public function __construct()
-    {
-        $this->parser = new Parser();
-
-        $this->config = new Config();
-    }
-
     public function ack($request_data)
     {
 
         $data = json_decode(utf8_encode($request_data), true, 512, JSON_UNESCAPED_UNICODE);
 
-        $envelope = $this->parser->generateSmevEnvelope('ack',  $data['messageId']);
+        $envelope = App::$parser->generateSmevEnvelope('ack',  $data['messageId']);
 
-        $result = $this->sendToSmev($this->config->getConfig('smev'), $envelope, 'urn:Ack');
+        $result = $this->sendToSmev(App::$config->get('smev'), $envelope, 'urn:Ack');
 
         $parser = new ParseXMLResponse();
 
-        $this->parser->generateJsonResponse($parser->parseSendRequestRequestResponse($result));
+        App::$parser->generateJsonResponse($parser->parseSendRequestRequestResponse($result));
     }
 
     public function inn_request($request_data)
@@ -57,13 +47,13 @@ class Smev
 
         $data['MessageID'] = Uuid::uuid1()->toString();
 
-        $envelope = $this->parser->generateSmevEnvelope('inn_request', $data);
+        $envelope = App::$parser->generateSmevEnvelope('inn_request', $data);
 
-        $result = $this->sendToSmev($this->config->getConfig('smev'), $envelope, 'urn:SendRequest');
+        $result = $this->sendToSmev(App::$config->get('smev'), $envelope, 'urn:SendRequest');
 
         $parser = new ParseXMLResponse();
 
-        $this->parser->generateJsonResponse($parser->parseSendRequestRequestResponse($result));
+        App::$parser->generateJsonResponse($parser->parseSendRequestRequestResponse($result));
 
     }
 
@@ -79,47 +69,48 @@ class Smev
 
         $data['MessageID'] = Uuid::uuid1()->toString();
 
-        $envelope = $this->parser->generateSmevEnvelope('snils_request', $data);
+        $envelope = App::$parser->generateSmevEnvelope('snils_request', $data);
 
-        $result = $this->sendToSmev($this->config->getConfig('smev'), $envelope, 'urn:SendRequest');
+        $result = $this->sendToSmev(App::$config->get('smev'), $envelope, 'urn:SendRequest');
 
         $parser = new ParseXMLResponse();
 
-        $this->parser->generateJsonResponse($parser->parseSendRequestRequestResponse($result));
+        App::$parser->generateJsonResponse($parser->parseSendRequestRequestResponse($result));
 
     }
 
     public function inn_response()
     {
 
-        $envelope = $this->parser->generateSmevEnvelope('inn_response', null);
+        $envelope = App::$parser->generateSmevEnvelope('inn_response', null);
 
-        $result = $this->sendToSmev($this->config->getConfig('smev'), $envelope, 'urn:GetResponse');
+        $result = $this->sendToSmev(App::$config->get('smev'), $envelope, 'urn:GetResponse');
 
         $parser = new ParseXMLResponse();
 
-        $this->parser->generateJsonResponse($parser->parseGetRequestResponseResponse($result, 'inn'));
+        App::$parser->generateJsonResponse($parser->parseGetRequestResponseResponse($result, 'inn'));
 
     }
 
     public function snils_response()
     {
 
-        $envelope = $this->parser->generateSmevEnvelope('snils_response', null);
+        $envelope = App::$parser->generateSmevEnvelope('snils_response', null);
 
-        $result = $this->sendToSmev($this->config->getConfig('smev'), $envelope, 'urn:GetResponse');
+        $result = $this->sendToSmev(App::$config->get('smev'), $envelope, 'urn:GetResponse');
 
         $parser = new ParseXMLResponse();
 
-        $this->parser->generateJsonResponse($parser->parseGetRequestResponseResponse($result, 'snils'));
+        App::$parser->generateJsonResponse($parser->parseGetRequestResponseResponse($result, 'snils'));
 
     }
 
     private function sendToSmev($host, $envelope, $urn)
     {
+
         try {
             $client = new SoapClient($host.'?wsdl', ['trace' => true, 'connection_timeout' => 3]);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return json_encode([
                 'success' => false,
                 'message' => $e->getMessage()
@@ -128,7 +119,7 @@ class Smev
 
         try {
             $result = $client->__doRequest($envelope, $host.'?wsdl', $urn, '1');
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return json_encode([
                 'success' => false,
                 'message' => $e->getMessage()
