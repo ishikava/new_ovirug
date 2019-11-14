@@ -23,10 +23,14 @@ class App
 
         self::$router = new Router();
 
+        //debug
         if( self::$config->get('display_errors') ){
             ini_set("display_errors", "1");
             error_reporting(E_ALL);
         }
+
+        //timezone
+        ini_set("date.timezone", "Europe/Moscow");
 
         $route = array_search(self::$router->uri[0], array_column(self::$router->routes, 'uri'));
 

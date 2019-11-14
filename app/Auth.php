@@ -25,25 +25,29 @@ class Auth
 
         $data = json_decode($requested_data, true);
 
-        if(!$data){
+        if (!$data) {
+
+            App::$log->log('error', 'Invalid JSON');
             App::$parser->generateJsonResponse([
                 'Message' => 'Invalid JSON'
             ]);
-            App::$log->log('error', 'Invalid JSON');
+
         }
 
         if (isset($data['email']) && isset($data['password']) && $data['email'] == App::$config->get('email') && $data['password'] == App::$config->get('password')) {
 
+            App::$log->log('access', '200 OK JSON');
             App::$parser->generateJsonResponse([
                 'token' => $this->getHash()
             ]);
-            App::$log->log('access', '200 OK JSON');
 
         } else {
+
+            App::$log->log('error', 'Login failed JSON');
             App::$parser->generateJsonResponse([
                 'Message' => 'Login failed'
             ]);
-            App::$log->log('error', 'Login failed JSON');
+
         }
 
     }
