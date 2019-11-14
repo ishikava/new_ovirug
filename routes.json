@@ -1,6 +1,6 @@
 [
 
-  {"uri": "/api/login", "method": "get", "class": "Auth", "action": "login"},
+  {"uri": "/api/login", "method": "post", "class": "Auth", "action": "login"},
 
   {"uri": "/form_7", "method": "post", "action": "GetForm7", "soap_server": true},
   {"uri": "/form_9", "method": "post", "action": "GetForm9", "soap_server": true},
