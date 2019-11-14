@@ -170,7 +170,7 @@
     </wsdl:binding>
     <wsdl:service name="F7ASyncService">
         <wsdl:port name="CustomBinding_IF7Service" binding="tns:CustomBinding_IF7Service">
-            <soap:address location="http://ovirugservice.ru/form_7async"/>
+            <soap:address location="http://10.146.140.226/form_7async"/>
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>

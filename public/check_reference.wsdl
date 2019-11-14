@@ -3,7 +3,7 @@
              xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
              xmlns:tns="http://smev.gosuslugi.ru/rev120315"
              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-             xmlns:data="http://ovirugservice.ru/checkreference"
+             xmlns:data="http://10.146.140.226/checkreference"
              xmlns="http://schemas.xmlsoap.org/wsdl/"
              targetNamespace="http://smev.gosuslugi.ru/rev120315"
              name="CheckReferenceService" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -11,7 +11,7 @@
     <types>
         <xsd:schema targetNamespace="http://smev.gosuslugi.ru/rev120315" elementFormDefault="qualified">
             <xsd:include schemaLocation="check_reference_rev120315.xsd"/>
-            <xsd:import namespace="http://ovirugservice.ru/checkreference" schemaLocation="check_reference.xsd"/>
+            <xsd:import namespace="http://10.146.140.226/checkreference" schemaLocation="check_reference.xsd"/>
             <xsd:element name="getReferenceInfo" type="tns:StandardMessage"/>
             <xsd:element name="getReferenceInfoResponse" type="tns:StandardMessage"/>
             <xsd:complexType name="StandardMessage">
@@ -66,7 +66,7 @@
     </binding>
     <service name="ReferenceInfoService">
         <port name="ReferenceInfoPort" binding="tns:ReferenceInfoPortBinding">
-            <soap:address location="http://ovirugservice.ru/check_reference"/>
+            <soap:address location="http://10.146.140.226/check_reference"/>
         </port>
     </service>
 </definitions>

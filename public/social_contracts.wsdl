@@ -93,7 +93,7 @@
   </wsdl:binding>
   <wsdl:service name="DN_Service">
     <wsdl:port name="CustomBinding_IDN_Service" binding="tns:CustomBinding_IDN_Service">
-      <soap:address location="http://ovirugservice.ru/social_contracts"/>
+      <soap:address location="http://10.146.140.226/social_contracts"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
