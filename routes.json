@@ -16,7 +16,7 @@
   {"uri": "/rsmev/inn/getresult", "method": "get", "class": "Smev", "action": "inn_response", "auth": false},
   {"uri": "/rsmev/snils/getresult", "method": "get", "class": "Smev", "action": "snils_response", "auth": false},
 
-  {"uri": "/esun/pre_registration", "method": "post", "class": "Esun", "action": "111", "auth": false},
-  {"uri": "/gpru/address_slip", "method": "post", "class": "Esun", "action": "222"}
+  {"uri": "/esun/pre_registration", "method": "post", "class": "Esun", "action": "registration", "auth": false},
+  {"uri": "/gpru/address_slip", "method": "post", "class": "Esun", "action": "slip"}
 
 ]
