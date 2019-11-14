@@ -10,13 +10,13 @@
   {"uri": "/check_reference", "method": "post", "action": "getReferenceInfo", "soap_server": true},
   {"uri": "/dn_sync", "method": "post", "action": "GetContract", "soap_server": true},
 
-  {"uri": "/rsmev/sendackrequest", "method": "post", "class": "Smev", "action": "ack", "auth": false},
-  {"uri": "/rsmev/inn/sendrequest", "method": "post", "class": "Smev", "action": "inn_request", "auth": false},
-  {"uri": "/rsmev/snils/sendrequest", "method": "post", "class": "Smev", "action": "snils_request", "auth": false},
-  {"uri": "/rsmev/inn/getresult", "method": "get", "class": "Smev", "action": "inn_response", "auth": false},
-  {"uri": "/rsmev/snils/getresult", "method": "get", "class": "Smev", "action": "snils_response", "auth": false},
+  {"uri": "/rsmev/sendackrequest", "method": "post", "class": "Smev", "action": "ack", "auth": true},
+  {"uri": "/rsmev/inn/sendrequest", "method": "post", "class": "Smev", "action": "inn_request", "auth": true},
+  {"uri": "/rsmev/snils/sendrequest", "method": "post", "class": "Smev", "action": "snils_request", "auth": true},
+  {"uri": "/rsmev/inn/getresult", "method": "get", "class": "Smev", "action": "inn_response", "auth": true},
+  {"uri": "/rsmev/snils/getresult", "method": "get", "class": "Smev", "action": "snils_response", "auth": true},
 
-  {"uri": "/esun/pre_registration", "method": "post", "class": "Esun", "action": "registration", "auth": false},
+  {"uri": "/esun/pre_registration", "method": "post", "class": "Esun", "action": "registration", "auth": true},
   {"uri": "/gpru/address_slip", "method": "post", "class": "Esun", "action": "slip"}
 
 ]
