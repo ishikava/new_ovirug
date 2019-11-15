@@ -9,7 +9,7 @@ class Esun
 
     public function pre_registration($request_data)
     {
-
+        var_dump($request_data);die();
         $data = new EsunData();
 
         try {
