@@ -79,6 +79,19 @@ class EsunData
         return $params;
     }
 
+    public function getGPRUData($xmlString)
+    {
+        $xml = simplexml_load_string($xmlString);
+        $json = json_encode($xml);
+        $std = json_decode($json);
+
+        if (isset($std->addressSlipRefuse)) {
+            return $this->getAddressSlipRefusesData($std->addressSlipRefuse);
+        } else {
+            return $this->getAddressSlipsData($std->addressSlip);
+        }
+    }
+
     private function createPerson(DomDocument $xml, stdClass $data)
     {
         $person = $xml->createElement('person');
@@ -256,6 +269,171 @@ class EsunData
     {
         $time = strtotime($date);
         return date('Y-m-d', $time);
+    }
+
+    private function getAddressSlipRefusesData($addressSlipRefuses)
+    {
+        $result = [];
+
+        if (is_array($addressSlipRefuses)) {
+            foreach ($addressSlipRefuses as $addressSlipRefuse) {
+                $result['AddressSlipRefuseType'][] = $this->getOneAddressSlipRefuseData($addressSlipRefuse);
+            }
+
+            return $result;
+        }
+
+        $result['AddressSlipRefuseType'] = $this->getOneAddressSlipRefuseData($addressSlipRefuses);
+
+        return $result;
+    }
+
+    private function getOneAddressSlipRefuseData($addressSlipRefuse)
+    {
+        return [
+            'prereqId' => $addressSlipRefuse->prereqId,
+            'refuseReason' => $addressSlipRefuse->refuseReason,
+        ];
+    }
+
+    private function getAddressSlipsData($addressSlips)
+    {
+        $result = [];
+        if (is_array($addressSlips)) {
+            foreach ($addressSlips as $slip) {
+                $result['addressSlip'][] = $this->getOneAddressSlipData($slip);
+            }
+
+            return $result;
+        }
+
+        $result['addressSlip'] = $this->getOneAddressSlipData($addressSlips);
+
+        return $result;
+    }
+
+    private function getOneAddressSlipData($addressSlip)
+    {
+        $result = [
+            'prereqId' => $addressSlip->prereqId ?? '',
+            'formType' => (int)($addressSlip->formType ?? -1),
+            'regType' => (int)($addressSlip->regType ?? -1),
+        ];
+
+        $person = $addressSlip->person;
+        $result['person'] = [
+            'personId' => $person->personId ?? '',
+            'lastName' => $person->lastName ?? '',
+            'firstName' => $person->firstName ?? '',
+            'middleName' => $person->middleName ?? '',
+            'birthday' => $person->birthday ?? '',
+            'sex' => $person->sex ?? '',
+        ];
+
+        $personBirthplace = $person->birthPlace;
+        $result['person']['birthPlace'] = [
+            'country' => [
+                'type' => $personBirthplace->country->type ?? '',
+                'element' => $personBirthplace->country->element ?? '',
+                'value' => $personBirthplace->country->value ?? '',
+            ],
+            'region' => $personBirthplace->region ?? '',
+            'district' => $personBirthplace->district ?? '',
+            'city' => $personBirthplace->city ?? '',
+            'locality' => $personBirthplace->locality ?? '',
+        ];
+
+        $idPaper = $addressSlip->idPaper;
+        $result['idPaper'] = [
+            'documentId' => $idPaper->documentId ?? '',
+            'kindPaper' => [
+                'type' => $idPaper->kindPaper->type ?? '',
+                'element' => $idPaper->kindPaper->element ?? '',
+                'value' => $idPaper->kindPaper->value ?? '',
+            ],
+            'series' => $idPaper->series ?? '',
+            'number' => $idPaper->number ?? '',
+            'issueDate' => $idPaper->issueDate ?? '',
+            'issuesRegOrgan' => [
+                'name' => [
+                    'type' => $idPaper->issuesRegOrgan->name->type ?? '',
+                    'element' => $idPaper->issuesRegOrgan->name->element ?? '',
+                    'value' => $idPaper->issuesRegOrgan->name->value ?? '',
+                ],
+                'code' => $idPaper->issuesRegOrgan->code ?? '',
+            ],
+            'sideInformation' => $idPaper->sideInformation ?? '',
+        ];
+
+        $territorialRegOrgan = $addressSlip->territorialRegOrgan;
+        $result['territorialRegOrgan'] = [
+            'name' => [
+                'type' => $territorialRegOrgan->name->type ?? '',
+                'element' => $territorialRegOrgan->name->element ?? '',
+                'value' => $territorialRegOrgan->name->value ?? '',
+            ],
+            'code' => $territorialRegOrgan->code ?? '',
+        ];
+
+        $registrationAddress = $addressSlip->registrationAddress;
+        $result['registrationAddress'] = [
+            'country' => [
+                'type' => $registrationAddress->country->type ?? '',
+                'element' => $registrationAddress->country->element ?? '',
+                'value' => $registrationAddress->country->value ?? '',
+            ],
+            'detailedAddress' => [
+                'region' => $registrationAddress->detailedAddress->region ?? '',
+                'district' => $registrationAddress->detailedAddress->district ?? '',
+                'city' => $registrationAddress->detailedAddress->city ?? '',
+                'locality' => $registrationAddress->detailedAddress->locality ?? '',
+                'street' => $registrationAddress->detailedAddress->street ?? '',
+                'house' => $registrationAddress->detailedAddress->house ?? '',
+                'building' => $registrationAddress->detailedAddress->building ?? '',
+                'flat' => $registrationAddress->detailedAddress->flat ?? '',
+                'room' => $registrationAddress->detailedAddress->room ?? '',
+            ],
+            'easPrefix' => (int)($registrationAddress->easPrefix ?? -1),
+            'easCode' => (int)($registrationAddress->easCode ?? -1),
+            'ovirugId' => (int)($registrationAddress->ovirugId ?? -1),
+            'addressString' => $registrationAddress->addressString,
+            'startingDate' => $registrationAddress->startingDate ?? '',
+            'endingDate' => $registrationAddress->endingDate ?? '',
+        ];
+
+        $fromToAddress = $addressSlip->fromToAddress;
+        $result['fromToAddress'] = [
+            'country' => [
+                'type' => $fromToAddress->country->type ?? '',
+                'element' => $fromToAddress->country->element ?? '',
+                'value' => $fromToAddress->country->value ?? '',
+            ],
+            'detailedAddress' => [
+                'region' => $fromToAddress->detailedAddress->region ?? '',
+                'district' => $fromToAddress->detailedAddress->district ?? '',
+                'city' => $fromToAddress->detailedAddress->city ?? '',
+                'locality' => $fromToAddress->detailedAddress->locality ?? '',
+                'street' => $fromToAddress->detailedAddress->street ?? '',
+                'house' => $fromToAddress->detailedAddress->house ?? '',
+                'building' => $fromToAddress->detailedAddress->building ?? '',
+                'flat' => $fromToAddress->detailedAddress->flat ?? '',
+                'room' => $fromToAddress->detailedAddress->room ?? '',
+            ],
+            'easPrefix' => (int)($fromToAddress->easPrefix ?? -1),
+            'easCode' => (int)($fromToAddress->easCode ?? -1),
+            'ovirugId' => (int)($fromToAddress->ovirugId ?? -1),
+            'addressString' => $fromToAddress->addressString,
+            'startingDate' => $fromToAddress->startingDate ?? '',
+            'endingDate' => $fromToAddress->endingDate ?? '',
+        ];
+
+        $result['regActionDate'] = $addressSlip->regActionDate ?? '';
+        $result['changeData'] = [
+            'changeDataOther' => $addressSlip->changeData->changeDataOther ?? '',
+        ];
+        $result['reason'] = $addressSlip->reason ?? '';
+
+        return $result;
     }
 
 }

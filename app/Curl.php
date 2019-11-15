@@ -30,6 +30,7 @@ class Curl
 
     public function postJsonToOvirug($values, $decode = true, $config = null, $url = null)
     {
+
         $token = $this->getToken();
 
         $config = $config ? $config : Router::$model;

@@ -17,6 +17,6 @@
   {"uri": "/rsmev/snils/getresult", "method": "get", "class": "Smev", "action": "snils_response", "auth": true},
 
   {"uri": "/esun/pre_registration", "method": "post", "class": "Esun", "action": "pre_registration", "auth": false},
-  {"uri": "/gpru/address_slip", "method": "post", "class": "Esun", "action": "slip"}
+  {"uri": "/address_slip", "method": "post", "class": "Soap", "action": "adress_slip", "soap_server": true}
 
 ]

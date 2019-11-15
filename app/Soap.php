@@ -147,4 +147,37 @@ class Soap
 
     }
 
+    public function executeRequest($request_data)
+    {
+
+        $esun_data = new EsunData();
+
+        $data = $esun_data->getGPRUData($request_data->requestDocument->any);
+
+        $url = App::$config->get('ovirug_host') . App::$config->get('registration');
+        // если пришел отказ
+        if (isset($data['AddressSlipRefuseType'])) {
+            $url = App::$config->get('ovirug_host') . App::$config->get('registration_refuse');
+        }
+
+        $result = $this->curl->postJsonToOvirug($data, true, null, $url);
+
+        // отвечаем на SOAP запрос от УФМС
+//        $result = new \stdClass();
+//        $result->responseDocument = new \stdClass();
+//        $addressSlipsResponse = new \stdClass();
+//        $addressSlipsResponse->packetResultCode = 0;
+//        $result->responseDocument->any = new SoapVar($addressSlipsResponse,
+//            SOAP_ENC_OBJECT,
+//            null,
+//            null,
+//            'addressSlipsResponse',
+//            'urn:eis:cprp:oviru:DataObjects');
+//        return $result;
+
+        $prepared_data = $this->data->prepareGpruResult($result);
+
+        App::$parser->generateSoapResponse($prepared_data);
+    }
+
 }

@@ -9,6 +9,7 @@ class Esun
 
     public function pre_registration($request_data)
     {
+
         $data = new EsunData();
 
         try {
@@ -36,7 +37,5 @@ class Esun
         }
 
     }
-
-
 
 }
