@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Ramsey\Uuid\Uuid;
+
 class Soap
 {
 
@@ -96,7 +98,7 @@ class Soap
 
         } else {
 
-            $base_name = '../tmp/' . time() . rand(0, 99999);
+            $base_name = 'resp_'.Uuid::uuid1()->toString();
 
             $zipBase64 = $this->data->prepareZddkZip($result, $values, $base_name);
 

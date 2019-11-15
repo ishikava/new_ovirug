@@ -348,28 +348,26 @@ class Data
 
         $xml = $this->createXMLZddk($result, $values);
 
-        $nameOfFileResponse = $base_name . '.xml';
-        $xml->save($nameOfFileResponse);
+        $content = $xml->save('../tmp/' . $base_name . '.xml');
 
-        file_put_contents($nameOfFileResponse . '.sig', $cp->signFile($nameOfFileResponse));
+        file_put_contents('../tmp/' . $base_name . '.xml.sig', $cp->signFile($content));
 
         $zip = new ZipArchive();
-        $zipName = $nameOfFileResponse . '.zip';
-        $zip->open($zipName, ZipArchive::CREATE);
-        $zip->addFile($nameOfFileResponse, $nameOfFileResponse);
-        $zip->addFile($nameOfFileResponse . '.sig', $nameOfFileResponse . '.sig');
+        $zip->open('../tmp/' . $base_name . '.zip', ZipArchive::CREATE);
+        $zip->addFile('../tmp/' . $base_name . '.xml',  $base_name . '.xml');
+        $zip->addFile('../tmp/' . $base_name . '.xml.sig', $base_name . '.xml.sig');
         $zip->close();
 
-        $zip = file_get_contents($zipName);
+        $zip = file_get_contents('../tmp/' . $base_name . '.zip');
 
-        if (file_exists($nameOfFileResponse)) {
-            unlink($nameOfFileResponse);
+        if (file_exists('../tmp/' . $base_name . '.xml')) {
+            unlink('../tmp/' . $base_name . '.xml');
         }
-        if (file_exists($nameOfFileResponse . '.sig')) {
-            unlink($nameOfFileResponse . '.sig');
+        if (file_exists('../tmp/' . $base_name . '.xml.sig')) {
+            unlink('../tmp/' . $base_name . '.xml.sig');
         }
-        if (file_exists($zipName)) {
-            unlink($zipName);
+        if (file_exists('../tmp/' . $base_name . '.zip')) {
+            unlink('../tmp/' . $base_name . '.zip');
         }
 
         return base64_encode($zip);
