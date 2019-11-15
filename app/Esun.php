@@ -21,6 +21,7 @@ class Esun
 
         $params = $data->prepareParams($request_data);
 
+        App::$log->log('error', 'LMA ' . $params);
         var_dump($params);die();
 
         try {
