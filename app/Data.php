@@ -159,6 +159,7 @@ class Data
 
     public function prepareZDDKValues($request_data)
     {
+
         $values = [
             "region_code" => !empty($request_data->regionCode) ? (string)$request_data->regionCode : "78",
             "object_city" => !empty($request_data->objectTown) ? (string)$request_data->objectTown : "",
@@ -289,55 +290,54 @@ class Data
 
         $i = 0;
 
+        $nameOfContract = [];
+        $nameOfContractSig = [];
+
         foreach ($result as $contract) {
             $xml = $this->createXMLContract($contract);
-            $fileNameOfContract = $base_name . '_contract_' . $i . '.xml';
-            $nameOfContract[] = $fileNameOfContract;
-            $xml->save($fileNameOfContract);
-            file_put_contents($fileNameOfContract . '.sig', $cp->signFile($fileNameOfContract));
-            $nameOfContractSig[] = $fileNameOfContract . '.sig';
+            $nameOfContract[] = $base_name . '_contract_' . $i . '.xml';
+            $content = $xml->save('../tmp/' . $base_name . '_contract_' . $i . '.xml');
+            file_put_contents('../tmp/' . $base_name . '_contract_' . $i . '.xml.sig', $cp->signFile($content));
+            $nameOfContractSig[] = $base_name . '_contract_' . $i . '.xml.sig';
             $i++;
         }
 
-        $nameOfFileResponse = $base_name . '_response.xml';
         $xmlWarp = $this->createXMLWrap($nameOfContract);
-        $xmlWarp->save($nameOfFileResponse);
-        file_put_contents($nameOfFileResponse . '.sig', $cp->signFile($nameOfFileResponse));
+        $content = $xmlWarp->save('../tmp/' . $base_name . '_response.xml');
+        file_put_contents('../tmp/' . $base_name . '_response.xml.sig', $cp->signFile($content));
 
         $zip = new ZipArchive();
-        $zipName = $base_name . '.zip';
-        $zip->open($zipName, ZipArchive::CREATE);
-        $zip->addFile($nameOfFileResponse, $nameOfFileResponse);
-        $zip->addFile($nameOfFileResponse . '.sig', $nameOfFileResponse . '.sig');
+        $zip->open('../tmp/' . $base_name . '_response.zip', ZipArchive::CREATE);
+        $zip->addFile('../tmp/' . $base_name . '_response.xml', $base_name . '_response.xml');
+        $zip->addFile('../tmp/' . $base_name . '_response.xml.sig', $base_name . '_response.xml.sig');
 
         foreach ($nameOfContract as $file) {
             $zip->addFile($file, $file);
         }
-
         foreach ($nameOfContractSig as $file) {
             $zip->addFile($file, $file);
         }
 
         $zip->close();
 
-        $zip = file_get_contents($zipName);
+        $zip = file_get_contents('../tmp/' . $base_name . '_response.zip');
 
-        if (file_exists($nameOfFileResponse)) {
-            unlink($nameOfFileResponse);
-        }
-        if (file_exists($nameOfFileResponse . '.sig')) {
-            unlink($nameOfFileResponse . '.sig');
-        }
-        if (file_exists($zipName)) {
-            unlink($zipName);
-        }
-
-        foreach ($nameOfContract as $fileContr) {
-            unlink($fileContr);
-        }
-        foreach ($nameOfContractSig as $fileContrSig) {
-            unlink($fileContrSig);
-        }
+//        if (file_exists($nameOfFileResponse)) {
+//            unlink($nameOfFileResponse);
+//        }
+//        if (file_exists($nameOfFileResponse . '.sig')) {
+//            unlink($nameOfFileResponse . '.sig');
+//        }
+//        if (file_exists($zipName)) {
+//            unlink($zipName);
+//        }
+//
+//        foreach ($nameOfContract as $fileContr) {
+//            unlink($fileContr);
+//        }
+//        foreach ($nameOfContractSig as $fileContrSig) {
+//            unlink($fileContrSig);
+//        }
 
         return base64_encode($zip);
     }
@@ -533,17 +533,17 @@ class Data
 
         $housebook = $xml->appendChild($xml->createElement('housebookExtractionResponse'));
 
-        $housebook->appendChild($xml->createElement('regionCode', (string)$values->regionCode));
-        $housebook->appendChild($xml->createElement('objectDistrict', (string)$values->objectDistrict));
-        $housebook->appendChild($xml->createElement('objectCity', (string)$values->objectCity));
-        $housebook->appendChild($xml->createElement('objectTown', (string)$values->objectTown));
-        $housebook->appendChild($xml->createElement('objectStreet', (string)$values->objectStreet));
-        $housebook->appendChild($xml->createElement('objectHouse', (string)$values->objectHouse));
-        $housebook->appendChild($xml->createElement('objectCorpus', (string)$values->objectCorpus));
-        $housebook->appendChild($xml->createElement('objectBuilding', (string)$values->objectBuilding));
-        $housebook->appendChild($xml->createElement('objectFlat', (string)$values->objectFlat));
-        $housebook->appendChild($xml->createElement('objectCadastrNumber', (string)$values->objectCadastrNumber));
-        $housebook->appendChild($xml->createElement('objectConditNumber', (string)$values->objectConditNumber));
+        $housebook->appendChild($xml->createElement('regionCode', (string)$values["region_code"]));
+        $housebook->appendChild($xml->createElement('objectDistrict', (string)$values["object_district"]));
+        $housebook->appendChild($xml->createElement('objectCity', (string)$values["object_city"]));
+        $housebook->appendChild($xml->createElement('objectTown', (string)$values["object_town"]));
+        $housebook->appendChild($xml->createElement('objectStreet', (string)$values["object_street"]));
+        $housebook->appendChild($xml->createElement('objectHouse', (string)$values["object_house"]));
+        $housebook->appendChild($xml->createElement('objectCorpus', (string)$values["object_corpus"]));
+        $housebook->appendChild($xml->createElement('objectBuilding', (string)$values["object_building"]));
+        $housebook->appendChild($xml->createElement('objectFlat', (string)$values["object_flat"]));
+        $housebook->appendChild($xml->createElement('objectCadastrNumber', (string)$values["object_cadastr_number"]));
+        $housebook->appendChild($xml->createElement('objectConditNumber', (string)$values["object_condit_number"]));
 
         // Owner. Loop through the data, and add each record to the Owner object
         if (isset($result->Owner)) {

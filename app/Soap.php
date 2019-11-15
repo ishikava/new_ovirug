@@ -123,7 +123,7 @@ class Soap
 
         } else {
 
-            $base_name = time() . rand(0, 99999);
+            $base_name = 'resp_'.Uuid::uuid1()->toString();
 
             $zipBase64 = $this->data->prepareContractsZip($result, $base_name);
 
