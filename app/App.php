@@ -14,7 +14,6 @@ class App
 
     public function __construct()
     {
-
         self::$config = new Config();
 
         self::$parser = new Parser();
