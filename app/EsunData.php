@@ -12,7 +12,8 @@ class EsunData
     {
         $xml = new DomDocument('1.0', 'utf-8');
 
-        $prerequisites = json_decode(utf8_encode($jsonArray), false, 512, JSON_UNESCAPED_UNICODE);
+        //$prerequisites = json_decode(utf8_encode($jsonArray), false, 512, JSON_UNESCAPED_UNICODE);
+        $prerequisites = json_decode($jsonArray, false, 512, JSON_UNESCAPED_UNICODE);
 
         $prerequisitesRequest = $xml->createElementNS('urn:eis:cprp:oviru:DataObjects', 'prerequisitesRequest');
         $xml->appendChild($prerequisitesRequest);
