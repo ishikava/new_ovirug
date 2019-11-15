@@ -21,6 +21,8 @@ class Esun
 
         $params = $data->prepareParams($request_data);
 
+        var_dump($params);die();
+
         try {
             $result = $client->executeInteraction($params);
         } catch (\Exception $e) {
