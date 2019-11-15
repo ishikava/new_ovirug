@@ -9,6 +9,7 @@ class Esun
 
     public function pre_registration($request_data)
     {
+        App::$log->log('error',  $request_data);
         var_dump($request_data);die();
         $data = new EsunData();
 
