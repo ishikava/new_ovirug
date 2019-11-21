@@ -82,7 +82,11 @@ class CryptoPro
 
         $name = Uuid::uuid1()->toString();
 
-        file_put_contents('../tmp/' . $name . '.' . $type, $file);
+        if ($type == 'pdf') {
+            file_put_contents('../tmp/' . $name . '.' . $type, base64_decode($file));
+        } else {
+            file_put_contents('../tmp/' . $name . '.' . $type, $file);
+        }
 
         $this->signExec('../tmp/' . $name . '.' . $type);
 
@@ -90,12 +94,7 @@ class CryptoPro
         $zipName = '../tmp/' . $name . '.zip';
 
         $zip->open($zipName, ZipArchive::CREATE);
-        if ($type == 'pdf') {
-            $zip->addFromString('File.' . $type, base64_decode($file));
-        } else {
-            $zip->addFromString('File.' . $type, $file);
-        }
-
+        $zip->addFile('../tmp/' . $name . '.' . $type, 'File.' . $type);
         $zip->addFile('../tmp/' . $name . '.' . $type . '.sig', 'File.' . $type . '.sig');
         $zip->close();
 
