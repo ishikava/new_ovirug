@@ -13,7 +13,7 @@ class CryptoPro
     {
         if (!$this->certificate) {
             $this->certificate = $this->SetupCertificate(CURRENT_USER_STORE, "My", STORE_OPEN_READ_ONLY,
-                CERTIFICATE_FIND_SUBJECT_NAME, "Тестовая организация", 0, 1);
+                CERTIFICATE_FIND_SUBJECT_NAME, App::$config->get('dn'), 0, 1);
         }
 
         if (!$this->certificate) {
@@ -40,13 +40,39 @@ class CryptoPro
     public function signFile($content)
     {
         $signer = new \CPSigner();
-        $signer->set_TSAAddress('http://testca.cryptopro.ru/tsp/tsp.srf');
+        $signer->set_TSAAddress('http://www.cryptopro.ru/tsp/tsp.srf');
+        $signer->set_Certificate($this->certificate);
+
+        $sd = new \CPSignedData();
+        $sd->set_Content($content);
+
+        return $sd->Sign($signer, 0, STRING_TO_UCS2LE);
+    }
+
+    public function signCades($content)
+    {
+        $signer = new \CPSigner();
+        $signer->set_TSAAddress('http://www.cryptopro.ru/tsp/tsp.srf');
         $signer->set_Certificate($this->certificate);
 
         $sd = new \CPSignedData();
         $sd->set_Content($content);
 
         return $sd->SignCades($signer, 0x01, 1, 1);
+    }
+
+    public function signExec($file)
+    {
+
+        exec('cd ../tmp;    /opt/cprocsp/bin/amd64/cryptcp -sign -dn="'.App::$config->get('dn').'" '.$file, $out, $err);
+
+        if($err !== 0){
+            App::$log->log('error', 'CryptoPro Не удалось подписать файл');
+            App::$parser->dropError('CryptoPro', 'Не удалось подписать файл');
+        }
+
+        return;
+
     }
 
     public function getSignedZipBase64($file, $type)

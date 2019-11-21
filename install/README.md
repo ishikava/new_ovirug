@@ -96,7 +96,13 @@ su -s /bin/bash www-data
 exit
 
 4. Установим корневой сертификат в систему
-/opt/cprocsp/bin/amd64/certmgr -inst -store ca -f /home/tesonero/ovirug/install/keys/new.cer
+скопировать в папку с корневыми сертификатами /usr/local/share/ca-certificates:
+/home/tesonero/ovirug/install/keys/new.cer(сертификат из контейнера ключей)
+/home/tesonero/ovirug/install/keys/test.cer(ТестовыйУЦООО-КРИПТО-ПРО)
+/home/tesonero/ovirug/install/keys/tsa.cer(сертификат службы времени)
+
+Обновить сертификаты:
+update-ca-certificates
 
 5. Проверяем. Работает!
 

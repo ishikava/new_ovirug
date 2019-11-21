@@ -1,4 +1,5 @@
 .idea/*
 log/access.log
 log/error.log
+vendor/*
 

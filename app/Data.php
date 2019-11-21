@@ -3,7 +3,6 @@
 namespace App;
 
 use DOMDocument;
-use stdClass;
 use ZipArchive;
 
 class Data
@@ -149,7 +148,7 @@ class Data
 
         $prepared_data = '
 <GetStatusResponse xmlns="http://tempuri.org/">
-    <GetStatusResult xmlns:d4p1="http://schemas.datacontract.org/2004/07/'.$ns.'" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <GetStatusResult xmlns:d4p1="http://schemas.datacontract.org/2004/07/' . $ns . '" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
     ' . $response . '
     </GetStatusResult>
 </GetStatusResponse>';
@@ -270,7 +269,7 @@ class Data
 
     public function unZipData($binaryData)
     {
-        $name = '../tmp/'.time() . rand(0, 99999) . 'zddk.zip';
+        $name = '../tmp/' . time() . rand(0, 99999) . 'zddk.zip';
         $fp = fopen($name, 'w');
         fwrite($fp, $binaryData);
         $zip = new ZipArchive;
@@ -296,11 +295,14 @@ class Data
         foreach ($result as $contract) {
             $xml = $this->createXMLContract($contract);
             $nameOfContract[] = $base_name . '_contract_' . $i . '.xml';
-            $content = $xml->save('../tmp/' . $base_name . '_contract_' . $i . '.xml');
+            $xml->save('../tmp/' . $base_name . '_contract_' . $i . '.xml');
+            $content = file_get_contents('../tmp/' . $base_name . '_contract_' . $i . '.xml');
             file_put_contents('../tmp/' . $base_name . '_contract_' . $i . '.xml.sig', $cp->signFile($content));
             $nameOfContractSig[] = $base_name . '_contract_' . $i . '.xml.sig';
             $i++;
         }
+
+        die();
 
         $xmlWarp = $this->createXMLWrap($nameOfContract);
         $content = $xmlWarp->save('../tmp/' . $base_name . '_response.xml');
@@ -346,28 +348,29 @@ class Data
     {
         $cp = new CryptoPro();
 
+        $tmpname = '../tmp/' . $base_name . '.xml';
+
         $xml = $this->createXMLZddk($result, $values);
+        $xml->save($tmpname);
 
-        $content = $xml->save('../tmp/' . $base_name . '.xml');
-
-        file_put_contents('../tmp/' . $base_name . '.xml.sig', $cp->signFile($content));
+        $cp->signExec($tmpname);
 
         $zip = new ZipArchive();
-        $zip->open('../tmp/' . $base_name . '.zip', ZipArchive::CREATE);
-        $zip->addFile('../tmp/' . $base_name . '.xml',  $base_name . '.xml');
-        $zip->addFile('../tmp/' . $base_name . '.xml.sig', $base_name . '.xml.sig');
+        $zip->open($tmpname . '.zip', ZipArchive::CREATE);
+        $zip->addFile($tmpname, $base_name . '.xml');
+        $zip->addFile($tmpname . '.sig', $base_name . '.xml.sig');
         $zip->close();
 
-        $zip = file_get_contents('../tmp/' . $base_name . '.zip');
+        $zip = file_get_contents($tmpname . '.zip');
 
-        if (file_exists('../tmp/' . $base_name . '.xml')) {
-            unlink('../tmp/' . $base_name . '.xml');
+        if (file_exists($tmpname)) {
+            unlink($tmpname);
         }
-        if (file_exists('../tmp/' . $base_name . '.xml.sig')) {
-            unlink('../tmp/' . $base_name . '.xml.sig');
+        if (file_exists($tmpname . '.sig')) {
+            unlink($tmpname . '.sig');
         }
-        if (file_exists('../tmp/' . $base_name . '.zip')) {
-            unlink('../tmp/' . $base_name . '.zip');
+        if (file_exists($tmpname . '.zip')) {
+            unlink($tmpname . '.zip');
         }
 
         return base64_encode($zip);

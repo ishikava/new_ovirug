@@ -48,7 +48,7 @@ class App
         }
 
         $auth = new Auth();
-        if(!$auth->isAuth(self::$router->routes[$route]['auth'])){
+        if(isset(self::$router->routes[$route]['auth']) && !$auth->isAuth(self::$router->routes[$route]['auth'])){
             App::$log->log('error', '401 Unauthorized');
             header("HTTP/1.1 401 Unauthorized");
             echo '401 Unauthorized';
