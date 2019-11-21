@@ -92,7 +92,7 @@
   </wsdl:binding>
   <wsdl:service name="ZDDK_Service">
     <wsdl:port name="CustomBinding_IZDDK_Service" binding="tns:CustomBinding_IZDDK_Service">
-      <soap:address location="http://ovirugservice.ru/zddk"/>
+      <soap:address location="http://10.146.140.226/zddk"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

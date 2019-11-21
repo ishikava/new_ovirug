@@ -290,23 +290,18 @@ class Data
         $i = 0;
 
         $nameOfContract = [];
-        $nameOfContractSig = [];
 
         foreach ($result as $contract) {
             $xml = $this->createXMLContract($contract);
             $nameOfContract[] = $base_name . '_contract_' . $i . '.xml';
             $xml->save('../tmp/' . $base_name . '_contract_' . $i . '.xml');
-            $content = file_get_contents('../tmp/' . $base_name . '_contract_' . $i . '.xml');
-            file_put_contents('../tmp/' . $base_name . '_contract_' . $i . '.xml.sig', $cp->signFile($content));
-            $nameOfContractSig[] = $base_name . '_contract_' . $i . '.xml.sig';
+            $cp->signExec('../tmp/' . $base_name . '_contract_' . $i . '.xml');
             $i++;
         }
 
-        die();
-
         $xmlWarp = $this->createXMLWrap($nameOfContract);
-        $content = $xmlWarp->save('../tmp/' . $base_name . '_response.xml');
-        file_put_contents('../tmp/' . $base_name . '_response.xml.sig', $cp->signFile($content));
+        $xmlWarp->save('../tmp/' . $base_name . '_response.xml');
+        $cp->signExec('../tmp/' . $base_name . '_response.xml');
 
         $zip = new ZipArchive();
         $zip->open('../tmp/' . $base_name . '_response.zip', ZipArchive::CREATE);
@@ -314,32 +309,32 @@ class Data
         $zip->addFile('../tmp/' . $base_name . '_response.xml.sig', $base_name . '_response.xml.sig');
 
         foreach ($nameOfContract as $file) {
-            $zip->addFile($file, $file);
-        }
-        foreach ($nameOfContractSig as $file) {
-            $zip->addFile($file, $file);
+            $zip->addFile('../tmp/' . $file, $file);
+            $zip->addFile('../tmp/' . $file . '.sig', $file . '.sig');
         }
 
         $zip->close();
 
         $zip = file_get_contents('../tmp/' . $base_name . '_response.zip');
 
-//        if (file_exists($nameOfFileResponse)) {
-//            unlink($nameOfFileResponse);
-//        }
-//        if (file_exists($nameOfFileResponse . '.sig')) {
-//            unlink($nameOfFileResponse . '.sig');
-//        }
-//        if (file_exists($zipName)) {
-//            unlink($zipName);
-//        }
-//
-//        foreach ($nameOfContract as $fileContr) {
-//            unlink($fileContr);
-//        }
-//        foreach ($nameOfContractSig as $fileContrSig) {
-//            unlink($fileContrSig);
-//        }
+        if (file_exists('../tmp/' . $base_name . '_response.xml')) {
+            unlink('../tmp/' . $base_name . '_response.xml');
+        }
+        if (file_exists('../tmp/' . $base_name . '_response.xml.sig')) {
+            unlink('../tmp/' . $base_name . '_response.xml.sig');
+        }
+        if (file_exists('../tmp/' . $base_name . '_response.zip')) {
+            unlink('../tmp/' . $base_name . '_response.zip');
+        }
+
+        foreach ($nameOfContract as $fileContr) {
+            if (file_exists('../tmp/' .$fileContr)) {
+                unlink('../tmp/' .$fileContr);
+            }
+            if (file_exists('../tmp/' .$fileContr. '.sig')) {
+                unlink('../tmp/' .$fileContr . '.sig');
+            }
+        }
 
         return base64_encode($zip);
     }

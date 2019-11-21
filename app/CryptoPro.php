@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Ramsey\Uuid\Uuid;
 use ZipArchive;
 
 class CryptoPro
@@ -64,9 +65,10 @@ class CryptoPro
     public function signExec($file)
     {
 
-        exec('cd ../tmp;    /opt/cprocsp/bin/amd64/cryptcp -sign -dn="'.App::$config->get('dn').'" '.$file, $out, $err);
+        exec('cd ../tmp;    /opt/cprocsp/bin/amd64/cryptcp -sign -dn="' . App::$config->get('dn') . '" ' . $file, $out,
+            $err);
 
-        if($err !== 0){
+        if ($err !== 0) {
             App::$log->log('error', 'CryptoPro Не удалось подписать файл');
             App::$parser->dropError('CryptoPro', 'Не удалось подписать файл');
         }
@@ -77,25 +79,38 @@ class CryptoPro
 
     public function getSignedZipBase64($file, $type)
     {
-        $sign = $this->signFile($file);
+
+        $name = Uuid::uuid1()->toString();
+
+        file_put_contents('../tmp/' . $name . '.' . $type, $file);
+
+        $this->signExec($name . '.' . $type);
 
         $zip = new ZipArchive();
-        $zipName = '../tmp/' . time() . rand(0, 99999) . ".zip";
+        $zipName = '../tmp/' . $name . '.zip';
 
         $zip->open($zipName, ZipArchive::CREATE);
-        if($type == 'pdf'){
-            $zip->addFromString('File.'.$type, base64_decode($file));
-        } else{
-            $zip->addFromString('File.'.$type, $file);
+        if ($type == 'pdf') {
+            $zip->addFromString('File.' . $type, base64_decode($file));
+        } else {
+            $zip->addFromString('File.' . $type, $file);
         }
 
-        $zip->addFromString('File.'.$type.'.sig', $sign);
+        $zip->addFile('../tmp/' . $name . '.' . $type . '.sig', $name . '.sig');
         $zip->close();
 
         $zipData = file_get_contents($zipName);
         $signedZip = base64_encode($zipData);
 
-        unlink($zipName);
+        if (file_exists($zipName)) {
+            unlink($zipName);
+        }
+        if (file_exists('../tmp/' . $name . '.' . $type)) {
+            unlink('../tmp/' . $name . '.' . $type);
+        }
+        if (file_exists('../tmp/' . $name . '.' . $type . '.sig')) {
+            unlink('../tmp/' . $name . '.' . $type . '.sig');
+        }
 
         return $signedZip;
     }
@@ -103,7 +118,7 @@ class CryptoPro
     public function verify($content)
     {
 
-        if(!App::$config->get('verify')){
+        if (!App::$config->get('verify')) {
             return true;
         }
 
