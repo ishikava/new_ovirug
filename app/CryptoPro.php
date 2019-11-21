@@ -84,7 +84,7 @@ class CryptoPro
 
         file_put_contents('../tmp/' . $name . '.' . $type, $file);
 
-        $this->signExec($name . '.' . $type);
+        $this->signExec('../tmp/' . $name . '.' . $type);
 
         $zip = new ZipArchive();
         $zipName = '../tmp/' . $name . '.zip';
@@ -96,7 +96,7 @@ class CryptoPro
             $zip->addFromString('File.' . $type, $file);
         }
 
-        $zip->addFile('../tmp/' . $name . '.' . $type . '.sig', $name . '.sig');
+        $zip->addFile('../tmp/' . $name . '.' . $type . '.sig', 'File.' . $type . '.sig');
         $zip->close();
 
         $zipData = file_get_contents($zipName);
