@@ -91,7 +91,7 @@ class Soap
 
         $result = $this->curl->postJsonToOvirug($values);
 
-        if (empty($result) || !$result || empty($result)) {
+        if (empty($result) || !$result || !$data) {
 
             App::$log->log('error', 'SMEV-300001 Нет данных на стороне поставщика');
             App::$parser->dropError('SMEV-300001', 'Нет данных на стороне поставщика');
@@ -117,8 +117,9 @@ class Soap
 
         $result = $this->curl->postJsonToOvirug($values, true);
 
-        if (empty($result)) {
+        if (empty($result) || !$result || !$data) {
 
+            App::$log->log('error', 'SMEV-300001 Нет данных на стороне поставщика');
             App::$parser->dropError('SMEV-300001', 'Нет данных на стороне поставщика');
 
         } else {
