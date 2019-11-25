@@ -23,7 +23,9 @@ class Curl
         $res = curl_exec($curl);
         curl_close($curl);
 
-        if(!$res) App::$log->log('error', 'OVIRUG Не удалось получить токен');
+        if (!$res) {
+            App::$log->log('error', 'OVIRUG Не удалось получить токен');
+        }
 
         return json_decode($res);
     }
@@ -49,7 +51,19 @@ class Curl
         $res = curl_exec($curl);
         curl_close($curl);
 
-        if(!$res) App::$log->log('error', 'OVIRUG Не удалось выполнить запрос JSON CURL');
+        if (!$res) {
+
+            App::$log->log('error', 'OVIRUG Не удалось выполнить запрос JSON CURL');
+            App::$parser->dropError('SMEV-300001', 'Нет данных на стороне поставщика');
+
+        }
+
+        if (isset($res->message) && stripos($res->message, 'error')) {
+
+            App::$log->log('error', 'OVIRUG Ошибка на стороне поставщика, code : ' . $res->code . ', message : ' . $res->message);
+            App::$parser->dropError('SMEV-300001', 'Нет данных на стороне поставщика');
+
+        }
 
         return $decode ? json_decode($res) : $res;
     }
@@ -70,7 +84,9 @@ class Curl
         $res = curl_exec($curl);
         curl_close($curl);
 
-        if(!$res) App::$log->log('error', 'OVIRUG Не удалось выполнить запрос CURL');
+        if (!$res) {
+            App::$log->log('error', 'OVIRUG Не удалось выполнить запрос CURL');
+        }
 
         return json_decode($res);
     }
@@ -93,7 +109,9 @@ class Curl
         $res = curl_exec($curl);
         curl_close($curl);
 
-        if(!$res) App::$log->log('error', 'OVIRUG Не удалось выполнить запрос JSON CURL');
+        if (!$res) {
+            App::$log->log('error', 'OVIRUG Не удалось выполнить запрос JSON CURL');
+        }
 
         return $decode ? json_decode($res) : $res;
     }

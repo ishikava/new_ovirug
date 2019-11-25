@@ -97,24 +97,17 @@ class Soap
             App::$parser->dropError('SMEV-300001', 'Нет данных на стороне поставщика');
 
         } else {
-            if (isset($result->message) && stripos($result->message, 'error')) {
 
-                App::$log->log('error',
-                    'Ovirug ошибка на стороне поставщика, code : ' . $result->code . ', message : ' . $result->message);
-                App::$parser->dropError('SMEV-300001', 'Нет данных на стороне поставщика');
+            $base_name = 'resp_' . Uuid::uuid1()->toString();
 
-            } else {
+            $zipBase64 = $this->data->prepareZddkZip($result, $values, $base_name);
 
-                $base_name = 'resp_' . Uuid::uuid1()->toString();
+            $prepared_data = $this->data->prepareZddkResponse($request_data, $zipBase64, $base_name);
 
-                $zipBase64 = $this->data->prepareZddkZip($result, $values, $base_name);
-
-                $prepared_data = $this->data->prepareZddkResponse($request_data, $zipBase64, $base_name);
-
-                App::$parser->generateSoapResponse($prepared_data);
-            }
+            App::$parser->generateSoapResponse($prepared_data);
 
         }
+
     }
 
     public function GetContract($request_data)
@@ -132,23 +125,13 @@ class Soap
 
         } else {
 
-            if (isset($result->message) && stripos($result->message, 'error')) {
+            $base_name = 'resp_' . Uuid::uuid1()->toString();
 
-                App::$log->log('error',
-                    'Ovirug ошибка на стороне поставщика, code : ' . $result->code . ', message : ' . $result->message);
-                App::$parser->dropError('SMEV-300001', 'Нет данных на стороне поставщика');
+            $zipBase64 = $this->data->prepareContractsZip($result, $base_name);
 
-            } else {
+            $prepared_data = $this->data->prepareContractsResponse($request_data, $zipBase64, $base_name);
 
-                $base_name = 'resp_' . Uuid::uuid1()->toString();
-
-                $zipBase64 = $this->data->prepareContractsZip($result, $base_name);
-
-                $prepared_data = $this->data->prepareContractsResponse($request_data, $zipBase64, $base_name);
-
-                App::$parser->generateSoapResponse($prepared_data);
-
-            }
+            App::$parser->generateSoapResponse($prepared_data);
 
         }
     }
