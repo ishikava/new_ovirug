@@ -17,6 +17,10 @@
   {"uri": "/rsmev/snils/getresult", "method": "get", "class": "Smev", "action": "snils_response", "auth": true},
 
   {"uri": "/esun/pre_registration", "method": "post", "class": "Esun", "action": "pre_registration", "auth": false},
-  {"uri": "/address_slip", "method": "post", "class": "Soap", "action": "adress_slip", "soap_server": true}
+  {"uri": "/address_slip", "method": "post", "class": "Soap", "action": "adress_slip", "soap_server": true},
+
+  {"uri": "/signer", "method": "get", "class": "Signer", "action": "form"},
+  {"uri": "/signxml", "method": "post", "class": "Signer", "action": "signXML"},
+  {"uri": "/signfile", "method": "post", "class": "Signer", "action": "signFile"}
 
 ]

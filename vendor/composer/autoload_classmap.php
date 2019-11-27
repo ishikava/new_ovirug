@@ -19,6 +19,7 @@ return array(
     'App\\ParseXMLResponse' => $baseDir . '/app/ParseXMLResponse.php',
     'App\\Parser' => $baseDir . '/app/Parser.php',
     'App\\Router' => $baseDir . '/app/Router.php',
+    'App\\Signer' => $baseDir . '/app/Signer.php',
     'App\\Smev' => $baseDir . '/app/Smev.php',
     'App\\Soap' => $baseDir . '/app/Soap.php',
     'Ramsey\\Uuid\\BinaryUtils' => $vendorDir . '/ramsey/uuid/src/BinaryUtils.php',

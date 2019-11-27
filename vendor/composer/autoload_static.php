@@ -46,6 +46,7 @@ class ComposerStaticInit4bfe0f70c68f4682282b6ae46ebbad56
         'App\\ParseXMLResponse' => __DIR__ . '/../..' . '/app/ParseXMLResponse.php',
         'App\\Parser' => __DIR__ . '/../..' . '/app/Parser.php',
         'App\\Router' => __DIR__ . '/../..' . '/app/Router.php',
+        'App\\Signer' => __DIR__ . '/../..' . '/app/Signer.php',
         'App\\Smev' => __DIR__ . '/../..' . '/app/Smev.php',
         'App\\Soap' => __DIR__ . '/../..' . '/app/Soap.php',
         'Ramsey\\Uuid\\BinaryUtils' => __DIR__ . '/..' . '/ramsey/uuid/src/BinaryUtils.php',
