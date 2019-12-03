@@ -12,7 +12,7 @@
 
   {"uri": "/rsmev/sendackrequest", "method": "post", "class": "Smev", "action": "ack", "auth": true},
   {"uri": "/rsmev/inn/sendrequest", "method": "post", "class": "Smev", "action": "inn_request", "auth": true},
-  {"uri": "/rsmev/snils/sendrequest", "method": "post", "class": "Smev", "action": "snils_request", "auth": true},
+  {"uri": "/rsmev/snils/sendrequest", "method": "post", "class": "Smev", "action": "snils_request", "auth": false},
   {"uri": "/rsmev/inn/getresult", "method": "get", "class": "Smev", "action": "inn_response", "auth": true},
   {"uri": "/rsmev/snils/getresult", "method": "get", "class": "Smev", "action": "snils_response", "auth": true},
 

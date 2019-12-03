@@ -13,11 +13,11 @@ $content = '<?xml version="1.0" encoding="UTF-8"?>
             	<ns:MessageID>'.$data['MessageID'].'</ns:MessageID>
                 <ns2:MessagePrimaryContent>
                     <tns:SnilsByDataRequest xmlns:tns="http://kvs.pfr.com/snils-by-data/1.1.2">
-                        <smev:FamilyName xmlns:smev="urn://x-artefacts-smev-gov-ru/supplementary/commons/1.0.1">'.$data['lastName'].'</smev:FamilyName>
-                        <smev:FirstName xmlns:smev="urn://x-artefacts-smev-gov-ru/supplementary/commons/1.0.1">'.$data['firstName'].'</smev:FirstName>
-                        <smev:Patronymic xmlns:smev="urn://x-artefacts-smev-gov-ru/supplementary/commons/1.0.1">'.$data['secondName'].'</smev:Patronymic>
-                        <tns:Gender>'.$data['gender'].'</tns:Gender>
-                        <tns:BirthDate>'.$data['birthDay'].'</tns:BirthDate>
+                        <smev:FamilyName xmlns:smev="urn://x-artefacts-smev-gov-ru/supplementary/commons/1.0.1">'.$data['individual']['lastName'].'</smev:FamilyName>
+                        <smev:FirstName xmlns:smev="urn://x-artefacts-smev-gov-ru/supplementary/commons/1.0.1">'.$data['individual']['firstName'].'</smev:FirstName>
+                        <smev:Patronymic xmlns:smev="urn://x-artefacts-smev-gov-ru/supplementary/commons/1.0.1">'.$data['individual']['secondName'].'</smev:Patronymic>
+                        <tns:Gender>'.$data['individual']['gender'].'</tns:Gender>
+                        <tns:BirthDate>'.$data['individual']['birthDay'].'</tns:BirthDate>
                     </tns:SnilsByDataRequest>
                 </ns2:MessagePrimaryContent>
             </ns:SenderProvidedRequestData>

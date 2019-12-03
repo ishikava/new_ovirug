@@ -59,17 +59,16 @@ class Smev
 
     public function snils_request($request_data)
     {
-        $data = json_decode(utf8_encode($request_data), true, 512, JSON_UNESCAPED_UNICODE);
+        //todo
+        //Сделать валидацию данных в data !
 
-        $data['lastName'] = isset($data['lastName']) ? $data['lastName'] : 'lastName';
-        $data['firstName'] = isset($data['firstName']) ? $data['firstName'] : 'firstName';
-        $data['secondName'] = isset($data['secondName']) ? $data['secondName'] : 'secondName';
-        $data['gender'] = isset($data['gender']) ? $data['gender'] : 'gender';
-        $data['birthDay'] = isset($data['birthDay']) ? $data['birthDay'] : 'birthDay';
+        $data = json_decode($request_data, true);
 
         $data['MessageID'] = Uuid::uuid1()->toString();
 
         $envelope = App::$parser->generateSmevEnvelope('snils_request', $data);
+
+        var_dump($envelope);die();
 
         $result = $this->sendToSmev(App::$config->get('smev'), $envelope, 'urn:SendRequest');
 
