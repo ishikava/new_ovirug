@@ -26,7 +26,10 @@ class Smev
     public function inn_request($request_data)
     {
 
-        $data = json_decode(utf8_encode($request_data), true, 512, JSON_UNESCAPED_UNICODE);
+        //todo
+        //Сделать валидацию данных в data !
+
+        $data = json_decode($request_data, true);
 
         $data['legal_entity']['ogrn'] = isset($data['legal_entity']['ogrn']) ? $data['legal_entity']['ogrn'] : 'ogrn';
         $data['legal_entity']['inn'] = isset($data['legal_entity']['inn']) ? $data['legal_entity']['inn'] : 'inn';
@@ -49,7 +52,11 @@ class Smev
 
         $envelope = App::$parser->generateSmevEnvelope('inn_request', $data);
 
+        //var_dump($envelope);die();
+
         $result = $this->sendToSmev(App::$config->get('smev'), $envelope, 'urn:SendRequest');
+
+        var_dump($result);die();
 
         $parser = new ParseXMLResponse();
 
@@ -72,7 +79,7 @@ class Smev
 
         $result = $this->sendToSmev(App::$config->get('smev'), $envelope, 'urn:SendRequest');
 
-        var_dump($result);die();
+        //var_dump($result);die();
 
         $parser = new ParseXMLResponse();
 
