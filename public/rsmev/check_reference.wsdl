@@ -3,15 +3,15 @@
              xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
              xmlns:tns="http://smev.gosuslugi.ru/rev120315"
              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-             xmlns:data="http://10.146.140.226/checkreference"
+             xmlns:data="check_reference"
              xmlns="http://schemas.xmlsoap.org/wsdl/"
              targetNamespace="http://smev.gosuslugi.ru/rev120315"
              name="CheckReferenceService" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://www.w3.org/2007/05/addressing/metadata ">
     <types>
         <xsd:schema targetNamespace="http://smev.gosuslugi.ru/rev120315" elementFormDefault="qualified">
-            <xsd:include schemaLocation="http://10.146.140.226/rsmev/check_reference_rev120315.xsd"/>
-            <xsd:import namespace="http://10.146.140.226/rsmev/check_reference" schemaLocation="http://10.146.140.226/rsmev/check_reference.xsd"/>
+            <xsd:include schemaLocation="check_reference_rev120315.xsd"/>
+            <xsd:import namespace="check_reference" schemaLocation="check_reference.xsd"/>
             <xsd:element name="getReferenceInfo" type="tns:StandardMessage"/>
             <xsd:element name="getReferenceInfoResponse" type="tns:StandardMessage"/>
             <xsd:complexType name="StandardMessage">
