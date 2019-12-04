@@ -30,7 +30,7 @@
     </wsdl:binding>
     <wsdl:service name="CouplingModuleService">
         <wsdl:port name="CouplingModuleServicePort" binding="tns:CouplingModuleHttpSoapDocumentBinding">
-            <soap:address location="http://10.146.140.226/address_slip"/>
+            <soap:address location="http://10.146.140.226/grpu/address_slip"/>
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>

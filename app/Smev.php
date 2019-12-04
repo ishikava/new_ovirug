@@ -56,7 +56,7 @@ class Smev
 
         $result = $this->sendToSmev(App::$config->get('smev'), $envelope, 'urn:SendRequest');
 
-        var_dump($result);die();
+        //var_dump($result);die();
 
         $parser = new ParseXMLResponse();
 

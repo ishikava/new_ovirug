@@ -108,7 +108,7 @@
   </wsdl:binding>
   <wsdl:service name="F9SyncService">
     <wsdl:port name="CustomBinding_IF9Service" binding="tns:CustomBinding_IF9Service">
-      <soap:address location="http://10.146.140.226/form_9"/>
+      <soap:address location="http://10.146.140.226/rsmev/form_9"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

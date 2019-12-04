@@ -2,22 +2,23 @@
 
   {"uri": "/api/login", "method": "post", "class": "Auth", "action": "login"},
 
-  {"uri": "/form_7", "method": "post", "action": "GetForm7", "soap_server": true},
-  {"uri": "/form_9", "method": "post", "action": "GetForm9", "soap_server": true},
-  {"uri": "/form_7async", "method": "post", "action": "GetForm7Async", "soap_server": true},
-  {"uri": "/form_9async", "method": "post", "action": "GetForm9Async", "soap_server": true},
-  {"uri": "/zddk", "method": "post", "action": "processCanonicalService", "soap_server": true},
-  {"uri": "/check_reference", "method": "post", "action": "getReferenceInfo", "soap_server": true},
-  {"uri": "/dn_sync", "method": "post", "action": "GetContract", "soap_server": true},
+  {"uri": "/rsmev/form_7", "method": "post", "action": "GetForm7", "soap_server": true},
+  {"uri": "/rsmev/form_9", "method": "post", "action": "GetForm9", "soap_server": true},
+  {"uri": "/rsmev/form_7async", "method": "post", "action": "GetForm7Async", "soap_server": true},
+  {"uri": "/rsmev/form_9async", "method": "post", "action": "GetForm9Async", "soap_server": true},
+  {"uri": "/rsmev/zddk", "method": "post", "action": "processCanonicalService", "soap_server": true},
+  {"uri": "/rsmev/check_reference", "method": "post", "action": "getReferenceInfo", "soap_server": true},
+  {"uri": "/rsmev/social_contracts", "method": "post", "action": "GetContract", "soap_server": true},
 
-  {"uri": "/rsmev/sendackrequest", "method": "post", "class": "Smev", "action": "ack", "auth": true},
+  {"uri": "/rsmev/sendackrequest", "method": "post", "class": "Smev", "action": "ack", "auth": false},
   {"uri": "/rsmev/inn/sendrequest", "method": "post", "class": "Smev", "action": "inn_request", "auth": false},
   {"uri": "/rsmev/snils/sendrequest", "method": "post", "class": "Smev", "action": "snils_request", "auth": false},
-  {"uri": "/rsmev/inn/getresult", "method": "get", "class": "Smev", "action": "inn_response", "auth": true},
-  {"uri": "/rsmev/snils/getresult", "method": "get", "class": "Smev", "action": "snils_response", "auth": true},
+  {"uri": "/rsmev/inn/getresult", "method": "get", "class": "Smev", "action": "inn_response", "auth": false},
+  {"uri": "/rsmev/snils/getresult", "method": "get", "class": "Smev", "action": "snils_response", "auth": false},
 
   {"uri": "/esun/pre_registration", "method": "post", "class": "Esun", "action": "pre_registration", "auth": false},
-  {"uri": "/address_slip", "method": "post", "class": "Soap", "action": "adress_slip", "soap_server": true},
+
+  {"uri": "/gpru/address_slip", "method": "post", "class": "Soap", "action": "adress_slip", "soap_server": true},
 
   {"uri": "/signer", "method": "get", "class": "Signer", "action": "form"},
   {"uri": "/signxml", "method": "post", "class": "Signer", "action": "signXML"},

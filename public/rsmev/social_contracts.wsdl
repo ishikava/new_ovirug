@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="ZDDK_Service" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://tempuri.org/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:i0="http://ec.minregion.ru/" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
-  <wsp:Policy wsu:Id="CustomBinding_IZDDK_Service_policy">
+<wsdl:definitions name="DN_Service" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://tempuri.org/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:i0="http://ec.minregion.ru/" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
+  <wsp:Policy wsu:Id="CustomBinding_IDN_Service_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:AsymmetricBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
@@ -54,7 +54,17 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="CustomBinding_IZDDK_Service_processCanonicalService_Input_policy">
+  <wsp:Policy wsu:Id="CustomBinding_IDN_Service_GetContract_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+          <sp:Body/>
+          <sp:Header Name="Header" Namespace="http://smev.gosuslugi.ru/rev120315"/>
+        </sp:SignedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="CustomBinding_IDN_Service_GetContract_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
@@ -63,36 +73,27 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="CustomBinding_IZDDK_Service_processCanonicalService_output_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
-          <sp:Body/>
-        </sp:SignedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
-  <wsdl:import namespace="http://ec.minregion.ru/" location="ZDDK_Service.wsdl"/>
+  <wsdl:import namespace="http://ec.minregion.ru/" location="DN_SyncService.wsdl"/>
   <wsdl:types/>
-  <wsdl:binding name="CustomBinding_IZDDK_Service" type="i0:IZDDK_Service">
-    <wsp:PolicyReference URI="#CustomBinding_IZDDK_Service_policy"/>
+  <wsdl:binding name="CustomBinding_IDN_Service" type="i0:IDN_Service">
+    <wsp:PolicyReference URI="#CustomBinding_IDN_Service_policy"/>
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="processCanonicalService">
-      <soap:operation soapAction="http://ec.minregion.ru/IZDDK_Service/processCanonicalService" style="document"/>
+    <wsdl:operation name="GetContract">
+      <soap:operation soapAction="http://ec.minregion.ru/IDN_Service/GetContract" style="document"/>
       <wsdl:input name="dkRequest">
-        <wsp:PolicyReference URI="#CustomBinding_IZDDK_Service_processCanonicalService_Input_policy"/>
+        <wsp:PolicyReference URI="#CustomBinding_IDN_Service_GetContract_Input_policy"/>
         <soap:header message="i0:dkRequest_Headers" part="Header" use="literal"/>
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="dkResponse">
-        <wsp:PolicyReference URI="#CustomBinding_IZDDK_Service_processCanonicalService_output_policy"/>
+        <wsp:PolicyReference URI="#CustomBinding_IDN_Service_GetContract_output_policy"/>
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  <wsdl:service name="ZDDK_Service">
-    <wsdl:port name="CustomBinding_IZDDK_Service" binding="tns:CustomBinding_IZDDK_Service">
-      <soap:address location="http://10.146.140.226/zddk"/>
+  <wsdl:service name="DN_Service">
+    <wsdl:port name="CustomBinding_IDN_Service" binding="tns:CustomBinding_IDN_Service">
+      <soap:address location="http://10.146.140.226/rsmev/social_contracts"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
