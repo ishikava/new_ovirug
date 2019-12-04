@@ -10,7 +10,7 @@
              xsi:schemaLocation="http://www.w3.org/2007/05/addressing/metadata ">
     <types>
         <xsd:schema targetNamespace="http://smev.gosuslugi.ru/rev120315" elementFormDefault="qualified">
-            <xsd:include schemaLocation="check_reference_rev120315.xsd"/>
+            <xsd:include schemaLocation="http://10.146.140.226/rsmev/check_reference_rev120315.xsd"/>
             <xsd:import namespace="http://10.146.140.226/rsmev/check_reference" schemaLocation="http://10.146.140.226/rsmev/check_reference.xsd"/>
             <xsd:element name="getReferenceInfo" type="tns:StandardMessage"/>
             <xsd:element name="getReferenceInfoResponse" type="tns:StandardMessage"/>
