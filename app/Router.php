@@ -18,7 +18,7 @@ class Router
         $this->method = strtolower($_SERVER['REQUEST_METHOD']);
         $this->routes = json_decode(file_get_contents(__DIR__ . '/../routes.json'), true);
 
-        self::$model = str_replace('/', '', $this->uri[0]);
+        self::$model = str_replace('/', '', $this->uri[1]);
     }
 
 }
