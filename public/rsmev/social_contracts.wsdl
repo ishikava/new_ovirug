@@ -73,7 +73,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsdl:import namespace="http://ec.minregion.ru/" location="DN_SyncService.wsdl"/>
+  <wsdl:import namespace="http://ec.minregion.ru/" location="social_contracts.wsdl"/>
   <wsdl:types/>
   <wsdl:binding name="CustomBinding_IDN_Service" type="i0:IDN_Service">
     <wsp:PolicyReference URI="#CustomBinding_IDN_Service_policy"/>
