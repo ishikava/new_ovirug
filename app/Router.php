@@ -20,7 +20,7 @@ class Router
 
         $url = explode('/', $this->uri[0]);
 
-        self::$model = $url[count($url-1)];
+        self::$model = $url[count($url)-1];
     }
 
 }
