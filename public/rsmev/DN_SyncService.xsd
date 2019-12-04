@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://ec.minregion.ru/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ec.minregion.ru/">
+  <xs:import schemaLocation="DN_SyncService_1.xsd" namespace="http://smev.gosuslugi.ru/rev120315"/>
+  <xs:element name="dkRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" ref="q1:Message" xmlns:q1="http://smev.gosuslugi.ru/rev120315"/>
+        <xs:element minOccurs="0" maxOccurs="1" ref="q2:MessageData" xmlns:q2="http://smev.gosuslugi.ru/rev120315"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dkResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" ref="q3:Message" xmlns:q3="http://smev.gosuslugi.ru/rev120315"/>
+        <xs:element minOccurs="0" maxOccurs="1" ref="q4:MessageData" xmlns:q4="http://smev.gosuslugi.ru/rev120315"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
