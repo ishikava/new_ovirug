@@ -86,7 +86,7 @@ class Smev
         if(isset($_GET['result'])){
 
             var_dump($result);die();
-            
+
         }
 
         $parser = new ParseXMLResponse();
