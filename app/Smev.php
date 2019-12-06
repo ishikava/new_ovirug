@@ -75,11 +75,19 @@ class Smev
 
         $envelope = App::$parser->generateSmevEnvelope('snils_request', $data);
 
-        //var_dump($envelope);die();
+        if(isset($_GET['envelope'])){
+
+            var_dump($envelope);die();
+
+        }
 
         $result = $this->sendToSmev(App::$config->get('smev'), $envelope, 'urn:SendRequest');
 
-        //var_dump($result);die();
+        if(isset($_GET['result'])){
+
+            var_dump($result);die();
+            
+        }
 
         $parser = new ParseXMLResponse();
 
