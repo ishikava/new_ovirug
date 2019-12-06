@@ -1,6 +1,6 @@
 #!/bin/bash
 echo '' > output.xml;
-echo -e '============================ GetForm9Async ============================\n' >> output.xml;
+echo -e '========================================================\n' >> output.xml;
 
 curl -H "SOAPAction: 'http://tempuri.org/ReferenceInfoService/getReferenceInfo'" -H "Content-Type: text/xml;charset=UTF-8" -X POST http://127.0.0.1/rsmev/check_reference >> output.xml -d '<?xml version="1.0" encoding="UTF-8"?>
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:rev="http://smev.gosuslugi.ru/rev120315" xmlns:chec="http://ovirug.dev/checkreference">
