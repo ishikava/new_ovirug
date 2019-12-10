@@ -14,23 +14,23 @@ $content = '<?xml version="1.0" encoding="UTF-8"?>
                 <ns2:MessagePrimaryContent>
                 
 <tns:SnilsByAdditionalDataRequest xmlns:tns="http://kvs.pfr.com/snils-by-additionalData/1.0.1" xmlns:smev="urn://x-artefacts-smev-gov-ru/supplementary/commons/1.0.1" xmlns:pfr="http://common.kvs.pfr.com/1.0.0">
-   <smev:FamilyName>'.$data['lastName'].'</smev:FamilyName>
-   <smev:FirstName>'.$data['firstName'].'</smev:FirstName>
-   <smev:Patronymic>'.$data['secondName'].'</smev:Patronymic>
-   <tns:BirthDate>'.$data['birthDay'].'</tns:BirthDate>
-   <tns:Gender>'.$data['gender'].'</tns:Gender>
+   <smev:FamilyName>'.$data['individual']['lastName'].'</smev:FamilyName>
+   <smev:FirstName>'.$data['individual']['firstName'].'</smev:FirstName>
+   <smev:Patronymic>'.$data['individual']['secondName'].'</smev:Patronymic>
+   <tns:BirthDate>'.$data['individual']['birthDay'].'</tns:BirthDate>
+   <tns:Gender>'.$data['individual']['gender'].'</tns:Gender>
    <tns:BirthPlace>
-      <pfr:PlaceType>'.$data['BirthPlace']['PlaceType'].'</pfr:PlaceType>
-      <pfr:Settlement>'.$data['BirthPlace']['Settlement'].'</pfr:Settlement>
-      <pfr:District>'.$data['BirthPlace']['District'].'</pfr:District>
-      <pfr:Region>'.$data['BirthPlace']['Region'].'</pfr:Region>
-      <pfr:Country>'.$data['BirthPlace']['Country'].'</pfr:Country>
+      <pfr:PlaceType>'.$data['individual']['BirthPlace']['PlaceType'].'</pfr:PlaceType>
+      <pfr:Settlement>'.$data['individual']['BirthPlace']['Settlement'].'</pfr:Settlement>
+      <pfr:District>'.$data['individual']['BirthPlace']['District'].'</pfr:District>
+      <pfr:Region>'.$data['individual']['BirthPlace']['Region'].'</pfr:Region>
+      <pfr:Country>'.$data['individual']['BirthPlace']['Country'].'</pfr:Country>
    </tns:BirthPlace>
    <smev:PassportRF>
-      <smev:Series>'.$data['document']['series'].'</smev:Series>
-      <smev:Number>'.$data['document']['number'].'</smev:Number>
-      <smev:IssueDate>'.$data['document']['date'].'</smev:IssueDate>
-      <smev:Issuer>'.$data['document']['issueName'].'</smev:Issuer>
+      <smev:Series>'.$data['individual']['document']['series'].'</smev:Series>
+      <smev:Number>'.$data['individual']['document']['number'].'</smev:Number>
+      <smev:IssueDate>'.$data['individual']['document']['date'].'</smev:IssueDate>
+      <smev:Issuer>'.$data['individual']['document']['issueName'].'</smev:Issuer>
    </smev:PassportRF>
 </tns:SnilsByAdditionalDataRequest>
 
