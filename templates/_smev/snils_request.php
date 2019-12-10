@@ -14,23 +14,23 @@ $content = '<?xml version="1.0" encoding="UTF-8"?>
                 <ns2:MessagePrimaryContent>
                 
 <tns:SnilsByAdditionalDataRequest xmlns:tns="http://kvs.pfr.com/snils-by-additionalData/1.0.1" xmlns:smev="urn://x-artefacts-smev-gov-ru/supplementary/commons/1.0.1" xmlns:pfr="http://common.kvs.pfr.com/1.0.0">
-   <smev:FamilyName>ИВАНОВ</smev:FamilyName>
-   <smev:FirstName>ИВАН</smev:FirstName>
-   <smev:Patronymic>ИВАНОВИЧ</smev:Patronymic>
-   <tns:BirthDate>1967-05-21</tns:BirthDate>
-   <tns:Gender>Male</tns:Gender>
+   <smev:FamilyName>'.$data['lastName'].'</smev:FamilyName>
+   <smev:FirstName>'.$data['firstName'].'</smev:FirstName>
+   <smev:Patronymic>'.$data['secondName'].'</smev:Patronymic>
+   <tns:BirthDate>'.$data['birthDay'].'</tns:BirthDate>
+   <tns:Gender>'.$data['gender'].'</tns:Gender>
    <tns:BirthPlace>
-      <pfr:PlaceType>ОСОБОЕ</pfr:PlaceType>
-      <pfr:Settlement>ЗАГОРСК</pfr:Settlement>
-      <pfr:District>ЛЕНИНСКИЙ</pfr:District>
-      <pfr:Region>МОСКОВСКАЯ ОБЛАСТЬ</pfr:Region>
-      <pfr:Country>РФ</pfr:Country>
+      <pfr:PlaceType>'.$data['BirthPlace']['PlaceType'].'</pfr:PlaceType>
+      <pfr:Settlement>'.$data['BirthPlace']['Settlement'].'</pfr:Settlement>
+      <pfr:District>'.$data['BirthPlace']['District'].'</pfr:District>
+      <pfr:Region>'.$data['BirthPlace']['Region'].'</pfr:Region>
+      <pfr:Country>'.$data['BirthPlace']['Country'].'</pfr:Country>
    </tns:BirthPlace>
    <smev:PassportRF>
-      <smev:Series>0005</smev:Series>
-      <smev:Number>777777</smev:Number>
-      <smev:IssueDate>1986-06-13</smev:IssueDate>
-      <smev:Issuer>ОВД</smev:Issuer>
+      <smev:Series>'.$data['document']['series'].'</smev:Series>
+      <smev:Number>'.$data['document']['number'].'</smev:Number>
+      <smev:IssueDate>'.$data['document']['date'].'</smev:IssueDate>
+      <smev:Issuer>'.$data['document']['issueName'].'</smev:Issuer>
    </smev:PassportRF>
 </tns:SnilsByAdditionalDataRequest>
 
