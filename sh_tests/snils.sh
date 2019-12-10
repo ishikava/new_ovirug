@@ -2,23 +2,25 @@
 echo '' > output.xml;
 echo -e '========================================================\n' >> output.xml;
 
-curl -X POST http://127.0.0.1/rsmev/snils/sendrequest >> output.xml -d '{
-  "FamilyName": "ИВАНОВ",
-  "FirstName": "ИВАН",
-  "Patronymic": "ИВАНОВИЧ",
-  "BirthDate": "1967-05-21",
-  "Gender": "Male",
-  "BirthPlace": {
-    "PlaceType": "ОСОБОЕ",
-    "Settlement": "ЗАГОРСК",
-    "District": "ЛЕНИНСКИЙ",
-    "Region": "МОСКОВСКАЯ ОБЛАСТЬ",
-    "Country": "РФ"
-  },
-  "PassportRF": {
-    "Series": "0005",
-    "Number": "777777",
-    "IssueDate": "1986-06-13",
-    "Issuer": "ОВД"
-  }
-}' ;
+curl -X POST http://127.0.0.1/rsmev/snils/sendrequest?envelope >> output.xml -d '{
+                                                                          "birthDay":"1964-01-04",
+                                                                          "gender":"Male",
+                                                                          "BirthPlace":
+                                                                          {
+                                                                            "PlaceType":"ОСОБОЕ",
+                                                                            "Settlement":"",
+                                                                            "District":"",
+                                                                            "Region":"Ленинград",
+                                                                            "Country":"Россия"
+                                                                          },
+                                                                          "firstName":"Виктор",
+                                                                          "lastName":"Апраксин",
+                                                                          "secondName":"Игоревич",
+                                                                          "document":
+                                                                          {
+                                                                            "series":"4015",
+                                                                            "number":"339667",
+                                                                            "date":"2015-08-28",
+                                                                            "issueName":"Тп N139 Оуфмс России По Спб И Ло В Центральном Р-Не Спб"
+                                                                          }
+                                                                        }' ;
