@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+    <SOAP-ENV:Header/>
+    <SOAP-ENV:Body>
+        <ns2:SendRequestResponse xmlns:ns2="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/1.1"
+                                 xmlns:ns3="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/basic/1.1"
+                                 xmlns:ns4="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/faults/1.1">
+            <ns2:MessageMetadata Id="SIGNED_BY_SMEV">
+                <ns2:MessageId>c381072a-1b1e-11ea-a73b-005056bb982b</ns2:MessageId>
+                <ns2:MessageType>REQUEST</ns2:MessageType>
+                <ns2:Sender>
+                    <ns2:Mnemonic>780002</ns2:Mnemonic>
+                    <ns2:HumanReadableName>СМЭВ СПБ - Агрегатор</ns2:HumanReadableName>
+                </ns2:Sender>
+                <ns2:SendingTimestamp>2019-12-10T10:28:47.000+03:00</ns2:SendingTimestamp>
+                <ns2:DestinationName>unknown</ns2:DestinationName>
+                <ns2:Recipient>
+                    <ns2:Mnemonic>PFR001</ns2:Mnemonic>
+                    <ns2:HumanReadableName>КВС</ns2:HumanReadableName>
+                </ns2:Recipient>
+                <ns2:SupplementaryData>
+                    <ns2:DetectedContentTypeName>not detected</ns2:DetectedContentTypeName>
+                    <ns2:InteractionType>NotDetected</ns2:InteractionType>
+                </ns2:SupplementaryData>
+                <ns2:Status>requestIsQueued</ns2:Status>
+            </ns2:MessageMetadata>
+            <ns2:SMEVSignature>
+                <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+                              xmlns="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/basic/1.1"
+                              xmlns:ns3="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/faults/1.1">
+                    <ds:SignedInfo>
+                        <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                        <ds:SignatureMethod
+                                Algorithm="urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34102012-gostr34112012-256"/>
+                        <ds:Reference URI="#SIGNED_BY_SMEV">
+                            <ds:Transforms>
+                                <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                                <ds:Transform Algorithm="urn://smev-gov-ru/xmldsig/transform"/>
+                            </ds:Transforms>
+                            <ds:DigestMethod Algorithm="urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34112012-256"/>
+                            <ds:DigestValue>v3GSsM1wd76fcL6HVjTBaawgWgnBz8omB0eLcwDfGlc=</ds:DigestValue>
+                        </ds:Reference>
+                    </ds:SignedInfo>
+                    <ds:SignatureValue>
+                        YCeoaCLw7WAnzZseFr06qJnKNVb6i1xcE0IIYXEucmaqtLvqT+nA07adxUl2QKtt84ZPJGfDXduyicvX07+QMA==
+                    </ds:SignatureValue>
+                    <ds:KeyInfo>
+                        <ds:X509Data>
+                            <ds:X509Certificate>
+                                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
+                            </ds:X509Certificate>
+                        </ds:X509Data>
+                    </ds:KeyInfo>
+                </ds:Signature>
+            </ns2:SMEVSignature>
+        </ns2:SendRequestResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
