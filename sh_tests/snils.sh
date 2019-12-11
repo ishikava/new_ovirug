@@ -11,25 +11,26 @@ curl -X POST http://127.0.0.1/rsmev/snils/sendrequest?envelope >> output.xml -d 
                                                                                    },
                                                                                    "individual":
                                                                                    {
-                                                                                     "birthDay":"1964-01-04",
+                                                                                     "birthDay":"2001-05-19",
                                                                                      "gender":"Male",
                                                                                      "BirthPlace":
                                                                                      {
-                                                                                       "PlaceType":"ОСОБОЕ",
+                                                                                       "PlaceType":"СТАНДАРТНОЕ",
                                                                                        "Settlement":"",
                                                                                        "District":"",
-                                                                                       "Region":"Ленинград",
+                                                                                       "Region":"Санкт-Петербург",
                                                                                        "Country":"Россия"
                                                                                      },
-                                                                                     "firstName":"Виктор",
+                                                                                     "firstName":"Иван",
                                                                                      "lastName":"Апраксин",
-                                                                                     "secondName":"Игоревич",
+                                                                                     "secondName":"Викторович",
                                                                                      "document":
                                                                                      {
-                                                                                       "series":"4015",
-                                                                                       "number":"339667",
-                                                                                       "date":"2015-08-28",
-                                                                                       "issueName":"Тп N139 Оуфмс России По Спб И Ло В Центральном Р-Не Спб"
+                                                                                       "type":"BirthCertificate",
+                                                                                       "series":"I-АК",
+                                                                                       "number":"607231",
+                                                                                       "date":"2001-09-13",
+                                                                                       "issueName":"О/ЗАГС Выборгск.р-на Комитета по делам ЗАГС Правит.СПБ"
                                                                                      }
                                                                                    }
                                                                                  }' ;
