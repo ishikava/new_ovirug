@@ -2,7 +2,7 @@
 echo '' > output.xml;
 echo -e '========================================================\n' >> output.xml;
 
-curl -X POST http://127.0.0.1/rsmev/inn/sendrequest?envelope >> output.xml -d '{
+curl -X POST http://127.0.0.1/rsmev/inn/sendrequest?result >> output.xml -d '{
                                                                                   "legal_entity":{
                                                                                      "ogrn":"1037843048880",
                                                                                      "inn":"7825497650",

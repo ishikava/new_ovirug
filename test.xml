@@ -2,45 +2,28 @@
 <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"
             xmlns:ns="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/1.1"
             xmlns:ns2="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/basic/1.1"
-            xmlns:ns3="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/faults/1.1"
             xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
     <s:Body>
-        <ns:SendRequestRequest>
-            <ns:SenderProvidedRequestData Id="SIGNED_BY_CONSUMER" wsu:Id="SIGNED_BY_CONSUMER">
-                <ns:MessageID>d44dc848-1d8c-11ea-89ae-005056bb982b</ns:MessageID>
-                <ns2:MessagePrimaryContent
-                        xmlns:ns2="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/basic/1.1">
-                    <rq:FNSINNSingularRequest xmlns:rq="urn://x-artefacts-fns-inn-singular/root/270-18/4.0.1"
-                                              ИдЗапрос="d44dc848-1d8c-11ea-89ae-005056bb982b">
-                        <rq:СведЮЛ ОГРН="1037843048880" ИННЮЛ="7825497650" НаимОрг="Нагрузочное тестирование"/>
-                        <rq:СведФЛ ДатаРожд="1954-07-12"
-                                   МестоРожд="РОССИЯ,,ГОРЬКОВСКАЯ ОБЛ.,АРЗАМАССКИЙ Р-Н,,НИКОЛЬСКОЕ С., ,,,">
-                            <com:ФИО xmlns:com="urn://x-artefacts-fns-inn/commons/4.0.0" Имя="ПЕТР" Фамилия="ЧАХЛОВ"
-                                     Отчество="АЛЕКСЕЕВИЧ"/>
-                            <com:УдЛичнФЛ xmlns:com="urn://x-artefacts-fns-inn/commons/4.0.0" КодВидДок="21"
-                                          СерНомДок="22 02 919928" ДатаДок="2002-11-16" ВыдДок="АРОВД"
-                                          КодВыдДок="issueCode"/>
-                        </rq:СведФЛ>
-                    </rq:FNSINNSingularRequest>
-                </ns2:MessagePrimaryContent>
-                <ns:TestMessage/>
-            </ns:SenderProvidedRequestData>
+        <ns:AckRequest>
+            <ns2:AckTargetMessage Id="SIGNED_BY_CALLER" wsu:Id="SIGNED_BY_CALLER" accepted="true">
+                36db49ea-9585-11e8-8c3f-fa163e24a722
+            </ns2:AckTargetMessage>
             <ns:CallerInformationSystemSignature>
                 <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
                     <ds:SignedInfo>
                         <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
                         <ds:SignatureMethod
                                 Algorithm="urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34102012-gostr34112012-256"/>
-                        <ds:Reference URI="#SIGNED_BY_CONSUMER">
+                        <ds:Reference URI="#SIGNED_BY_CALLER">
                             <ds:Transforms>
                                 <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
                             </ds:Transforms>
                             <ds:DigestMethod Algorithm="urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34112012-256"/>
-                            <ds:DigestValue>V8XNitS3N95nmTQEMSOxEJf61EcjeivqvHkhi5zMteA=</ds:DigestValue>
+                            <ds:DigestValue>Y3ukPs41x5HvOccRkN1TQbfnjP1PF2jVV9iShObjk8I=</ds:DigestValue>
                         </ds:Reference>
                     </ds:SignedInfo>
-                    <ds:SignatureValue>kT/zG3cQenBn/FLJyr9W1O9RRFZDvFtobu9eGt070CpyrRZe3DvHpZKt7J0F/NMC
-                        T2778YzdhhtvWn7WcT3X9g==
+                    <ds:SignatureValue>R9x86D7BmJqTnwP9OqSvD1QKCg7KH8EVWDu1eCml5WuEDe/ISPEO2bKYsbpXoIPB
+                        vpb9hJp6QFq4qpcwGdJ8Gw==
                     </ds:SignatureValue>
                     <ds:KeyInfo>
                         <ds:X509Data>
@@ -103,6 +86,6 @@
                     </ds:KeyInfo>
                 </ds:Signature>
             </ns:CallerInformationSystemSignature>
-        </ns:SendRequestRequest>
+        </ns:AckRequest>
     </s:Body>
 </s:Envelope>
