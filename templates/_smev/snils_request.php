@@ -26,12 +26,12 @@ $content = '<?xml version="1.0" encoding="UTF-8"?>
       <pfr:Region>'.$data['individual']['BirthPlace']['Region'].'</pfr:Region>
       <pfr:Country>'.$data['individual']['BirthPlace']['Country'].'</pfr:Country>
    </tns:BirthPlace>
-   <smev:BirthCertificate>
+   <smev:'.$data['individual']['document']['type'].'>
       <smev:Series>'.$data['individual']['document']['series'].'</smev:Series>
       <smev:Number>'.$data['individual']['document']['number'].'</smev:Number>
       <smev:IssueDate>'.$data['individual']['document']['date'].'</smev:IssueDate>
       <smev:Issuer>'.$data['individual']['document']['issueName'].'</smev:Issuer>
-   </smev:BirthCertificate>
+   </smev:'.$data['individual']['document']['type'].'>
 </tns:SnilsByAdditionalDataRequest>
 
                 </ns2:MessagePrimaryContent>
