@@ -13,8 +13,9 @@ class CryptoPro
     public function __construct()
     {
         if (!$this->certificate) {
-            $this->certificate = $this->SetupCertificate(CURRENT_USER_STORE, "My", STORE_OPEN_READ_ONLY,
-               App::$config->get('dn'), 0, 1);
+            $this->certificate = $this->SetupCertificate(CURRENT_USER_STORE,
+              "My", STORE_OPEN_READ_ONLY, CERTIFICATE_FIND_SHA1_HASH,
+              App::$config->get('sha1_hash'), 0, 1);
         }
 
         if (!$this->certificate) {
@@ -65,8 +66,9 @@ class CryptoPro
     public function signExec($file)
     {
 
-        exec('cd ../tmp;    /opt/cprocsp/bin/amd64/cryptcp -sign -thumbprint ' . App::$config->get('dn') . ' ' . $file, $out,
-            $err);
+        exec('cd ../tmp;    /opt/cprocsp/bin/amd64/cryptcp -sign -thumbprint '
+          . App::$config->get('sha1_hash') . ' ' . $file, $out,
+          $err);
 
         if ($err !== 0) {
             App::$log->log('error', 'CryptoPro Не удалось подписать файл');
@@ -83,22 +85,24 @@ class CryptoPro
         $name = Uuid::uuid1()->toString();
 
         if ($type == 'pdf') {
-            file_put_contents('../tmp/' . $name . '.' . $type, base64_decode($file));
+            file_put_contents('../tmp/' . $name . '.' . $type,
+              base64_decode($file));
         } else {
             file_put_contents('../tmp/' . $name . '.' . $type, $file);
         }
 
         $this->signExec('../tmp/' . $name . '.' . $type);
 
-        $zip = new ZipArchive();
+        $zip     = new ZipArchive();
         $zipName = '../tmp/' . $name . '.zip';
 
         $zip->open($zipName, ZipArchive::CREATE);
         $zip->addFile('../tmp/' . $name . '.' . $type, 'File.' . $type);
-        $zip->addFile('../tmp/' . $name . '.' . $type . '.sig', 'File.' . $type . '.sig');
+        $zip->addFile('../tmp/' . $name . '.' . $type . '.sig',
+          'File.' . $type . '.sig');
         $zip->close();
 
-        $zipData = file_get_contents($zipName);
+        $zipData   = file_get_contents($zipName);
         $signedZip = base64_encode($zipData);
 
         if (file_exists($zipName)) {
@@ -149,10 +153,17 @@ class CryptoPro
         return $certs;
     }
 
-    private function SetupCertificate($location, $name, $mode, $query, $valid_only, $number)
-    {
+    private function SetupCertificate(
+      $location,
+      $name,
+      $mode,
+      $find_type,
+      $query,
+      $valid_only,
+      $number
+    ) {
         $certs = $this->SetupCertificates($location, $name, $mode);
-        $certs = $certs->Find(CERTIFICATE_FIND_SHA1_HASH, $query, $valid_only);
+        $certs = $certs->Find($find_type, $query, $valid_only);
         return $certs->Item($number);
     }
 
