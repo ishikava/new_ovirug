@@ -149,7 +149,7 @@ class CryptoPro
         return $certs;
     }
 
-    private function SetupCertificate($location, $name, $mode, $find_type, $query, $valid_only, $number)
+    private function SetupCertificate($location, $name, $mode, $query, $valid_only, $number)
     {
         $certs = $this->SetupCertificates($location, $name, $mode);
         $certs = $certs->Find(CERTIFICATE_FIND_SHA1_HASH, $query, $valid_only);
