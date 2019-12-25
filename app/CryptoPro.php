@@ -14,7 +14,7 @@ class CryptoPro
     {
         if (!$this->certificate) {
             $this->certificate = $this->SetupCertificate(CURRENT_USER_STORE, "My", STORE_OPEN_READ_ONLY,
-                CERTIFICATE_FIND_SUBJECT_NAME, App::$config->get('dn'), 0, 1);
+              CERTIFICATE_FIND_SHA1_HASH, App::$config->get('dn'), 0, 1);
         }
 
         if (!$this->certificate) {
@@ -65,7 +65,7 @@ class CryptoPro
     public function signExec($file)
     {
 
-        exec('cd ../tmp;    /opt/cprocsp/bin/amd64/cryptcp -sign -dn="' . App::$config->get('dn') . '" ' . $file, $out,
+        exec('cd ../tmp;    /opt/cprocsp/bin/amd64/cryptcp -sign -thumbprint ' . App::$config->get('dn') . ' ' . $file, $out,
             $err);
 
         if ($err !== 0) {
