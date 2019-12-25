@@ -14,7 +14,7 @@ class CryptoPro
     {
         if (!$this->certificate) {
             $this->certificate = $this->SetupCertificate(CURRENT_USER_STORE, "My", STORE_OPEN_READ_ONLY,
-              CERTIFICATE_FIND_SHA1_HASH, App::$config->get('dn'), 0, 1);
+               App::$config->get('dn'), 0, 1);
         }
 
         if (!$this->certificate) {
@@ -152,13 +152,8 @@ class CryptoPro
     private function SetupCertificate($location, $name, $mode, $find_type, $query, $valid_only, $number)
     {
         $certs = $this->SetupCertificates($location, $name, $mode);
-        if ($find_type != null) {
-            $certs = $certs->Find($find_type, $query, $valid_only);
-            return $certs->Item($number);
-        } else {
-            $cert = $certs->Item($number);
-            return $cert;
-        }
+        $certs = $certs->Find(CERTIFICATE_FIND_SHA1_HASH, $query, $valid_only);
+        return $certs->Item($number);
     }
 
 }
