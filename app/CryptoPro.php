@@ -136,7 +136,7 @@ class CryptoPro
 
     public function getCertificate()
     {
-        return $this->certificate->Export(0);
+        return $this->certificate->Export(App::$config->get('cert_num'));
     }
 
     private function SetupStore($location, $name, $mode)
