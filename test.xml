@@ -1,11 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
-    <soapenv:Header/>
-    <soapenv:Body>
-        <soapenv:Fault>
-            <faultcode xmlns:nsIDc08="http://schemas.xmlsoap.org/soap/envelope/">nsIDc08:UnknownRequestOwnerException
-            </faultcode>
-            <faultstring>Не удалось определить запрашивающую информационную систему (или пользователя)</faultstring>
-        </soapenv:Fault>
-    </soapenv:Body>
-</soapenv:Envelope>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+    <SOAP-ENV:Header/>
+    <SOAP-ENV:Body>
+        <SOAP-ENV:Fault>
+            <faultcode>SOAP-ENV:Server</faultcode>
+            <faultstring xml:lang="en">Информационная система не зарегистрирована в СМЭВ СПб</faultstring>
+            <detail>
+                <ns3:SenderIsNotRegistered
+                        xmlns:ns3="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/faults/1.1"
+                        xmlns:ns2="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/basic/1.1"
+                        xmlns:ns4="urn://x-artefacts-smev-gov-ru/services/message-exchange/types/1.1"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </detail>
+        </SOAP-ENV:Fault>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
