@@ -15,7 +15,7 @@ class CryptoPro
         if (!$this->certificate) {
             $this->certificate = $this->SetupCertificate(CURRENT_USER_STORE,
               "My", STORE_OPEN_READ_ONLY, CERTIFICATE_FIND_SHA1_HASH,
-              App::$config->get('sha1_hash'), 0, 1);
+              App::$config->get('cert_sha1_hash'), 0, 1);
         }
 
         if (!$this->certificate) {
@@ -67,7 +67,7 @@ class CryptoPro
     {
 
         exec('cd ../tmp;    /opt/cprocsp/bin/amd64/cryptcp -sign -thumbprint '
-          . App::$config->get('sha1_hash') . ' ' . $file, $out,
+          . App::$config->get('cert_sha1_hash') . ' ' . $file, $out,
           $err);
 
         if ($err !== 0) {
