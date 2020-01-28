@@ -16,17 +16,17 @@ class Smev
 
         $envelope = App::$parser->generateSmevEnvelope('ack',  $data['messageId']);
 
-        if(isset($_GET['envelope'])){
+        if(App::$config->get('smev_show_envelope')){
 
-            var_dump($envelope);die();
+            var_dump($envelope);
 
         }
 
         $result = $this->sendToSmev(App::$config->get('smev'), $envelope, 'urn:Ack');
 
-        if(isset($_GET['result'])){
+        if(App::$config->get('smev_show_result')){
 
-            var_dump($result);die();
+            var_dump($result);
 
         }
 
@@ -64,17 +64,17 @@ class Smev
 
         $envelope = App::$parser->generateSmevEnvelope('inn_request', $data);
 
-        if(isset($_GET['envelope'])){
+        if(App::$config->get('smev_show_envelope')){
 
-            var_dump($envelope);die();
+            var_dump($envelope);
 
         }
 
         $result = $this->sendToSmev(App::$config->get('smev'), $envelope, 'urn:SendRequest');
 
-        if(isset($_GET['result'])){
+        if(App::$config->get('smev_show_result')){
 
-            var_dump($result);die();
+            var_dump($result);
 
         }
 
@@ -95,17 +95,17 @@ class Smev
 
         $envelope = App::$parser->generateSmevEnvelope('snils_request', $data);
 
-        if(isset($_GET['envelope'])){
+        if(App::$config->get('smev_show_envelope')){
 
-            var_dump($envelope);die();
+            var_dump($envelope);
 
         }
 
         $result = $this->sendToSmev(App::$config->get('smev'), $envelope, 'urn:SendRequest');
 
-        if(isset($_GET['result'])){
+        if(App::$config->get('smev_show_result')){
 
-            var_dump($result);die();
+            var_dump($result);
 
         }
 
@@ -120,17 +120,17 @@ class Smev
 
         $envelope = App::$parser->generateSmevEnvelope('inn_response', null);
 
-        if(isset($_GET['envelope'])){
+        if(App::$config->get('smev_show_envelope')){
 
-            var_dump($envelope);die();
+            var_dump($envelope);
 
         }
 
         $result = $this->sendToSmev(App::$config->get('smev'), $envelope, 'urn:GetResponse');
 
-        if(isset($_GET['result'])){
+        if(App::$config->get('smev_show_result')){
 
-            var_dump($result);die();
+            var_dump($result);
 
         }
 
@@ -145,17 +145,17 @@ class Smev
 
         $envelope = App::$parser->generateSmevEnvelope('snils_response', null);
 
-        if(isset($_GET['envelope'])){
+        if(App::$config->get('smev_show_envelope')){
 
-            var_dump($envelope);die();
+            var_dump($envelope);
 
         }
 
         $result = $this->sendToSmev(App::$config->get('smev'), $envelope, 'urn:GetResponse');
 
-        if(isset($_GET['result'])){
+        if(App::$config->get('smev_show_result')){
 
-            var_dump($result);die();
+            var_dump($result);
 
         }
 
