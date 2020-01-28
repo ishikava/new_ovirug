@@ -17,6 +17,9 @@ class Logger
             case 'error':
                 if(App::$config->get('log_error')) $this->write('error', $code);
                 break;
+            case 'debug':
+                if(App::$config->get('log_debug')) $this->write('debug', $code);
+                break;
             case 'unauthorized':
                 if(App::$config->get('log_unauthorized')) $this->write('unauthorized', $code);
                 break;

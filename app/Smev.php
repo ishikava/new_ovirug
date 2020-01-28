@@ -18,15 +18,15 @@ class Smev
 
         if(App::$config->get('smev_show_envelope')){
 
-            var_dump($envelope);
-
+            App::$log->log('debug', $envelope);
+            
         }
 
         $result = $this->sendToSmev(App::$config->get('smev'), $envelope, 'urn:Ack');
 
         if(App::$config->get('smev_show_result')){
 
-            var_dump($result);
+            App::$log->log('debug', $result);
 
         }
 
@@ -66,7 +66,7 @@ class Smev
 
         if(App::$config->get('smev_show_envelope')){
 
-            var_dump($envelope);
+            App::$log->log('debug', $envelope);
 
         }
 
@@ -74,7 +74,7 @@ class Smev
 
         if(App::$config->get('smev_show_result')){
 
-            var_dump($result);
+            App::$log->log('debug', $result);
 
         }
 
@@ -97,7 +97,7 @@ class Smev
 
         if(App::$config->get('smev_show_envelope')){
 
-            var_dump($envelope);
+            App::$log->log('debug', $envelope);
 
         }
 
@@ -105,7 +105,7 @@ class Smev
 
         if(App::$config->get('smev_show_result')){
 
-            var_dump($result);
+            App::$log->log('debug', $result);
 
         }
 
@@ -122,7 +122,7 @@ class Smev
 
         if(App::$config->get('smev_show_envelope')){
 
-            var_dump($envelope);
+            App::$log->log('debug', $envelope);
 
         }
 
@@ -130,7 +130,7 @@ class Smev
 
         if(App::$config->get('smev_show_result')){
 
-            var_dump($result);
+            App::$log->log('debug', $result);
 
         }
 
@@ -147,7 +147,7 @@ class Smev
 
         if(App::$config->get('smev_show_envelope')){
 
-            var_dump($envelope);
+            App::$log->log('debug', $envelope);
 
         }
 
@@ -155,7 +155,7 @@ class Smev
 
         if(App::$config->get('smev_show_result')){
 
-            var_dump($result);
+            App::$log->log('debug', $result);
 
         }
 
