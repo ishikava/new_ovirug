@@ -74,11 +74,11 @@ NDfm6UYeYUi4ujE6WFNyUrdK7rgZ9g==</wsse:BinarySecurityToken>
                             <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
                         </Transforms>
                         <DigestMethod Algorithm="urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34112012-256"/>
-                        <DigestValue>jhhX5rdajJyDvlM2+DGBmt3RJQugjbd3MCKuDo6NPao=</DigestValue>
+                        <DigestValue>7M0qicxajJr5Yo4JAR7jlBLWkV4Pt0wwAeK1s6YhEVI=</DigestValue>
                     </Reference>
                 </SignedInfo>
-                <SignatureValue>w+KdEobG4Xat0N7xpIgianTJOrkjbo8rHgXKHGkuCMKZG/4mZ0DCzbpJdyC/gy1o
-R/ueUSPBiHDaey0CnvKe1A==</SignatureValue>
+                <SignatureValue>JWXStR5cSrxjb5+MGTV1W/fXrE8cT42+EpnIuxLYzycUkafg9rMNhEndvjJYNTfW
+rk3/htYJcRsv8Kxsg5nAlg==</SignatureValue>
                 <KeyInfo>
                     <wsse:SecurityTokenReference>
                         <wsse:Reference URI="#SenderCertificate" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"/>
@@ -91,7 +91,7 @@ R/ueUSPBiHDaey0CnvKe1A==</SignatureValue>
     
 <GetForm7AsyncResponse xmlns="http://tempuri.org/">
     <GetForm7AsyncResult xmlns:d4p1="http://schemas.datacontract.org/2004/07/GetForm7ASync">
-        <d4p1:ID>924</d4p1:ID>
+        <d4p1:ID>1057</d4p1:ID>
         <d4p1:Fault>
             <d4p1:Code>2</d4p1:Code>
             <d4p1:Name>В очереди на обработку</d4p1:Name>
