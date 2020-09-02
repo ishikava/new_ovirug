@@ -55,7 +55,7 @@ class App
             exit;
         }
 
-        if (self::$router->routes[$route]['soap_server']) {
+        if (array_key_exists('soap_server', self::$router->routes[$route]) && self::$router->routes[$route]['soap_server']) {
             //работаем как SOAP сервер
             $server = new \SoapServer('.'.self::$router->routes[$route]['uri'] . '.wsdl',
                 array('soap_version' => SOAP_1_1, 'cache_wsdl' => WSDL_CACHE_NONE));
