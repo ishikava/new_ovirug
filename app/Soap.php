@@ -159,7 +159,7 @@ class Soap
                 "last_name" => (string)$request_data->MessageData->AppData->Request->last_name,
                 "first_name" => (string)$request_data->MessageData->AppData->Request->first_name,
                 "second_name" => (string)$request_data->MessageData->AppData->Request->second_name,
-                "street_code" => intval($request_data->MessageData->AppData->Request->street_code+1),
+                "street_code" => intval($request_data->MessageData->AppData->Request->street_code),
                 "street_name" => (string)$request_data->MessageData->AppData->Request->street_name,
                 "personal_account" => intval($request_data->MessageData->AppData->Request->personal_account),
                 "house" => intval($request_data->MessageData->AppData->Request->house),
