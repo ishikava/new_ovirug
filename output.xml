@@ -2,7 +2,7 @@
 ========================================================
 
 <?xml version="1.0" encoding="UTF-8"?>
-<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd ">
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="http://smev.gosuslugi.ru/rev120315" xmlns:ns2="http://ovirugservice.ru/rsmev/debts" xsi:schemaLocation="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
     <s:Header>
         <wsse:Security s:actor="http://smev.gosuslugi.ru/actors/smev">
             <wsse:BinarySecurityToken EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3" wsu:Id="SenderCertificate">MIILIjCCCs+gAwIBAgIQNYjaACirQYFINaS7OVhMXTAKBggqhQMHAQEDAjCCAYgx
@@ -74,11 +74,11 @@ NDfm6UYeYUi4ujE6WFNyUrdK7rgZ9g==</wsse:BinarySecurityToken>
                             <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
                         </Transforms>
                         <DigestMethod Algorithm="urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34112012-256"/>
-                        <DigestValue>7M0qicxajJr5Yo4JAR7jlBLWkV4Pt0wwAeK1s6YhEVI=</DigestValue>
+                        <DigestValue>WQytYK/RWVQHunqgYXbwJsPhI/SXUWkOms8JnmB2S8U=</DigestValue>
                     </Reference>
                 </SignedInfo>
-                <SignatureValue>JWXStR5cSrxjb5+MGTV1W/fXrE8cT42+EpnIuxLYzycUkafg9rMNhEndvjJYNTfW
-rk3/htYJcRsv8Kxsg5nAlg==</SignatureValue>
+                <SignatureValue>bteZM1HsscyUUPa4JwpnOtTYdAZ9v0Y21uvxWKOS91zhSa5I1t1T2WbFNEEz7yqm
+WQsWvHC65pKTd+Uv2mXGTw==</SignatureValue>
                 <KeyInfo>
                     <wsse:SecurityTokenReference>
                         <wsse:Reference URI="#SenderCertificate" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"/>
@@ -88,15 +88,36 @@ rk3/htYJcRsv8Kxsg5nAlg==</SignatureValue>
         </wsse:Security>
     </s:Header>
     <s:Body wsu:Id="body">
-    
-<GetForm7AsyncResponse xmlns="http://tempuri.org/">
-    <GetForm7AsyncResult xmlns:d4p1="http://schemas.datacontract.org/2004/07/GetForm7ASync">
-        <d4p1:ID>1057</d4p1:ID>
-        <d4p1:Fault>
-            <d4p1:Code>2</d4p1:Code>
-            <d4p1:Name>В очереди на обработку</d4p1:Name>
-        </d4p1:Fault>
-    </GetForm7AsyncResult>
-</GetForm7AsyncResponse>
+    <ns1:getReferenceInfoResponse>
+         <ns1:Message>
+            <ns1:Sender>
+               <ns1:Code>IAC</ns1:Code>
+               <ns1:Name>IAC</ns1:Name>
+            </ns1:Sender>
+            <ns1:Recipient>
+               <ns1:Code>KIS001781</ns1:Code>
+               <ns1:Name>КИС СПб</ns1:Name>
+            </ns1:Recipient>
+            <ns1:Originator>
+               <ns1:Code>KIS001781</ns1:Code>
+               <ns1:Name>КИС СПб</ns1:Name>
+            </ns1:Originator>
+            <ns1:Service>
+               <ns1:Mnemonic>Check reference</ns1:Mnemonic>
+               <ns1:Version>1.0</ns1:Version>
+            </ns1:Service>
+            <ns1:TypeCode>GSRV</ns1:TypeCode>
+            <ns1:Status>RESULT</ns1:Status>
+            <ns1:Date>2020-09-02T15:04:46.0000+03:00</ns1:Date>
+            <ns1:ExchangeType>2</ns1:ExchangeType>
+         </ns1:Message>
+         <ns1:MessageData>
+            <ns1:AppData><ns2:Result>
+                  <ns2:code>6</ns2:code>
+                  <ns2:name>Адрес не найден</ns2:name>
+               </ns2:Result>
+            </ns1:AppData>
+         </ns1:MessageData>
+      </ns1:getReferenceInfoResponse>
     </s:Body>
 </s:Envelope>

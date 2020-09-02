@@ -371,6 +371,61 @@ class Data
         return base64_encode($zip);
     }
 
+    public function prepareDebtsData($request_data, $ovirug_response)
+    {
+
+        if($ovirug_response->success){
+            $data = '<ns2:Result>
+                  <ns2:code>1</ns2:code>
+                  <ns2:name>Запрос успешно обработан</ns2:name>
+               </ns2:Result>';
+        } else {
+
+            if($ovirug_response->error && !is_null($ovirug_response->error_code)){
+                $data = '<ns2:Result>
+                  <ns2:code>'.$ovirug_response->error_code.'</ns2:code>
+                  <ns2:name>'.$ovirug_response->message.'</ns2:name>
+               </ns2:Result>';
+            } else {
+                $data = '<ns2:Result>
+                  <ns2:code>5</ns2:code>
+                  <ns2:name>Ошибка на стороне поставщика</ns2:name>
+               </ns2:Result>';
+            }
+        }
+
+        $result = '<ns1:getReferenceInfoResponse>
+         <ns1:Message>
+            <ns1:Sender>
+               <ns1:Code>IAC</ns1:Code>
+               <ns1:Name>IAC</ns1:Name>
+            </ns1:Sender>
+            <ns1:Recipient>
+               <ns1:Code>' . $request_data->Message->Sender->Code . '</ns1:Code>
+               <ns1:Name>' . $request_data->Message->Sender->Name . '</ns1:Name>
+            </ns1:Recipient>
+            <ns1:Originator>
+               <ns1:Code>' . $request_data->Message->Originator->Code . '</ns1:Code>
+               <ns1:Name>' . $request_data->Message->Originator->Name . '</ns1:Name>
+            </ns1:Originator>
+            <ns1:Service>
+               <ns1:Mnemonic>Check reference</ns1:Mnemonic>
+               <ns1:Version>1.0</ns1:Version>
+            </ns1:Service>
+            <ns1:TypeCode>GSRV</ns1:TypeCode>
+            <ns1:Status>RESULT</ns1:Status>
+            <ns1:Date>' . date('Y-m-d', time()) . 'T' . date('H:i:s', time()) . '.0000+03:00</ns1:Date>
+            <ns1:ExchangeType>2</ns1:ExchangeType>
+         </ns1:Message>
+         <ns1:MessageData>
+            <ns1:AppData>' . $data . '
+            </ns1:AppData>
+         </ns1:MessageData>
+      </ns1:getReferenceInfoResponse>';
+
+        return $result;
+    }
+
     public function prepareCheckReferenceData($request_data, $referenceInfo)
     {
 

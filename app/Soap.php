@@ -138,7 +138,6 @@ class Soap
 
     public function getReferenceInfo($request_data)
     {
-
         if ($formNumber = $request_data->MessageData->AppData->Request->formNumber ?? null) {
             $referenceInfo = $this->curl->getJsonToOvirug(json_encode(['form_number' => (string)$formNumber]),
                 'check_form');
@@ -149,6 +148,36 @@ class Soap
         $prepared_data = $this->data->prepareCheckReferenceData($request_data, $referenceInfo);
 
         App::$parser->generateSoapResponse($prepared_data, 'checkreference');
+
+    }
+
+    public function getDebtsInfo($request_data)
+    {
+
+        if ($res = json_encode(
+            [
+                "last_name" => (string)$request_data->MessageData->AppData->Request->last_name,
+                "first_name" => (string)$request_data->MessageData->AppData->Request->first_name,
+                "second_name" => (string)$request_data->MessageData->AppData->Request->second_name,
+                "street_code" => intval($request_data->MessageData->AppData->Request->street_code+1),
+                "street_name" => (string)$request_data->MessageData->AppData->Request->street_name,
+                "personal_account" => intval($request_data->MessageData->AppData->Request->personal_account),
+                "house" => intval($request_data->MessageData->AppData->Request->house),
+                "flat" => intval($request_data->MessageData->AppData->Request->flat),
+                "debt_summ" => intval($request_data->MessageData->AppData->Request->debt_summ),
+                "debt_period" => intval($request_data->MessageData->AppData->Request->debt_period)
+            ]
+            , JSON_UNESCAPED_UNICODE)) {
+
+            $ovirug_response = $this->curl->getJsonToOvirug($res, 'debts');
+
+            $prepared_data = $this->data->prepareDebtsData($request_data, $ovirug_response);
+
+            App::$parser->generateSoapResponse($prepared_data, 'debts');
+
+        } else {
+            App::$parser->dropError('SMEV-100001', 'Не удалось получить данные из запроса');
+        }
 
     }
 

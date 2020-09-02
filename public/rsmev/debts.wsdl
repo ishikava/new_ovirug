@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://smev.gosuslugi.ru/rev120315"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:data="debts"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             targetNamespace="http://smev.gosuslugi.ru/rev120315"
+             name="GetDebtsService" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.w3.org/2007/05/addressing/metadata ">
+    <types>
+        <xsd:schema targetNamespace="http://smev.gosuslugi.ru/rev120315" elementFormDefault="qualified">
+            <xsd:include schemaLocation="check_reference_rev120315.xsd"/>
+            <xsd:import namespace="debts" schemaLocation="debts.xsd"/>
+            <xsd:element name="getDebtsInfo" type="tns:StandardMessage"/>
+            <xsd:element name="getDebtsInfoResponse" type="tns:StandardMessage"/>
+            <xsd:complexType name="StandardMessage">
+                <xsd:sequence>
+                    <xsd:element ref="tns:Message"/>
+                    <xsd:element name="MessageData">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="AppData">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element ref="data:Request" minOccurs="0"/>
+                                            <xsd:element ref="data:Result" minOccurs="0"/>
+                                            <xsd:element ref="data:Error" minOccurs="0"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+    <message name="getDebtsInfo">
+        <part name="Header" element="tns:Header"/>
+        <part name="getDebtsInfo" element="tns:getDebtsInfo"/>
+    </message>
+    <message name="getDebtsInfoResponse">
+        <part name="getDebtsInfoResponse" element="tns:getDebtsInfoResponse"/>
+    </message>
+    <portType name="DebtsInfo">
+        <operation name="getDebtsInfo" parameterOrder="Header getDebtsInfo">
+            <input message="tns:getDebtsInfo"
+                   wsam:Action="http://smev.gosuslugi.ru/rev120315/CheckDebts/getDebtsInfo"/>
+            <output message="tns:getDebtsInfoResponse"
+                    wsam:Action="http://smev.gosuslugi.ru/rev120315/CheckDebts/getDebtsInfoResponse"/>
+        </operation>
+    </portType>
+    <binding name="DebtsInfoPortBinding" type="tns:DebtsInfo">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="getDebtsInfo">
+            <soap:operation soapAction="getDebtsInfo"/>
+            <input>
+                <soap:body parts="getDebtsInfo" use="literal"/>
+                <soap:header message="tns:getDebtsInfo" part="Header" use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="DebtsService">
+        <port name="DebtsServicePort" binding="tns:DebtsInfoPortBinding">
+            <soap:address location="http://10.146.140.226/rsmev/debts"/>
+        </port>
+    </service>
+</definitions>

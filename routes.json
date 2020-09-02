@@ -9,6 +9,7 @@
   {"uri": "/rsmev/zddk", "method": "post", "action": "processCanonicalService", "soap_server": true},
   {"uri": "/rsmev/check_reference", "method": "post", "action": "getReferenceInfo", "soap_server": true},
   {"uri": "/rsmev/social_contracts", "method": "post", "action": "GetContract", "soap_server": true},
+  {"uri": "/rsmev/debts", "method": "post", "action": "getDebtsInfo", "soap_server": true},
 
   {"uri": "/rsmev/sendackrequest", "method": "post", "class": "Smev", "action": "ack", "auth": false},
   {"uri": "/rsmev/inn/sendrequest", "method": "post", "class": "Smev", "action": "inn_request", "auth": false},
