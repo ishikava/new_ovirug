@@ -3,7 +3,7 @@
              xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
              xmlns:tns="http://smev.gosuslugi.ru/rev120315"
              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-             xmlns:data="http://ovirugservice.ru/rsmev/debts"
+             xmlns:deb="http://ovirugservice.ru/rsmev/debts"
              xmlns="http://schemas.xmlsoap.org/wsdl/"
              targetNamespace="http://smev.gosuslugi.ru/rev120315"
              name="GetDebtsService" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -23,9 +23,9 @@
                                 <xsd:element name="AppData">
                                     <xsd:complexType>
                                         <xsd:sequence>
-                                            <xsd:element ref="data:Request" minOccurs="0"/>
-                                            <xsd:element ref="data:Result" minOccurs="0"/>
-                                            <xsd:element ref="data:Error" minOccurs="0"/>
+                                            <xsd:element ref="deb:Request" minOccurs="0"/>
+                                            <xsd:element ref="deb:Result" minOccurs="0"/>
+                                            <xsd:element ref="deb:Error" minOccurs="0"/>
                                         </xsd:sequence>
                                     </xsd:complexType>
                                 </xsd:element>
