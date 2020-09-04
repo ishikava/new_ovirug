@@ -37,7 +37,22 @@ $content = '<?xml version="1.0" encoding="UTF-8"?>
                 </ns2:MessagePrimaryContent>
             </ns:SenderProvidedRequestData>
             <ns:CallerInformationSystemSignature>
- <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#"> <ds:SignedInfo> <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/> <ds:SignatureMethod Algorithm="urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34102012-gostr34112012-256"/> <ds:Reference URI="#SIGNED_BY_CONSUMER"> <ds:Transforms> <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/> </ds:Transforms> <ds:DigestMethod Algorithm="urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34112012-256"/> <ds:DigestValue></ds:DigestValue> </ds:Reference> </ds:SignedInfo> <ds:SignatureValue></ds:SignatureValue> <ds:KeyInfo></ds:KeyInfo> </ds:Signature>
+                <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                    <ds:SignedInfo>
+                        <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                        <ds:SignatureMethod
+                                Algorithm="urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34102012-gostr34112012-256"/>
+                        <ds:Reference URI="#SIGNED_BY_CONSUMER">
+                            <ds:Transforms>
+                                <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                            </ds:Transforms>
+                            <ds:DigestMethod Algorithm="urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34112012-256"/>
+                            <ds:DigestValue></ds:DigestValue>
+                        </ds:Reference>
+                    </ds:SignedInfo>
+                    <ds:SignatureValue></ds:SignatureValue>
+                    <ds:KeyInfo></ds:KeyInfo>
+                </ds:Signature>
             </ns:CallerInformationSystemSignature>
         </ns:SendRequestRequest>
     </s:Body>
