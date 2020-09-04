@@ -23,10 +23,12 @@ $content = '<?xml version="1.0" encoding="UTF-8"?>
       <pfr:PlaceType>'.$data['individual']['BirthPlace']['PlaceType'].'</pfr:PlaceType>';
 
 if($data['individual']['BirthPlace']['Settlement']){
- $content .=  '<pfr:Settlement>'.$data['individual']['BirthPlace']['Settlement'].'</pfr:Settlement>';
+ $content .=  '
+ <pfr:Settlement>'.$data['individual']['BirthPlace']['Settlement'].'</pfr:Settlement>';
 }
 if($data['individual']['BirthPlace']['District']){
-    $content .=  '<pfr:District>'.$data['individual']['BirthPlace']['District'].'</pfr:District>';
+    $content .=  '
+    <pfr:District>'.$data['individual']['BirthPlace']['District'].'</pfr:District>';
 }
       $content .= '
       <pfr:Region>'.$data['individual']['BirthPlace']['Region'].'</pfr:Region>

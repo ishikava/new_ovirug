@@ -16,8 +16,8 @@ curl -X POST http://127.0.0.1/rsmev/snils/sendrequest?result >> output.xml -d '{
                                                                                      "BirthPlace":
                                                                                      {
                                                                                        "PlaceType":"СТАНДАРТНОЕ",
-                                                                                       "Settlement":"Санкт-Петербург",
-                                                                                       "District":"Санкт-Петербург",
+                                                                                       "Settlement":"",
+                                                                                       "District":"",
                                                                                        "Region":"Санкт-Петербург",
                                                                                        "Country":"Россия"
                                                                                      },
