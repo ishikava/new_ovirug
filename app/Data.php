@@ -409,7 +409,7 @@ class Data
                <ns1:Name>' . $request_data->Message->Originator->Name . '</ns1:Name>
             </ns1:Originator>
             <ns1:Service>
-               <ns1:Mnemonic>Check reference</ns1:Mnemonic>
+               <ns1:Mnemonic>Get Debts Info</ns1:Mnemonic>
                <ns1:Version>1.0</ns1:Version>
             </ns1:Service>
             <ns1:TypeCode>GSRV</ns1:TypeCode>

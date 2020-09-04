@@ -3,14 +3,14 @@
              xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
              xmlns:tns="http://smev.gosuslugi.ru/rev120315"
              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-             xmlns:data="debts"
+             xmlns:data="http://ovirugservice.ru/rsmev/debts"
              xmlns="http://schemas.xmlsoap.org/wsdl/"
              targetNamespace="http://smev.gosuslugi.ru/rev120315"
              name="GetDebtsService" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://www.w3.org/2007/05/addressing/metadata ">
     <types>
         <xsd:schema targetNamespace="http://smev.gosuslugi.ru/rev120315" elementFormDefault="qualified">
-            <xsd:include schemaLocation="check_reference_rev120315.xsd"/>
+            <xsd:include schemaLocation="rev120315.xsd"/>
             <xsd:import namespace="debts" schemaLocation="debts.xsd"/>
             <xsd:element name="getDebtsInfo" type="tns:StandardMessage"/>
             <xsd:element name="getDebtsInfoResponse" type="tns:StandardMessage"/>
