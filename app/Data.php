@@ -397,8 +397,8 @@ class Data
         $result = '<ns1:getDebtsInfoResponse>
          <ns1:Message>
             <ns1:Sender>
-               <ns1:Code>IAC</ns1:Code>
-               <ns1:Name>IAC</ns1:Name>
+               <ns1:Code>KIS001781</ns1:Code>
+               <ns1:Name>КИС СПб</ns1:Name>
             </ns1:Sender>
             <ns1:Recipient>
                <ns1:Code>' . $request_data->Message->Sender->Code . '</ns1:Code>
@@ -410,7 +410,7 @@ class Data
             </ns1:Originator>
             <ns1:Service>
                <ns1:Mnemonic>Get Debts Info</ns1:Mnemonic>
-               <ns1:Version>1.0</ns1:Version>
+               <ns1:Version>1.00</ns1:Version>
             </ns1:Service>
             <ns1:TypeCode>GSRV</ns1:TypeCode>
             <ns1:Status>RESULT</ns1:Status>
