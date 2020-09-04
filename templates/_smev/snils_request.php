@@ -20,9 +20,15 @@ $content = '<?xml version="1.0" encoding="UTF-8"?>
    <tns:BirthDate>'.$data['individual']['birthDay'].'</tns:BirthDate>
    <tns:Gender>'.$data['individual']['gender'].'</tns:Gender>
    <tns:BirthPlace>
-      <pfr:PlaceType>'.$data['individual']['BirthPlace']['PlaceType'].'</pfr:PlaceType>
-      <pfr:Settlement>'.$data['individual']['BirthPlace']['Settlement'].'</pfr:Settlement>
-      <pfr:District>'.$data['individual']['BirthPlace']['District'].'</pfr:District>
+      <pfr:PlaceType>'.$data['individual']['BirthPlace']['PlaceType'].'</pfr:PlaceType>';
+
+if($data['individual']['BirthPlace']['Settlement']){
+ $content .=  '<pfr:Settlement>'.$data['individual']['BirthPlace']['Settlement'].'</pfr:Settlement>';
+}
+if($data['individual']['BirthPlace']['District']){
+    $content .=  '<pfr:District>'.$data['individual']['BirthPlace']['District'].'</pfr:District>';
+}
+      $content .= '
       <pfr:Region>'.$data['individual']['BirthPlace']['Region'].'</pfr:Region>
       <pfr:Country>'.$data['individual']['BirthPlace']['Country'].'</pfr:Country>
    </tns:BirthPlace>
