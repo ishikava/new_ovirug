@@ -394,7 +394,7 @@ class Data
             }
         }
 
-        $result = '<ns1:getReferenceInfoResponse>
+        $result = '<ns1:getDebtsInfoResponse>
          <ns1:Message>
             <ns1:Sender>
                <ns1:Code>IAC</ns1:Code>
@@ -421,7 +421,7 @@ class Data
             <ns1:AppData>' . $data . '
             </ns1:AppData>
          </ns1:MessageData>
-      </ns1:getReferenceInfoResponse>';
+      </ns1:getDebtsInfoResponse>';
 
         return $result;
     }
