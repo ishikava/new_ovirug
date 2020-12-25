@@ -37,7 +37,8 @@ class CryptoPro
         $sd->set_Content($content);
 
         try {
-            return $sd->Sign($signer, "");
+            $re = $sd->Sign($signer, "");
+            return $re;
         } catch (\Exception $e) {
             App::$log->log('error', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
             App::$parser->dropError('CryptoPro', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
@@ -54,7 +55,8 @@ class CryptoPro
         $sd->set_Content($content);
 
         try {
-            return $sd->Sign($signer, 0, STRING_TO_UCS2LE);
+            $re = $sd->Sign($signer, 0, STRING_TO_UCS2LE);
+            return $re;
         } catch (\Exception $e) {
             App::$log->log('error', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
             App::$parser->dropError('CryptoPro', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
@@ -71,7 +73,8 @@ class CryptoPro
         $sd->set_Content($content);
 
         try {
-            return $sd->SignCades($signer, 0x01, 1, 1);
+            $re = $sd->SignCades($signer, 0x01, 1, 1);
+            return $re;
         } catch (\Exception $e) {
             App::$log->log('error', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
             App::$parser->dropError('CryptoPro', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
