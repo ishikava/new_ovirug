@@ -161,10 +161,12 @@ class Soap
                 "second_name" => (string)$request_data->MessageData->AppData->Request->second_name,
                 "street_code" => intval($request_data->MessageData->AppData->Request->street_code),
                 "street_name" => (string)$request_data->MessageData->AppData->Request->street_name,
-                "personal_account" => intval($request_data->MessageData->AppData->Request->personal_account),
-                "house" => intval($request_data->MessageData->AppData->Request->house),
-                "flat" => intval($request_data->MessageData->AppData->Request->flat),
-                "debt_summ" => intval($request_data->MessageData->AppData->Request->debt_summ),
+                "personal_account" => (string)$request_data->MessageData->AppData->Request->personal_account,
+                "house" => (string)$request_data->MessageData->AppData->Request->house,
+                "flat" => (string)$request_data->MessageData->AppData->Request->flat,
+                "block" => (string)$request_data->MessageData->AppData->Request->block,
+                "org_name" => (string)$request_data->MessageData->AppData->Request->org_name,
+                "debt_summ" => floatval($request_data->MessageData->AppData->Request->debt_summ),
                 "debt_period" => intval($request_data->MessageData->AppData->Request->debt_period)
             ]
             , JSON_UNESCAPED_UNICODE)) {
