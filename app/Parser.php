@@ -26,6 +26,25 @@ class Parser
         App::$log->log('error', $code . ' ' . $message);
     }
 
+    public function dropCPError($code, $message)
+    {
+        $content = '<SoapFault xmlns:d4p1="http://schemas.datacontract.org/2004/07/SoapFault">
+    <d4p1:Fault>
+        <d4p1:Code>' . $code . '</d4p1:Code>
+        <d4p1:Name>' . $message . '</d4p1:Name>
+    </d4p1:Fault>
+</SoapFault>';
+
+        header('Content-Type: application/xml; charset=utf-8');
+        header('Content-Length: ' . strlen($content));
+
+        echo $content;
+
+        App::$log->log('access', '200 OK SOAP');
+
+        exit();
+    }
+
     public function generateSoapResponse($data, $tpl = false)
     {
         $cp = new CryptoPro();
@@ -76,7 +95,7 @@ class Parser
     private function prepareTemplate($data, $cert, $tpl)
     {
         $tpl_name = $tpl ? $tpl : 'response';
-        require_once __DIR__ . '/../templates/_soap/'.$tpl_name.'.php';
+        require_once __DIR__ . '/../templates/_soap/' . $tpl_name . '.php';
 
         return $content;
     }
