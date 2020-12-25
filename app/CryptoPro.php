@@ -14,8 +14,8 @@ class CryptoPro
     {
         if (!$this->certificate) {
             $this->certificate = $this->SetupCertificate(CURRENT_USER_STORE,
-                "My", STORE_OPEN_READ_ONLY, CERTIFICATE_FIND_SHA1_HASH,
-                App::$config->get('cert_sha1_hash'), 0, 1);
+              "My", STORE_OPEN_READ_ONLY, CERTIFICATE_FIND_SHA1_HASH,
+              App::$config->get('cert_sha1_hash'), 0, 1);
         }
 
         if (!$this->certificate) {
@@ -36,13 +36,7 @@ class CryptoPro
         $sd->set_DigestMethod('urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34112012-256');
         $sd->set_Content($content);
 
-        try {
-            $re = $sd->Sign($signer, "");
-            return $re;
-        } catch (\Exception $e) {
-            App::$log->log('error', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
-            App::$parser->dropError('CryptoPro', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
-        }
+        return $sd->Sign($signer, "");
     }
 
     public function signFile($content)
@@ -54,13 +48,7 @@ class CryptoPro
         $sd = new \CPSignedData();
         $sd->set_Content($content);
 
-        try {
-            $re = $sd->Sign($signer, 0, STRING_TO_UCS2LE);
-            return $re;
-        } catch (\Exception $e) {
-            App::$log->log('error', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
-            App::$parser->dropError('CryptoPro', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
-        }
+        return $sd->Sign($signer, 0, STRING_TO_UCS2LE);
     }
 
     public function signCades($content)
@@ -72,21 +60,15 @@ class CryptoPro
         $sd = new \CPSignedData();
         $sd->set_Content($content);
 
-        try {
-            $re = $sd->SignCades($signer, 0x01, 1, 1);
-            return $re;
-        } catch (\Exception $e) {
-            App::$log->log('error', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
-            App::$parser->dropError('CryptoPro', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
-        }
+        return $sd->SignCades($signer, 0x01, 1, 1);
     }
 
     public function signExec($file)
     {
 
         exec('cd ../tmp;    /opt/cprocsp/bin/amd64/cryptcp -sign -thumbprint '
-            . App::$config->get('cert_sha1_hash') . ' ' . $file, $out,
-            $err);
+          . App::$config->get('cert_sha1_hash') . ' ' . $file, $out,
+          $err);
 
         if ($err !== 0) {
             App::$log->log('error', 'CryptoPro Не удалось подписать файл');
@@ -104,23 +86,23 @@ class CryptoPro
 
         if ($type == 'pdf') {
             file_put_contents('../tmp/' . $name . '.' . $type,
-                base64_decode($file));
+              base64_decode($file));
         } else {
             file_put_contents('../tmp/' . $name . '.' . $type, $file);
         }
 
         $this->signExec('../tmp/' . $name . '.' . $type);
 
-        $zip = new ZipArchive();
+        $zip     = new ZipArchive();
         $zipName = '../tmp/' . $name . '.zip';
 
         $zip->open($zipName, ZipArchive::CREATE);
         $zip->addFile('../tmp/' . $name . '.' . $type, 'File.' . $type);
         $zip->addFile('../tmp/' . $name . '.' . $type . '.sig',
-            'File.' . $type . '.sig');
+          'File.' . $type . '.sig');
         $zip->close();
 
-        $zipData = file_get_contents($zipName);
+        $zipData   = file_get_contents($zipName);
         $signedZip = base64_encode($zipData);
 
         if (file_exists($zipName)) {
@@ -172,15 +154,14 @@ class CryptoPro
     }
 
     private function SetupCertificate(
-        $location,
-        $name,
-        $mode,
-        $find_type,
-        $query,
-        $valid_only,
-        $number
-    )
-    {
+      $location,
+      $name,
+      $mode,
+      $find_type,
+      $query,
+      $valid_only,
+      $number
+    ) {
         $certs = $this->SetupCertificates($location, $name, $mode);
         $certs = $certs->Find($find_type, $query, $valid_only);
         return $certs->Item($number);
