@@ -20,7 +20,7 @@ class CryptoPro
 
         if (!$this->certificate) {
             App::$log->log('error', 'CryptoPro Не найден сертификат');
-            App::$parser->dropCPError('SMEV-100004', 'Не найден сертификат');
+            App::$parser->dropCPError('SMEV-100004', 'CryptoPro Не найден сертификат');
         }
     }
 
@@ -40,7 +40,7 @@ class CryptoPro
             return $sd->Sign($signer, "");
         } catch (\Exception $e) {
             App::$log->log('error', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
-            App::$parser->dropCPError('CryptoPro', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
+            App::$parser->dropCPError('CP_01', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
         }
     }
 
@@ -57,7 +57,7 @@ class CryptoPro
             return $sd->Sign($signer, 0, STRING_TO_UCS2LE);
         } catch (\Exception $e) {
             App::$log->log('error', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
-            App::$parser->dropCPError('CryptoPro', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
+            App::$parser->dropCPError('CP_02', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
         }
     }
 
@@ -74,7 +74,7 @@ class CryptoPro
             return $sd->SignCades($signer, 0x01, 1, 1);
         } catch (\Exception $e) {
             App::$log->log('error', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
-            App::$parser->dropCPError('CryptoPro', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
+            App::$parser->dropCPError('CP_03', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
         }
     }
 
@@ -87,7 +87,7 @@ class CryptoPro
 
         if ($err !== 0) {
             App::$log->log('error', 'CryptoPro Не удалось подписать файл');
-            App::$parser->dropCPError('CryptoPro', 'Не удалось подписать файл');
+            App::$parser->dropCPError('CP_04', 'CryptoPro Не удалось подписать файл');
         }
 
         return;
