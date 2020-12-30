@@ -154,22 +154,25 @@ class Soap
     public function getDebtsInfo($request_data)
     {
 
-        if ($res = json_encode(
-            [
-                "last_name" => (string)$request_data->MessageData->AppData->Request->last_name,
-                "first_name" => (string)$request_data->MessageData->AppData->Request->first_name,
-                "second_name" => (string)$request_data->MessageData->AppData->Request->second_name,
-                "street_code" => intval($request_data->MessageData->AppData->Request->street_code),
-                "street_name" => (string)$request_data->MessageData->AppData->Request->street_name,
-                "personal_account" => (string)$request_data->MessageData->AppData->Request->personal_account,
-                "house" => (string)$request_data->MessageData->AppData->Request->house,
-                "flat" => (string)$request_data->MessageData->AppData->Request->flat,
-                "block" => (string)$request_data->MessageData->AppData->Request->block,
-                "org_name" => (string)$request_data->MessageData->AppData->Request->org_name,
-                "debt_summ" => floatval($request_data->MessageData->AppData->Request->debt_summ),
-                "debt_period" => intval($request_data->MessageData->AppData->Request->debt_period)
-            ]
-            , JSON_UNESCAPED_UNICODE)) {
+        //обязательные поля
+        $req = [
+            "last_name" => (string)$request_data->MessageData->AppData->Request->last_name,
+            "personal_account" => (string)$request_data->MessageData->AppData->Request->personal_account,
+            "house" => (string)$request_data->MessageData->AppData->Request->house,
+            "flat" => (string)$request_data->MessageData->AppData->Request->flat,
+            "debt_summ" => floatval($request_data->MessageData->AppData->Request->debt_summ),
+            "debt_period" => intval($request_data->MessageData->AppData->Request->debt_period)
+        ];
+
+        //опциональные поля
+        if ((string)$request_data->MessageData->AppData->Request->first_name !== "") $req["first_name"] = (string)$request_data->MessageData->AppData->Request->first_name;//
+        if ((string)$request_data->MessageData->AppData->Request->second_name !== "") $req["second_name"] = (string)$request_data->MessageData->AppData->Request->second_name;//
+        if (intval($request_data->MessageData->AppData->Request->street_code) !== 0) $req["street_code"] = intval($request_data->MessageData->AppData->Request->street_code);//
+        if ((string)$request_data->MessageData->AppData->Request->street_name !== "") $req["street_name"] = (string)$request_data->MessageData->AppData->Request->street_name;//
+        if ((string)$request_data->MessageData->AppData->Request->block !== "") $req["block"] = (string)$request_data->MessageData->AppData->Request->block;//
+        if ((string)$request_data->MessageData->AppData->Request->org_name !== "") $req["org_name"] = (string)$request_data->MessageData->AppData->Request->org_name;//
+
+        if ($res = json_encode($req, JSON_UNESCAPED_UNICODE)) {
 
             $ovirug_response = $this->curl->getJsonToOvirug($res, 'debts');
 
