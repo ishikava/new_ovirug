@@ -160,7 +160,7 @@ class Soap
             "personal_account" => (string)$request_data->MessageData->AppData->Request->personal_account,
             "house" => (string)$request_data->MessageData->AppData->Request->house,
             "flat" => (string)$request_data->MessageData->AppData->Request->flat,
-            "debt_summ" => intval($request_data->MessageData->AppData->Request->debt_summ),
+            "debt_summ" => floatval($request_data->MessageData->AppData->Request->debt_summ),
             "debt_period" => intval($request_data->MessageData->AppData->Request->debt_period)
         ];
 
