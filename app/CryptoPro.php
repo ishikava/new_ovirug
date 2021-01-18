@@ -40,7 +40,7 @@ class CryptoPro
             return $sd->Sign($signer, "");
         } catch (\Exception $e) {
             App::$log->log('error', 'CryptoPro Не возможно выполнить цифровую подпись, нет доступа к сертификату');
-            App::$parser->dropCPError('CP_01', 'CryptoPro Невозможно создать цифровую подпись: действующий сертификат не найден или нет доступа');
+            App::$parser->dropCPError('CP_01', 'CryptoPro Невозможно создать цифровую подпись: действующий сертификат не найден или не верная структура XML');
         }
     }
 

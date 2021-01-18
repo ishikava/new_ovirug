@@ -6,68 +6,60 @@ curl -H "SOAPAction: 'http://tempuri.org/DebtsInfoService/getDebtsInfo'" -H "Con
 <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rev="http://smev.gosuslugi.ru/rev120315" xmlns:deb="http://ovirugservice.ru/rsmev/debts" xsi:schemaLocation="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
     <s:Header>
         <wsse:Security s:actor="http://smev.gosuslugi.ru/actors/smev">
-            <wsse:BinarySecurityToken EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3" wsu:Id="SenderCertificate">
-                MIILIjCCCs+gAwIBAgIQNYjaACirQYFINaS7OVhMXTAKBggqhQMHAQEDAjCCAYgx
-                HDAaBgkqhkiG9w0BCQEWDWNhQGlhYy5zcGIucnUxGDAWBgUqhQNkARINMTAzNzg0
-                MzA0MjkwNzEaMBgGCCqFAwOBAwEBEgwwMDc4MTUwMDA4NzAxCzAJBgNVBAYTAlJV
-                MSkwJwYDVQQIDCA3OCDQodCw0L3QutGCLdCf0LXRgtC10YDQsdGD0YDQszEmMCQG
-                A1UEBwwd0KHQsNC90LrRgi3Qn9C10YLQtdGA0LHRg9GA0LMxYzBhBgNVBAkMWtCi
-                0YDQsNC90YHQv9C+0YDRgtC90YvQuSDQv9C10YDQtdGD0LvQvtC6LCDQtC42LCDQ
-                m9C40YLQtdGAINCQLCDQv9C+0LzQtdGJ0LXQvdC40Y8gN9CdIDjQnTEZMBcGA1UE
-                CwwQ0J7RgtC00LXQuyDihJY0MDEoMCYGA1UECgwf0KHQn9CxINCT0KPQnyDCq9Ch
-                0J/QsSDQmNCQ0KbCuzEoMCYGA1UEAwwf0KHQn9CxINCT0KPQnyDCq9Ch0J/QsSDQ
-                mNCQ0KbCuzAeFw0xOTEyMTkxMzA1NDBaFw0yMDEyMTkxMzA1NDBaMIICGjFgMF4G
-                A1UECQxX0J/QtdGA0LXRg9C70L7QuiDQotGA0LDQvdGB0L/QvtGA0YLQvdGL0Lks
-                IDYsINCb0LjRgtC10YAg0JAsINC/0L7QvNC10YnQtdC90LjRjyA30J0gONCdMRYw
-                FAYFKoUDZAMSCzA1MTMzNzI0MDIxMRgwFgYFKoUDZAESDTEwMzc4NDMwNDI5MDcx
-                GjAYBggqhQMDgQMBARIMMDA3ODE1MDAwODcwMSYwJAYJKoZIhvcNAQkBFhdyb21h
-                bi5pdmFub3ZAaWFjLnNwYi5ydTELMAkGA1UEBhMCUlUxKTAnBgNVBAgMIDc4INCh
-                0LDQvdC60YIt0J/QtdGC0LXRgNCx0YPRgNCzMSYwJAYDVQQHDB3QodCw0L3QutGC
-                LdCf0LXRgtC10YDQsdGD0YDQszEoMCYGA1UECgwf0KHQn9CxINCT0KPQnyDCq9Ch
-                0J/QsSDQmNCQ0KbCuzEbMBkGA1UECwwS0J7RgtC00LXQuyDihJYgMzM2MS4wLAYD
-                VQQqDCXQoNC+0LzQsNC9INCQ0LvQtdC60YHQsNC90LTRgNC+0LLQuNGHMRUwEwYD
-                VQQEDAzQmNCy0LDQvdC+0LIxKDAmBgNVBAwMH9Cd0LDRh9Cw0LvRjNC90LjQuiDQ
-                vtGC0LTQtdC70LAxKDAmBgNVBAMMH9Ch0J/QsSDQk9Cj0J8gwqvQodCf0LEg0JjQ
-                kNCmwrswZjAfBggqhQMHAQEBATATBgcqhQMCAiQABggqhQMHAQECAgNDAARAfStB
-                bPEaejXemtiLduraDLzrob07OnrtA0sDaxHZMAAOXe4acCCsgRER1HIqcQo4/nYi
-                fUIFJKfRbcqrfWBIr6OCBnYwggZyMA4GA1UdDwEB/wQEAwIE8DAdBgNVHQ4EFgQU
-                gBTttZexyYSdhrW+sAXNUm5EwD4wJQYDVR0lBB4wHAYIKwYBBQUHAwIGBiqFA2QC
-                AgYIKwYBBQUHAwEwggFrBggrBgEFBQcBAQSCAV0wggFZMDQGCCsGAQUFBzABhiho
-                dHRwOi8vNDYuMjQzLjE3Ny4xMTQvb2NzcC0yMDE5L29jc3Auc3JmMDQGCCsGAQUF
-                BzABhihodHRwOi8vMTAuMTQ2LjE0MC4yNTEvb2NzcC0yMDE5L29jc3Auc3JmMDkG
-                CCsGAQUFBzAChi1odHRwOi8vY2EuaWFjLnNwYi5ydS9jZXJ0L2lhY19nb3N0MTJf
-                MjAxOS5jZXIwOgYIKwYBBQUHMAKGLmh0dHA6Ly80Ni4yNDMuMTc3LjExNC9jZXJ0
-                L2lhY19nb3N0MTJfMjAxOS5jZXIwOAYIKwYBBQUHMAKGLGh0dHA6Ly8xMC4xMjgu
-                MzEuNjUvY2VydC9pYWNfZ29zdDEyXzIwMTkuY2VyMDoGCCsGAQUFBzAChi5odHRw
-                Oi8vMTAuMTQ2LjE0MC4yNTEvY2VydC9pYWNfZ29zdDEyXzIwMTkuY2VyMBMGA1Ud
-                IAQMMAowCAYGKoUDZHEBMCkGA1UdEQQiMCCCDjE5Mi4xNjguMTAyLjI4gg4xMC4x
-                NDYuMTQwLjIyNjArBgNVHRAEJDAigA8yMDE5MTIxOTEzMDUzOVqBDzIwMjAxMjE5
-                MTMwNTM5WjCCAdUGBSqFA2RwBIIByjCCAcYMRyLQmtGA0LjQv9GC0L7Qn9GA0L4g
-                Q1NQIiDQstC10YDRgdC40Y8gNC4wICjQuNGB0L/QvtC70L3QtdC90LjQtSAyLUJh
-                c2UpDIG4ItCf0YDQvtCz0YDQsNC80LzQvdC+LdCw0L/Qv9Cw0YDQsNGC0L3Ri9C5
-                INC60L7QvNC/0LvQtdC60YEgItCj0LTQvtGB0YLQvtCy0LXRgNGP0Y7RidC40Lkg
-                0YbQtdC90YLRgCAi0JrRgNC40L/RgtC+0J/RgNC+INCj0KYiINCy0LXRgNGB0LjQ
-                uCAyLjAiICjQstCw0YDQuNCw0L3RgiDQuNGB0L/QvtC70L3QtdC90LjRjyA1KQxf
-                0KHQtdGA0YLQuNGE0LjQutCw0YIg0YHQvtC+0YLQstC10YLRgdGC0LLQuNGPINCk
-                0KHQkSDQoNC+0YHRgdC40Lgg0KHQpC8xMjQtMzM4MCDQvtGCIDExLjA1LjIwMTgM
-                X9Ch0LXRgNGC0LjRhNC40LrQsNGCINGB0L7QvtGC0LLQtdGC0YHRgtCy0LjRjyDQ
-                pNCh0JEg0KDQvtGB0YHQuNC4INCh0KQvMTI4LTM1OTIg0L7RgiAxNy4xMC4yMDE4
-                MCMGBSqFA2RvBBoMGCLQmtGA0LjQv9GC0L7Qn9GA0L4gQ1NQIjCB3AYDVR0fBIHU
-                MIHRMDKgMKAuhixodHRwOi8vY2EuaWFjLnNwYi5ydS9jcmwvaWFjX2dvc3QxMl8y
-                MDE5LmNybDAzoDGgL4YtaHR0cDovLzQ2LjI0My4xNzcuMTE0L2NybC9pYWNfZ29z
-                dDEyXzIwMTkuY3JsMDGgL6AthitodHRwOi8vMTAuMTI4LjMxLjY1L2NybC9pYWNf
-                Z29zdDEyXzIwMTkuY3JsMDOgMaAvhi1odHRwOi8vMTAuMTQ2LjE0MC4yNTEvY3Js
-                L2lhY19nb3N0MTJfMjAxOS5jcmwwggFfBgNVHSMEggFWMIIBUoAUh5MGP1AjRBWX
-                RZyoA1I3gRPTJtmhggEspIIBKDCCASQxHjAcBgkqhkiG9w0BCQEWD2RpdEBtaW5z
-                dnlhei5ydTELMAkGA1UEBhMCUlUxGDAWBgNVBAgMDzc3INCc0L7RgdC60LLQsDEZ
-                MBcGA1UEBwwQ0LMuINCc0L7RgdC60LLQsDEuMCwGA1UECQwl0YPQu9C40YbQsCDQ
-                otCy0LXRgNGB0LrQsNGPLCDQtNC+0LwgNzEsMCoGA1UECgwj0JzQuNC90LrQvtC8
-                0YHQstGP0LfRjCDQoNC+0YHRgdC40LgxGDAWBgUqhQNkARINMTA0NzcwMjAyNjcw
-                MTEaMBgGCCqFAwOBAwEBEgwwMDc3MTA0NzQzNzUxLDAqBgNVBAMMI9Cc0LjQvdC6
-                0L7QvNGB0LLRj9C30Ywg0KDQvtGB0YHQuNC4ggoX69zhAAAAAALWMAoGCCqFAwcB
-                AQMCA0EA4mOTpUHugm4iQr3/ExEw5h4EdEMnxAHS9Q9qy13AvkZxLrs5BEGhnLPJ
-                NDfm6UYeYUi4ujE6WFNyUrdK7rgZ9g==
-            </wsse:BinarySecurityToken>
+            <wsse:BinarySecurityToken EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3" wsu:Id="SenderCertificate">MIIKFjCCCcOgAwIBAgIQM2+DAJisfZRI1Bq/Xld8KDAKBggqhQMHAQEDAjCCAYgx
+HDAaBgkqhkiG9w0BCQEWDWNhQGlhYy5zcGIucnUxGDAWBgUqhQNkARINMTAzNzg0
+MzA0MjkwNzEaMBgGCCqFAwOBAwEBEgwwMDc4MTUwMDA4NzAxCzAJBgNVBAYTAlJV
+MSkwJwYDVQQIDCA3OCDQodCw0L3QutGCLdCf0LXRgtC10YDQsdGD0YDQszEmMCQG
+A1UEBwwd0KHQsNC90LrRgi3Qn9C10YLQtdGA0LHRg9GA0LMxYzBhBgNVBAkMWtCi
+0YDQsNC90YHQv9C+0YDRgtC90YvQuSDQv9C10YDQtdGD0LvQvtC6LCDQtC42LCDQ
+m9C40YLQtdGAINCQLCDQv9C+0LzQtdGJ0LXQvdC40Y8gN9CdIDjQnTEZMBcGA1UE
+CwwQ0J7RgtC00LXQuyDihJY0MDEoMCYGA1UECgwf0KHQn9CxINCT0KPQnyDCq9Ch
+0J/QsSDQmNCQ0KbCuzEoMCYGA1UEAwwf0KHQn9CxINCT0KPQnyDCq9Ch0J/QsSDQ
+mNCQ0KbCuzAeFw0yMDEyMjEwNzQ4MzJaFw0yMTEyMjEwNzQ4MzJaMIICGjFgMF4G
+A1UECQxX0J/QtdGA0LXRg9C70L7QuiDQotGA0LDQvdGB0L/QvtGA0YLQvdGL0Lks
+IDYsINCb0LjRgtC10YAg0JAsINC/0L7QvNC10YnQtdC90LjRjyA30J0gONCdMRYw
+FAYFKoUDZAMSCzA1MTMzNzI0MDIxMRgwFgYFKoUDZAESDTEwMzc4NDMwNDI5MDcx
+GjAYBggqhQMDgQMBARIMMDA3ODE1MDAwODcwMSYwJAYJKoZIhvcNAQkBFhdyb21h
+bi5pdmFub3ZAaWFjLnNwYi5ydTELMAkGA1UEBhMCUlUxKTAnBgNVBAgMIDc4INCh
+0LDQvdC60YIt0J/QtdGC0LXRgNCx0YPRgNCzMSYwJAYDVQQHDB3QodCw0L3QutGC
+LdCf0LXRgtC10YDQsdGD0YDQszEoMCYGA1UECgwf0KHQn9CxINCT0KPQnyDCq9Ch
+0J/QsSDQmNCQ0KbCuzEbMBkGA1UECwwS0J7RgtC00LXQuyDihJYgMzM2MS4wLAYD
+VQQqDCXQoNC+0LzQsNC9INCQ0LvQtdC60YHQsNC90LTRgNC+0LLQuNGHMRUwEwYD
+VQQEDAzQmNCy0LDQvdC+0LIxKDAmBgNVBAwMH9Cd0LDRh9Cw0LvRjNC90LjQuiDQ
+vtGC0LTQtdC70LAxKDAmBgNVBAMMH9Ch0J/QsSDQk9Cj0J8gwqvQodCf0LEg0JjQ
+kNCmwrswZjAfBggqhQMHAQEBATATBgcqhQMCAiQABggqhQMHAQECAgNDAARALwLE
+Qw+cWT5k82prJhM3bZsST6HE+dxS6jAfvSEoKoAa3QPter96kccdKZ/A6v7FnFxa
+88BxKQcDgADM2vjaPaOCBWowggVmMA4GA1UdDwEB/wQEAwIE8DAdBgNVHQ4EFgQU
+tUMuXSJPQGBBeFyA7GGXunmHdMswJQYDVR0lBB4wHAYIKwYBBQUHAwIGCCsGAQUF
+BwMBBgYqhQNkAgIwgasGCCsGAQUFBwEBBIGeMIGbMDEGCCsGAQUFBzAChiVodHRw
+Oi8vY2EuaWFjLnNwYi5ydS9jZXJ0L2lhY19jb20uY2VyMDIGCCsGAQUFBzAChiZo
+dHRwOi8vNDYuMjQzLjE3Ny4xMTQvY2VydC9pYWNfY29tLmNlcjAyBggrBgEFBQcw
+AoYmaHR0cDovLzEwLjE0Ni4xNDAuMjUxL2NlcnQvaWFjX2NvbS5jZXIwEwYDVR0g
+BAwwCjAIBgYqhQNkcQEwKQYDVR0RBCIwIIIOMTkyLjE2OC4xMDIuMjiCDjEwLjE0
+Ni4xNDAuMjI2MCsGA1UdEAQkMCKADzIwMjAxMjIxMDc0ODMyWoEPMjAyMTEyMjEw
+NzQ4MzJaMIIB1QYFKoUDZHAEggHKMIIBxgxHItCa0YDQuNC/0YLQvtCf0YDQviBD
+U1AiINCy0LXRgNGB0LjRjyA0LjAgKNC40YHQv9C+0LvQvdC10L3QuNC1IDMtQmFz
+ZSkMgbgi0J/RgNC+0LPRgNCw0LzQvNC90L4t0LDQv9C/0LDRgNCw0YLQvdGL0Lkg
+0LrQvtC80L/Qu9C10LrRgSAi0KPQtNC+0YHRgtC+0LLQtdGA0Y/RjtGJ0LjQuSDR
+htC10L3RgtGAICLQmtGA0LjQv9GC0L7Qn9GA0L4g0KPQpiIg0LLQtdGA0YHQuNC4
+IDIuMCIgKNCy0LDRgNC40LDQvdGCINC40YHQv9C+0LvQvdC10L3QuNGPIDYpDF/Q
+odC10YDRgtC40YTQuNC60LDRgiDRgdC+0L7RgtCy0LXRgtGB0YLQstC40Y8g0KTQ
+odCRINCg0L7RgdGB0LjQuCDQodCkLzEyNC0zMzgxINC+0YIgMTEuMDUuMjAxOAxf
+0KHQtdGA0YLQuNGE0LjQutCw0YIg0YHQvtC+0YLQstC10YLRgdGC0LLQuNGPINCk
+0KHQkSDQoNC+0YHRgdC40Lgg0KHQpC8xMjgtMzU5MyDQvtGCIDE3LjEwLjIwMTgw
+IwYFKoUDZG8EGgwYItCa0YDQuNC/0YLQvtCf0YDQviBDU1AiMIGRBgNVHR8EgYkw
+gYYwKqAooCaGJGh0dHA6Ly9jYS5pYWMuc3BiLnJ1L2NybC9pYWNfY29tLmNybDAr
+oCmgJ4YlaHR0cDovLzQ2LjI0My4xNzcuMTE0L2NybC9pYWNfY29tLmNybDAroCmg
+J4YlaHR0cDovLzEwLjE0Ni4xNDAuMjUxL2NybC9pYWNfY29tLmNybDCCAV8GA1Ud
+IwSCAVYwggFSgBRohKhnRZn9IOBiPWOKgQ3DHe9pO6GCASykggEoMIIBJDEeMBwG
+CSqGSIb3DQEJARYPZGl0QG1pbnN2eWF6LnJ1MQswCQYDVQQGEwJSVTEYMBYGA1UE
+CAwPNzcg0JzQvtGB0LrQstCwMRkwFwYDVQQHDBDQsy4g0JzQvtGB0LrQstCwMS4w
+LAYDVQQJDCXRg9C70LjRhtCwINCi0LLQtdGA0YHQutCw0Y8sINC00L7QvCA3MSww
+KgYDVQQKDCPQnNC40L3QutC+0LzRgdCy0Y/Qt9GMINCg0L7RgdGB0LjQuDEYMBYG
+BSqFA2QBEg0xMDQ3NzAyMDI2NzAxMRowGAYIKoUDA4EDAQESDDAwNzcxMDQ3NDM3
+NTEsMCoGA1UEAwwj0JzQuNC90LrQvtC80YHQstGP0LfRjCDQoNC+0YHRgdC40LiC
+Cl490pkAAAAAAtcwCgYIKoUDBwEBAwIDQQDGjggWaSJ+QP1minnmQzOkdDLlYzfN
+D56obmE+3Nng/9Z+lYZkhc34pdJhstEhVUJZsaTM+jMj6StZJwOwERX2</wsse:BinarySecurityToken>
             <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
                 <SignedInfo>
                     <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
@@ -80,8 +72,7 @@ curl -H "SOAPAction: 'http://tempuri.org/DebtsInfoService/getDebtsInfo'" -H "Con
                         <DigestValue>hOfSOnrhsuYvo78qOEB3vfspucmfbqDgDfIgMjQ1C90=</DigestValue>
                     </Reference>
                 </SignedInfo>
-                <SignatureValue>EyHAshStjvCwEo3Ax0hrpR8bNO2Hb9lBn3oiLDNXd6P317HmzeDVX4l9kjHEAmIa
-n6KdkfP0olt+RXDUnEn7XA==</SignatureValue>
+                <SignatureValue></SignatureValue>
                 <KeyInfo>
                     <wsse:SecurityTokenReference>
                         <wsse:Reference URI="#SenderCertificate" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"/>
@@ -108,7 +99,7 @@ n6KdkfP0olt+RXDUnEn7XA==</SignatureValue>
                 <rev:ServiceName>Get Debts Info</rev:ServiceName>
                 <rev:TypeCode>GSRV</rev:TypeCode>
                 <rev:Status>REQUEST</rev:Status>
-                <rev:Date>2018-03-07T10:30:00.452+04:00</rev:Date>
+                <rev:Date>2021-01-01T10:30:00.452+04:00</rev:Date>
                 <rev:ExchangeType>2</rev:ExchangeType>
             </rev:Message>
             <rev:MessageData>
@@ -121,9 +112,11 @@ n6KdkfP0olt+RXDUnEn7XA==</SignatureValue>
                         <deb:street_name>Большая Пушкарская ул.</deb:street_name>
                         <deb:personal_account>12345</deb:personal_account>
                         <deb:house>27</deb:house>
+                        <deb:block></deb:block>
                         <deb:flat>7</deb:flat>
                         <deb:debt_summ>999.9</deb:debt_summ>
                         <deb:debt_period>90</deb:debt_period>
+                        <deb:org_name></deb:org_name>
                     </deb:Request>
                 </rev:AppData>
             </rev:MessageData>
