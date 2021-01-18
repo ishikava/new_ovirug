@@ -160,17 +160,20 @@ class Soap
             "personal_account" => (string)$request_data->MessageData->AppData->Request->personal_account,
             "house" => (string)$request_data->MessageData->AppData->Request->house,
             "flat" => (string)$request_data->MessageData->AppData->Request->flat,
-            "debt_summ" => floatval($request_data->MessageData->AppData->Request->debt_summ),
+            "debt_summ" => intval($request_data->MessageData->AppData->Request->debt_summ),
             "debt_period" => intval($request_data->MessageData->AppData->Request->debt_period)
         ];
 
+        //один из них обязательно должен присутствовать, иначе будет ошибка "Адрес не найден"
+        $req["street_code"] = intval($request_data->MessageData->AppData->Request->street_code) !== 0 ? intval($request_data->MessageData->AppData->Request->street_code) : NULL;
+        $req["street_name"] = $request_data->MessageData->AppData->Request->street_name ? (string)$request_data->MessageData->AppData->Request->street_name : NULL;
+
         //опциональные поля
-        if ((string)$request_data->MessageData->AppData->Request->first_name !== "") $req["first_name"] = (string)$request_data->MessageData->AppData->Request->first_name;//
-        if ((string)$request_data->MessageData->AppData->Request->second_name !== "") $req["second_name"] = (string)$request_data->MessageData->AppData->Request->second_name;//
-        if (intval($request_data->MessageData->AppData->Request->street_code) !== 0) $req["street_code"] = intval($request_data->MessageData->AppData->Request->street_code);//
-        if ((string)$request_data->MessageData->AppData->Request->street_name !== "") $req["street_name"] = (string)$request_data->MessageData->AppData->Request->street_name;//
-        if ((string)$request_data->MessageData->AppData->Request->block !== "") $req["block"] = (string)$request_data->MessageData->AppData->Request->block;//
-        if ((string)$request_data->MessageData->AppData->Request->org_name !== "") $req["org_name"] = (string)$request_data->MessageData->AppData->Request->org_name;//
+        $req["first_name"] = $request_data->MessageData->AppData->Request->first_name ? (string)$request_data->MessageData->AppData->Request->first_name : NULL;
+        $req["second_name"] = $request_data->MessageData->AppData->Request->second_name ? (string)$request_data->MessageData->AppData->Request->second_name : NULL;
+        $req["block"] = $request_data->MessageData->AppData->Request->block ? (string)$request_data->MessageData->AppData->Request->block : NULL;
+        $req["org_name"] = $request_data->MessageData->AppData->Request->org_name ? (string)$request_data->MessageData->AppData->Request->org_name : NULL;
+
 
         if ($res = json_encode($req, JSON_UNESCAPED_UNICODE)) {
 

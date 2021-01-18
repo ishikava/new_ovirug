@@ -8,13 +8,15 @@
             <xs:element name="last_name" type="xs:string"/>
             <xs:element name="first_name" type="xs:string"/>
             <xs:element name="second_name" type="xs:string"/>
-            <xs:element name="street_code" type="xs:string"/>
+            <xs:element name="street_code" type="xs:integer"/>
             <xs:element name="street_name" type="xs:string"/>
             <xs:element name="personal_account" type="xs:string"/>
             <xs:element name="house" type="xs:string"/>
+            <xs:element name="block" type="xs:string"/>
             <xs:element name="flat" type="xs:string"/>
             <xs:element name="debt_summ" type="xs:double"/>
             <xs:element name="debt_period" type="xs:integer"/>
+            <xs:element name="org_name" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="resultAppData">

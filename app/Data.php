@@ -328,11 +328,11 @@ class Data
         }
 
         foreach ($nameOfContract as $fileContr) {
-            if (file_exists('../tmp/' .$fileContr)) {
-                unlink('../tmp/' .$fileContr);
+            if (file_exists('../tmp/' . $fileContr)) {
+                unlink('../tmp/' . $fileContr);
             }
-            if (file_exists('../tmp/' .$fileContr. '.sig')) {
-                unlink('../tmp/' .$fileContr . '.sig');
+            if (file_exists('../tmp/' . $fileContr . '.sig')) {
+                unlink('../tmp/' . $fileContr . '.sig');
             }
         }
 
@@ -374,22 +374,22 @@ class Data
     public function prepareDebtsData($request_data, $ovirug_response)
     {
 
-        if($ovirug_response->success){
+        if ($ovirug_response->success) {
             $data = '<ns2:Result>
                   <ns2:code>1</ns2:code>
                   <ns2:name>Запрос успешно обработан</ns2:name>
                </ns2:Result>';
         } else {
 
-            if($ovirug_response->error && !is_null($ovirug_response->error_code)){
+            if ($ovirug_response->error && !is_null($ovirug_response->error_code)) {
                 $data = '<ns2:Result>
-                  <ns2:code>'.$ovirug_response->error_code.'</ns2:code>
-                  <ns2:name>'.$ovirug_response->message.'</ns2:name>
+                  <ns2:code>' . $ovirug_response->error_code . '</ns2:code>
+                  <ns2:name>' . $ovirug_response->message . '</ns2:name>
                </ns2:Result>';
             } else {
                 $data = '<ns2:Result>
-                  <ns2:code>5</ns2:code>
-                  <ns2:name>Ошибка на стороне поставщика</ns2:name>
+                  <ns2:code>0</ns2:code>
+                  <ns2:name>Ошибка в запросе</ns2:name>
                </ns2:Result>';
             }
         }
