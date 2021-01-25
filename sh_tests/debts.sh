@@ -69,10 +69,11 @@ D56obmE+3Nng/9Z+lYZkhc34pdJhstEhVUJZsaTM+jMj6StZJwOwERX2</wsse:BinarySecurityTok
                             <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
                         </Transforms>
                         <DigestMethod Algorithm="urn:ietf:params:xml:ns:cpxmlsec:algorithms:gostr34112012-256"/>
-                        <DigestValue>hOfSOnrhsuYvo78qOEB3vfspucmfbqDgDfIgMjQ1C90=</DigestValue>
+                        <DigestValue>X7rWPv35jxja5HZQXTeNF+omoJOySvKlCYmIv/HFrgo=</DigestValue>
                     </Reference>
                 </SignedInfo>
-                <SignatureValue></SignatureValue>
+                <SignatureValue>SApGJs0n3qLrflUEyf7i+PSQICFw7iZvAkp7IGZVand2LnNLFG6mluJ2QYr0NabI
+zv/EtFAmMQD63k6/pmlAkA==</SignatureValue>
                 <KeyInfo>
                     <wsse:SecurityTokenReference>
                         <wsse:Reference URI="#SenderCertificate" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"/>
@@ -112,11 +113,11 @@ D56obmE+3Nng/9Z+lYZkhc34pdJhstEhVUJZsaTM+jMj6StZJwOwERX2</wsse:BinarySecurityTok
                         <deb:street_name>Большая Пушкарская ул.</deb:street_name>
                         <deb:personal_account>12345</deb:personal_account>
                         <deb:house>27</deb:house>
-                        <deb:block></deb:block>
+                        <deb:block/>
                         <deb:flat>7</deb:flat>
                         <deb:debt_summ>999.9</deb:debt_summ>
                         <deb:debt_period>90</deb:debt_period>
-                        <deb:org_name></deb:org_name>
+                        <deb:org_name/>
                     </deb:Request>
                 </rev:AppData>
             </rev:MessageData>
