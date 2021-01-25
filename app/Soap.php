@@ -167,7 +167,7 @@ class Soap
         //один из них обязательно должен присутствовать, иначе будет ошибка "Адрес не найден"
         $req["street_code"] = intval($request_data->MessageData->AppData->Request->street_code) !== 0 ? intval($request_data->MessageData->AppData->Request->street_code) : NULL;
         $req["street_name"] = $request_data->MessageData->AppData->Request->street_name ? (string)$request_data->MessageData->AppData->Request->street_name : NULL;
-        if(is_null($req["street_code"]) && is_null($req["street_name"])){
+        if (is_null($req["street_code"]) && is_null($req["street_name"])) {
             self::dropDebtsError();
         }
 
@@ -227,7 +227,7 @@ class Soap
 
     private function dropDebtsError()
     {
-        $prepared_data = $this->data->prepareDebtsData([], json_decode('{"error_code" : 0, "message" : "Ошибка в запросе"}'));
+        $prepared_data = $this->data->prepareDebtsData([], json_decode('{"error" : true, "error_code" : 0, "message" : "Ошибка в запросе"}'));
 
         App::$parser->generateSoapResponse($prepared_data, 'debts');
     }
