@@ -156,17 +156,20 @@ class Soap
 
         //обязательные поля
         $req = [
-            "last_name" => (string)$request_data->MessageData->AppData->Request->last_name,
-            "personal_account" => (string)$request_data->MessageData->AppData->Request->personal_account,
-            "house" => (string)$request_data->MessageData->AppData->Request->house,
-            "flat" => (string)$request_data->MessageData->AppData->Request->flat,
-            "debt_summ" => floatval($request_data->MessageData->AppData->Request->debt_summ),
-            "debt_period" => intval($request_data->MessageData->AppData->Request->debt_period)
+            "last_name" => $request_data->MessageData->AppData->Request->last_name && $request_data->MessageData->AppData->Request->last_name !== "" ? (string)$request_data->MessageData->AppData->Request->last_name : self::dropDebtsError(),
+            "personal_account" => $request_data->MessageData->AppData->Request->personal_account && $request_data->MessageData->AppData->Request->personal_account !== "" ? (string)$request_data->MessageData->AppData->Request->personal_account : self::dropDebtsError(),
+            "house" => $request_data->MessageData->AppData->Request->house && $request_data->MessageData->AppData->Request->house !== "" ? (string)$request_data->MessageData->AppData->Request->house : self::dropDebtsError(),
+            "flat" => $request_data->MessageData->AppData->Request->flat && $request_data->MessageData->AppData->Request->flat !== "" ? (string)$request_data->MessageData->AppData->Request->flat : self::dropDebtsError(),
+            "debt_summ" => $request_data->MessageData->AppData->Request->debt_summ && $request_data->MessageData->AppData->Request->debt_summ !== "" ? floatval($request_data->MessageData->AppData->Request->debt_summ) : self::dropDebtsError(),
+            "debt_period" => $request_data->MessageData->AppData->Request->debt_period && $request_data->MessageData->AppData->Request->debt_period !== "" ? intval($request_data->MessageData->AppData->Request->debt_period) : self::dropDebtsError()
         ];
 
         //один из них обязательно должен присутствовать, иначе будет ошибка "Адрес не найден"
         $req["street_code"] = intval($request_data->MessageData->AppData->Request->street_code) !== 0 ? intval($request_data->MessageData->AppData->Request->street_code) : NULL;
         $req["street_name"] = $request_data->MessageData->AppData->Request->street_name ? (string)$request_data->MessageData->AppData->Request->street_name : NULL;
+        if(is_null($req["street_code"]) && is_null($req["street_name"])){
+            self::dropDebtsError();
+        }
 
         //опциональные поля
         $req["first_name"] = $request_data->MessageData->AppData->Request->first_name ? (string)$request_data->MessageData->AppData->Request->first_name : NULL;
@@ -220,6 +223,13 @@ class Soap
         $prepared_data = $this->data->prepareGpruResult($result);
 
         App::$parser->generateSoapResponse($prepared_data);
+    }
+
+    private function dropDebtsError()
+    {
+        $prepared_data = $this->data->prepareDebtsData([], json_decode('{"error_code" : 0, "message" : "Ошибка в запросе"}'));
+
+        App::$parser->generateSoapResponse($prepared_data, 'debts');
     }
 
 }

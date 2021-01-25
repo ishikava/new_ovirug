@@ -388,7 +388,7 @@ class Data
                </ns2:Result>';
             } else {
                 $data = '<ns2:Result>
-                  <ns2:code>0</ns2:code>
+                  <ns2:code>5</ns2:code>
                   <ns2:name>Ошибка на стороне поставщика</ns2:name>
                </ns2:Result>';
             }
