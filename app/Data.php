@@ -416,6 +416,8 @@ class Data
             <ns1:Status>RESULT</ns1:Status>
             <ns1:Date>' . date('Y-m-d', time()) . 'T' . date('H:i:s', time()) . '.0000+03:00</ns1:Date>
             <ns1:ExchangeType>2</ns1:ExchangeType>
+            <ns1:RequestIdRef>D4A9D2F4-0EDA-43D1-B4E1-DB653C0ACE19</ns1:RequestIdRef>
+            <ns1:OriginRequestIdRef>D4A9D2F4-0EDA-43D1-B4E1-DB653C0ACE19</ns1:OriginRequestIdRef>
          </ns1:Message>
          <ns1:MessageData>
             <ns1:AppData>' . $data . '
